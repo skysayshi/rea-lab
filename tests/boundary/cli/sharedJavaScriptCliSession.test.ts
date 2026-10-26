@@ -2,7 +2,7 @@ import { EventEmitter, PassThrough } from "node:stream";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
-import { expect, onTestFinished, test } from "vitest";
+import { expect, onTestFinished, test, vi } from "vitest";
 import { z } from "zod";
 
 import { javascriptApplicationAnalysisResultSchema } from "../../../src/domain/javascript/javascriptApplicationAnalysis.js";
@@ -118,6 +118,8 @@ test("reads a CLI session frame delivered one byte at a time", () => {
 test("stops an unready shared CLI process when the session closes", async () => {
   let spawned: FakeCliProcess | undefined;
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: () => {
       spawned = fakeProcess(41);
       return asCliProcess(spawned);
@@ -147,6 +149,8 @@ test("stops an in-flight shared CLI command when the session closes", async () =
   let received = false;
   let spawned: FakeCliProcess | undefined;
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: () => {
       const child = fakeProcess(42);
       spawned = child;
@@ -172,6 +176,8 @@ test("stops an in-flight shared CLI command when the session closes", async () =
 test("reuses one process and restarts it when the environment changes", async () => {
   let spawns = 0;
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: (environment) => {
       spawns += 1;
       const child = fakeProcess(50 + spawns);
@@ -577,6 +583,172 @@ test("lets the shared CLI worker finish its resource cleanup before signaling", 
   expect(events).toHaveLength(2);
 });
 
+test("lets default EOF cleanup finish after the old one-second grace", async () => {
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  const signals: NodeJS.Signals[] = [];
+  let child: FakeCliProcess | undefined;
+  let releaseExit: (() => void) | undefined;
+  let observeCleanup: (() => void) | undefined;
+  const cleaning = new Promise<void>((resolve) => {
+    observeCleanup = resolve;
+  });
+  const session = createCliCommandSession({
+    spawnWorker: () => {
+      const started = respondingProcess(181, (request, current) =>
+        reply(current, request.id, { stdout: "done" }),
+      );
+      child = started;
+      releaseExit = () => {
+        if (started.exitCode !== null || started.signalCode !== null) return;
+        started.exitCode = 0;
+        started.emit("exit", 0, null);
+        started.emit("close", 0, null);
+      };
+      started.stdin.once("finish", () => {
+        setTimeout(() => releaseExit?.(), 1_500);
+        observeCleanup?.();
+      });
+      const stop = started.kill.bind(started);
+      started.kill = (signal: NodeJS.Signals = "SIGTERM") => {
+        signals.push(signal);
+        return stop(signal);
+      };
+      return asCliProcess(started);
+    },
+  });
+  try {
+    await session.run(command(["once"], { PATH: "/usr/bin" }));
+    let closed = false;
+    const closing = session.close().then(() => {
+      closed = true;
+    });
+    await cleaning;
+    await vi.advanceTimersByTimeAsync(1_499);
+    expect(signals).toEqual([]);
+    expect(closed).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    await closing;
+    expect(signals).toEqual([]);
+    expect(child?.exitCode).toBe(0);
+    expect(child?.signalCode).toBeNull();
+    expect(session.processId()).toBeUndefined();
+  } finally {
+    releaseExit?.();
+    try {
+      await session.close();
+    } finally {
+      vi.clearAllTimers();
+      vi.useRealTimers();
+    }
+  }
+});
+
+test.each([
+  {
+    label: "default EOF and signal budgets",
+    shutdownGraceMs: undefined,
+    eofGraceMs: 5_000,
+    signalGraceMs: 1_000,
+  },
+  {
+    label: "an explicit grace for every phase",
+    shutdownGraceMs: 20,
+    eofGraceMs: 20,
+    signalGraceMs: 20,
+  },
+])(
+  "bounds hung cleanup and retries its retained owner with $label",
+  async ({ shutdownGraceMs, eofGraceMs, signalGraceMs }) => {
+    vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+    const children: FakeCliProcess[] = [];
+    const signals: NodeJS.Signals[] = [];
+    let allowExit = false;
+    let releaseExit: (() => void) | undefined;
+    let observeCleanup: (() => void) | undefined;
+    const cleaning = new Promise<void>((resolve) => {
+      observeCleanup = resolve;
+    });
+    const session = createCliCommandSession({
+      ...(shutdownGraceMs === undefined ? {} : { shutdownGraceMs }),
+      spawnWorker: () => {
+        const child = respondingProcess(182, (request, current) =>
+          reply(current, request.id, { stdout: "done" }),
+        );
+        children.push(child);
+        releaseExit = () => {
+          if (child.exitCode !== null || child.signalCode !== null) return;
+          child.exitCode = 0;
+          child.emit("exit", 0, null);
+          child.emit("close", 0, null);
+        };
+        child.stdin.once("finish", () => observeCleanup?.());
+        const stop = child.kill.bind(child);
+        child.kill = (signal: NodeJS.Signals = "SIGTERM") => {
+          signals.push(signal);
+          return allowExit ? stop(signal) : true;
+        };
+        return asCliProcess(child);
+      },
+    });
+    try {
+      await session.run(command(["once"], { PATH: "/usr/bin" }));
+      let settled = false;
+      const closing = session.close();
+      const failure = closing
+        .then(
+          () => undefined,
+          (cause: unknown) => cause,
+        )
+        .finally(() => {
+          settled = true;
+        });
+      await cleaning;
+      await vi.advanceTimersByTimeAsync(eofGraceMs - 1);
+      expect(signals).toEqual([]);
+      expect(settled).toBe(false);
+      await vi.advanceTimersByTimeAsync(1);
+      expect(signals).toEqual(["SIGTERM"]);
+      await vi.advanceTimersByTimeAsync(signalGraceMs - 1);
+      expect(signals).toEqual(["SIGTERM"]);
+      await vi.advanceTimersByTimeAsync(1);
+      expect(signals).toEqual(["SIGTERM", "SIGKILL"]);
+      await vi.advanceTimersByTimeAsync(signalGraceMs - 1);
+      expect(settled).toBe(false);
+      await vi.advanceTimersByTimeAsync(1);
+      expect(await failure).toHaveProperty(
+        "message",
+        expect.stringMatching(/did not exit after SIGKILL/),
+      );
+      expect(settled).toBe(true);
+      expect(children).toHaveLength(1);
+      expect(children[0]?.exitCode).toBeNull();
+      expect(children[0]?.signalCode).toBeNull();
+
+      allowExit = true;
+      const retry = session.close();
+      expect(retry).not.toBe(closing);
+      await vi.advanceTimersByTimeAsync(eofGraceMs - 1);
+      expect(signals).toEqual(["SIGTERM", "SIGKILL"]);
+      await vi.advanceTimersByTimeAsync(1);
+      await retry;
+      expect(signals).toEqual(["SIGTERM", "SIGKILL", "SIGTERM"]);
+      expect(children).toHaveLength(1);
+      expect(children[0]?.signalCode).toBe("SIGTERM");
+      expect(session.processId()).toBeUndefined();
+      await session.close();
+      expect(signals).toHaveLength(3);
+    } finally {
+      releaseExit?.();
+      try {
+        await session.close();
+      } finally {
+        vi.clearAllTimers();
+        vi.useRealTimers();
+      }
+    }
+  },
+);
+
 test("shares one shared CLI cleanup attempt across concurrent close calls", async () => {
   let cleanupStarts = 0;
   let releaseExit: (() => void) | undefined;
@@ -624,6 +796,8 @@ test("shares one shared CLI cleanup attempt across concurrent close calls", asyn
 test("starts another process after the shared CLI process exits", async () => {
   const children: FakeCliProcess[] = [];
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: () => {
       const child = fakeProcess(70 + children.length);
       children.push(child);
@@ -667,6 +841,8 @@ test("starts another process after the shared CLI process exits", async () => {
 test("retires a fatal worker before starting the next command", async () => {
   const events: string[] = [];
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: () => {
       const generation = events.filter((event) =>
         event.startsWith("spawn"),
@@ -709,6 +885,8 @@ test("retires a fatal worker before starting the next command", async () => {
 test("retires a transport failure before the next command reuses the worker", async () => {
   const events: string[] = [];
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     spawnWorker: () => {
       const generation = events.filter((event) =>
         event.startsWith("spawn"),
@@ -753,6 +931,8 @@ test("retires a transport failure before the next command reuses the worker", as
 test("restarts the shared CLI process after the command limit", async () => {
   const children: FakeCliProcess[] = [];
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     commandLimit: 2,
     spawnWorker: () => {
       const child = respondingProcess(
@@ -783,6 +963,8 @@ test("restarts the shared CLI process after the command limit", async () => {
 test("restarts the shared CLI process after the resident-set limit", async () => {
   const children: FakeCliProcess[] = [];
   const session = createCliCommandSession({
+    // This fake needs forced shutdown; default grace timing has its own oracle.
+    shutdownGraceMs: 20,
     commandLimit: 100,
     residentLimitBytes: 100,
     spawnWorker: () => {
@@ -986,6 +1168,8 @@ cliTest(
 
 cliTest(
   "reuses one CLI process across JavaScript application directories",
+  // Two fresh controls plus three shared analyses can exhaust the default 30s.
+  { timeout: 60_000 },
   async ({ cli, cliCommandSession }) => {
     const sharedCliRun = requireSharedCli(cli);
     const firstRoot = await writeApplication("rea-shared-cli-");

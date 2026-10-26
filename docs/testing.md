@@ -328,8 +328,17 @@ its file and compares its JSON command results with the MCP session. It selects
 deadline behavior. Retired processes stay owned until exit, block replacement,
 and remain available for a later close to retry after failed termination.
 Shared session cleanup closes stdin so the worker can release JavaScript
-resources, waits the bounded grace, then escalates to SIGTERM and SIGKILL only
-if needed. Confirmed exit succeeds; an unconfirmed exit reports cleanup failure.
+resources. By default it allows five seconds for cooperative EOF cleanup,
+including verified child-process shutdown and private-root removal, then one
+second after each of SIGTERM and SIGKILL if escalation is needed. This increases
+the default worst-case wait from three to seven seconds; it is a bounded
+allowance, not a guarantee that every host completes cleanup within five seconds.
+An explicit `shutdownGraceMs` still overrides all three phases. Confirmed exit
+succeeds; an unconfirmed exit reports cleanup failure and retains its owner.
+The cross-directory shared-CLI parity test selects a 60-second test deadline
+for its two fresh controls and three shared analyses. It retains both result
+comparisons and the same-process assertions; the default test deadline and
+the startup/command deadline behavior of the session are unchanged.
 When startup or a command fails and cleanup also fails, the reported aggregate
 retains both failures and the original failure as its cause.
 `applicationWorkflowCli.test.ts` keeps one compiled CLI process for its JSON
