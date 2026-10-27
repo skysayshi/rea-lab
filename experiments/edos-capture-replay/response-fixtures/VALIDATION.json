@@ -1,0 +1,72 @@
+{
+  "scope": "offline-regression-fixtures",
+  "node": "v24.22.1",
+  "calibration": {
+    "checks": 30,
+    "passed": 30,
+    "final_after_refactor": true,
+    "output_identical_to_prior": true
+  },
+  "consumer_unit": {
+    "tests": 8,
+    "passed": 8,
+    "skipped": 0
+  },
+  "example": "PASS",
+  "syntax": {
+    "files": 5,
+    "status": "PASS"
+  },
+  "format": {
+    "files": 5,
+    "status": "PASS"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "whitespace": "PASS",
+  "cli": [
+    {
+      "case": "v010",
+      "exit": 1,
+      "output_created": false,
+      "status": "REJECTED",
+      "full_capture_acceptance": "FAIL",
+      "reason": "RESPONSE_WHOLE:candidates"
+    },
+    {
+      "case": "v011",
+      "exit": 1,
+      "output_created": false,
+      "status": "REJECTED",
+      "full_capture_acceptance": "FAIL",
+      "reason": "RESPONSE_WHOLE:reference"
+    },
+    {
+      "case": "v012",
+      "exit": 0,
+      "output_created": true,
+      "status": "QUALIFIED_RESPONSE_SUBSET",
+      "full_capture_acceptance": "FAIL",
+      "source_evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+      "pack_sha256": "c9cfc0f66b4c50b7dc6da21b20bf66a82928e12caa3573c869dd2a67849bac17"
+    }
+  ],
+  "review": {
+    "method": "separate agent read-only review",
+    "finding": "MCP isError envelope not rejected",
+    "resolution": "guard added plus negative calibration before final result",
+    "refactor": "full per-case JSON results identical before/after"
+  },
+  "no_new_browser_server_capture_or_core_build": true,
+  "artifact_sha256": {
+    "RESULTS.json": "894898c672cf1d82891ad0d2a1237b062700a38b9158352f447951f49cd27423",
+    "calibrate.mjs": "c92bf8a55d60f7ddad8e936b45c6da53680baf8b48914be514e0fd946d20dc05",
+    "consumer.mjs": "4c500001a2165450f5a7a81ab0bbaf0faed15300d758d0891b2f1720edeabf61",
+    "consumer.test.mjs": "bf7f0a68a6aa01288ebdd9f3e558bf5f94c760bb7d40ec4885506479499970a0",
+    "example.mjs": "40290d037e572cc9d4151119bc94bbbc230671140d711eebf908b7a81a04e128",
+    "preflight.mjs": "cf57909d59a2da03d848aa6f1506a7aa02deefeb63ae27c45d81197fed746dc2",
+    "qualified-pack.json": "c9cfc0f66b4c50b7dc6da21b20bf66a82928e12caa3573c869dd2a67849bac17"
+  }
+}

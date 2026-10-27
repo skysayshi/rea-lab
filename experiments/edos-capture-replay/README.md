@@ -96,6 +96,16 @@ data in a new session solely for negative requests, stops that listener, then
 serves the original capture with `environment-serve --replay-only`. It cannot
 qualify a complete capture. Check its receipt and exit status together.
 
+## Offline response fixtures
+
+[The guarded response consumer](response-fixtures/README.md) provides three pinned
+synthetic responses from v0.12 for offline EdOS regression checks. Its preflight
+rejects the missing v0.10/v0.11 responses; its consumer rejects unknown query and
+changed POST body. This separately scoped qualification preserves every historical
+full-capture FAIL and does not execute a save or renew authorization. See the
+[30-check calibration](response-fixtures/RESULTS.json), [report](response-fixtures/REPORT.md)
+and runnable `response-fixtures/example.mjs`.
+
 ## Evidence scope
 
 `RESULTS.json` and the dated diagnostic receipt are reviewed, sanitized first-party
