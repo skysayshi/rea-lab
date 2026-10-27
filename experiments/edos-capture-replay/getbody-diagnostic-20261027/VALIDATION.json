@@ -1,0 +1,185 @@
+{
+  "schema": "rea-edos-runner-hardening-validation-v1",
+  "validated_at_utc": "2026-10-27 00:19:56 UTC",
+  "scope": "Prospective laboratory-runner hardening only; no REA product/core, native/browser, README or documentation edits by this task.",
+  "status": "PASS_WITH_LINT_WARNINGS",
+  "changed_files": [
+    "experiments/edos-capture-replay/run-pilot.mjs",
+    "experiments/edos-capture-replay/pilot-assessment.mjs",
+    "experiments/edos-capture-replay/pilot-assessment.test.mjs"
+  ],
+  "copy_provenance": {
+    "executed_work_copy_preserved": true,
+    "copied_bytes_equal_before_revision": true,
+    "executed_work_source_sha256": "58eef54b440aef57267051adcbf7d65b43359fed2e8875931e6c27c069f7f4f7",
+    "previous_persistent_runner_sha256": "2e56b25fc69a902f447c2fbd8ec8f7be2370d50fdbc2154a31de5b28cb466f8c"
+  },
+  "hardening": [
+    "Assess both status and full_acceptance only after final cleanup and token-log inspection.",
+    "Require target exit code 0 and signal null; a refused listener alone is insufficient.",
+    "Retain cleanup and private-session removal rejection as failure facts rather than skipping final assessment.",
+    "Bind the assessment helper bytes with all other runtime harness inputs."
+  ],
+  "historical_trial": {
+    "rerun": false,
+    "assertions": 61,
+    "passed": 58,
+    "gating_failures": 3,
+    "full_acceptance": "FAIL",
+    "note": "Historical observations and executed work source are unchanged. The 61/58/3 unit fixture tests classification, not native behavior."
+  },
+  "validation": {
+    "node": "v24.22.1",
+    "syntax_files": 3,
+    "syntax_failures": 0,
+    "node_tests": {
+      "tests": 7,
+      "pass": 7,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "oxfmt": {
+      "files": 3,
+      "exit_code": 0
+    },
+    "oxlint": {
+      "files": 3,
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 2,
+      "warning_rules": ["eslint(max-lines)", "eslint(max-params)"]
+    },
+    "diff_whitespace_exit_code": 0,
+    "input_bytes_unchanged": true
+  },
+  "independent_review": {
+    "mode": "read-only",
+    "material_findings": 0,
+    "scope": "Persistent runner/helper/tests compared against the executed work source; no native execution."
+  },
+  "limitations": [
+    "Pure assessment tests validate decision semantics, not actual process cleanup or a full pilot rerun.",
+    "The runner retains size and five-parameter call warnings; these were not hidden or suppressed."
+  ],
+  "sources_before": {
+    "work/getbody-pilot/run-pilot.mjs": {
+      "sha256": "58eef54b440aef57267051adcbf7d65b43359fed2e8875931e6c27c069f7f4f7",
+      "bytes": 22963
+    },
+    "experiments/edos-capture-replay/run-pilot.mjs": {
+      "sha256": "63bacf9fb16d40da164349a76d8e995e86ff009d32ad44b2f9c0c021e5f8138f",
+      "bytes": 23337
+    },
+    "experiments/edos-capture-replay/pilot-assessment.mjs": {
+      "sha256": "2b4ec1c09d84e2211a96d42dd527d066f99b39a830a4b46510962d0069ff1080",
+      "bytes": 1168
+    },
+    "experiments/edos-capture-replay/pilot-assessment.test.mjs": {
+      "sha256": "dd6a1c50da10c235793e23c8133cafce62a7c3ef014325d23ff6891ea3abcac4",
+      "bytes": 3242
+    }
+  },
+  "sources_after": {
+    "work/getbody-pilot/run-pilot.mjs": {
+      "sha256": "58eef54b440aef57267051adcbf7d65b43359fed2e8875931e6c27c069f7f4f7",
+      "bytes": 22963
+    },
+    "experiments/edos-capture-replay/run-pilot.mjs": {
+      "sha256": "63bacf9fb16d40da164349a76d8e995e86ff009d32ad44b2f9c0c021e5f8138f",
+      "bytes": 23337
+    },
+    "experiments/edos-capture-replay/pilot-assessment.mjs": {
+      "sha256": "2b4ec1c09d84e2211a96d42dd527d066f99b39a830a4b46510962d0069ff1080",
+      "bytes": 1168
+    },
+    "experiments/edos-capture-replay/pilot-assessment.test.mjs": {
+      "sha256": "dd6a1c50da10c235793e23c8133cafce62a7c3ef014325d23ff6891ea3abcac4",
+      "bytes": 3242
+    }
+  },
+  "commands": [
+    {
+      "name": "node-version",
+      "command": "NODE24 --version",
+      "exit_code": 0,
+      "stdout": "v24.22.1\n",
+      "wall_time_seconds": 0.630262956
+    },
+    {
+      "name": "syntax-runner",
+      "command": "NODE24 --check experiments/edos-capture-replay/run-pilot.mjs",
+      "exit_code": 0,
+      "stdout": "",
+      "wall_time_seconds": 0.835287318
+    },
+    {
+      "name": "syntax-helper",
+      "command": "NODE24 --check experiments/edos-capture-replay/pilot-assessment.mjs",
+      "exit_code": 0,
+      "stdout": "",
+      "wall_time_seconds": 0.817425051
+    },
+    {
+      "name": "syntax-tests",
+      "command": "NODE24 --check experiments/edos-capture-replay/pilot-assessment.test.mjs",
+      "exit_code": 0,
+      "stdout": "",
+      "wall_time_seconds": 0.763968734
+    },
+    {
+      "name": "focused-node-tests",
+      "command": "NODE24 --test --test-reporter=tap experiments/edos-capture-replay/pilot-assessment.test.mjs",
+      "exit_code": 0,
+      "stdout": "TAP version 13\n# Subtest: accepts completed gates only after clean target exit and cleanup\nok 1 - accepts completed gates only after clean target exit and cleanup\n  ---\n  duration_ms: 3.459546\n  type: 'test'\n  ...\n# Subtest: preserves diagnostic completion separately from failed acceptance gates\nok 2 - preserves diagnostic completion separately from failed acceptance gates\n  ---\n  duration_ms: 0.559984\n  type: 'test'\n  ...\n# Subtest: late cleanup and token-log failures override otherwise passing gates\nok 3 - late cleanup and token-log failures override otherwise passing gates\n  ---\n  duration_ms: 0.530975\n  type: 'test'\n  ...\n# Subtest: cleanup failure cannot retain the softer partial-controls status\nok 4 - cleanup failure cannot retain the softer partial-controls status\n  ---\n  duration_ms: 0.603398\n  type: 'test'\n  ...\n# Subtest: rejects abnormal, signalled and unconfirmed target shutdowns\nok 5 - rejects abnormal, signalled and unconfirmed target shutdowns\n  ---\n  duration_ms: 0.619326\n  type: 'test'\n  ...\n# Subtest: rejects unfinished controls and retained execution failures\nok 6 - rejects unfinished controls and retained execution failures\n  ---\n  duration_ms: 0.565017\n  type: 'test'\n  ...\n# Subtest: does not infer acceptance when no gate was observed\nok 7 - does not infer acceptance when no gate was observed\n  ---\n  duration_ms: 0.253724\n  type: 'test'\n  ...\n1..7\n# tests 7\n# suites 0\n# pass 7\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 408.67175\n",
+      "wall_time_seconds": 1.196596572
+    },
+    {
+      "name": "oxfmt",
+      "command": "PATH=\"NODE24_BIN:$PATH\" node_modules/.bin/oxfmt --check experiments/edos-capture-replay/run-pilot.mjs experiments/edos-capture-replay/pilot-assessment.mjs experiments/edos-capture-replay/pilot-assessment.test.mjs",
+      "exit_code": 0,
+      "stdout": "Checking formatting...\n\nAll matched files use the correct format.\nFinished in 17ms on 3 files using 8 threads.\n",
+      "wall_time_seconds": 1.014556012
+    },
+    {
+      "name": "oxlint",
+      "command": "PATH=\"NODE24_BIN:$PATH\" node_modules/.bin/oxlint experiments/edos-capture-replay/run-pilot.mjs experiments/edos-capture-replay/pilot-assessment.mjs experiments/edos-capture-replay/pilot-assessment.test.mjs",
+      "exit_code": 0,
+      "stdout": "experiments/edos-capture-replay/run-pilot.mjs:756:2: warning eslint(max-lines): File has too many lines (753). help: Maximum allowed is 500.\nexperiments/edos-capture-replay/run-pilot.mjs:603:22: warning eslint(max-params): Function 'call' has too many parameters (5). Maximum allowed is 4. help: This rule enforces a maximum number of parameters allowed in function definitions.\n",
+      "wall_time_seconds": 1.430154339
+    },
+    {
+      "name": "diff-whitespace",
+      "command": "git diff --check -- experiments/edos-capture-replay/run-pilot.mjs experiments/edos-capture-replay/pilot-assessment.mjs experiments/edos-capture-replay/pilot-assessment.test.mjs",
+      "exit_code": 0,
+      "stdout": "",
+      "wall_time_seconds": 0.746374048
+    }
+  ],
+  "raw_local_validation_receipt_sha256": "b3f8e409e570dfca3b52089fd83c96d92d8500a9d8b5b63c1e9eafe5e133851c",
+  "command_normalization": "NODE24 means the observed Node v24.22.1 executable; its private absolute prefix is replaced. Repository-relative command arguments and outputs are preserved.",
+  "native_probe_static_validation": {
+    "native_rerun": false,
+    "node": "v24.22.1",
+    "syntax": {
+      "files": 2,
+      "exit_codes": [0, 0]
+    },
+    "format": {
+      "files": 3,
+      "exit_code": 0
+    },
+    "lint": {
+      "files": 2,
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    "published_scripts": {
+      "diagnose-getbody.mjs": "872cfde372cc4595e52a72ef9fcdd232438ab53e83c331ad00d78bfdaf0f3af3",
+      "diagnose-getbody-reader.mjs": "1f3faa0040fcc72312ccba6db6449621ed43cc9c4e17b8c75d3890a339cdab29"
+    },
+    "scope": "Readable derived scripts only; original execution facts remain bound to retained work inputs in RESULTS and PROBES. PROBES local report paths normalized after agent format check; root final format check covers that prose edit."
+  }
+}

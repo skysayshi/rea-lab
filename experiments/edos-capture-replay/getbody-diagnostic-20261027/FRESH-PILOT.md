@@ -1,0 +1,9 @@
+# Fresh public CLI pilot on unchanged baseline
+
+The bounded native diagnosis is complete: interception lifetime and explicit reader release were not necessary causes. No production fix or rebuilt-runtime claim is justified. The user also requested a new capture/replay; perform exactly one fresh public CLI trial on the original pinned compiled baseline, with no browser prototype intervention and the same frozen EdOS module/fixture.
+
+The authored worklab runner now records an incomplete-capture acceptance failure without skipping independent authorized controls. Every original positive body obligation remains a gating check; null unavailable bodies are classified transparently, never backfilled or called equivalent. Any failed gate leaves overall acceptance FAIL, status PARTIAL_CONTROLS_COMPLETE and process exit1 even when independent controls finish. Runtime/setup/oracle errors still fail. A fully complete fresh run would qualify only that unchanged-baseline execution, not a causal repair.
+
+Same captured session: valid token write, wrong token/current sequence403, valid token/stale sequence409; independent filesystem oracle before/after, false-empty negative calibration; semantic Evidence tamper refusal; actual replay-only MCP with stopped target; source-query fallback and POST-body-ignored controls. Source and credential boundaries remain those in v0.10. Fresh TCP probes avoid reusing the earlier fetch-based availability oracle. Decode retained base64 bodies before checking token redaction. No persistent shared config or private source export.
+
+The prior v1 runner and failed receipts remain at their immutable PR commit. Changes are to experiment collection/reporting only; product, provider, dependency and original complete-capture requirements are unchanged. Do not retry this fresh trial merely for a green result.

@@ -6,6 +6,8 @@ import { mkdir, readFile, readdir, writeFile, unlink } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import net from "node:net";
+import { assessPilot, targetShutdownPassed } from "./pilot-assessment.mjs";
 
 const [reaArg, edosArg, chromeArg, outArg] = process.argv.slice(2);
 assert.equal(
@@ -41,7 +43,7 @@ const env = {
   HUSKY: "0",
 };
 const receipt = {
-  schema: "rea-edos-authenticated-pilot-v1",
+  schema: "rea-edos-authenticated-pilot-v2",
   started_at: new Date().toISOString(),
   status: "RUNNING",
   node: process.version,
@@ -59,6 +61,10 @@ const receipt = {
 function check(condition, label) {
   receipt.checks.push({ label, pass: Boolean(condition) });
   assert.ok(condition, label);
+}
+// Preserve the failed acceptance gate while finishing independent diagnostics.
+function acceptance(condition, label) {
+  receipt.checks.push({ label, pass: Boolean(condition), gating: true });
 }
 const owned = [];
 function start(name, args, extra = {}) {
@@ -200,13 +206,18 @@ async function runtimeBindings() {
     edos_module_sha256: await fileHash(edos),
     chrome_executable_sha256: await fileHash(chrome),
     harness: await Promise.all(
-      ["run-pilot.mjs", "target.mjs", "oracle.mjs", "fixture.json"].map(
-        async (p) => [p, await fileHash(join(here, p))],
-      ),
+      [
+        "run-pilot.mjs",
+        "pilot-assessment.mjs",
+        "target.mjs",
+        "oracle.mjs",
+        "fixture.json",
+      ].map(async (p) => [p, await fileHash(join(here, p))]),
     ),
   };
 }
 let client, session, target, replay;
+let controlsCompleted = false;
 const fixture = await json(join(here, "fixture.json"));
 const before = await runtimeBindings();
 await save("bindings-before.json", before);
@@ -338,9 +349,23 @@ try {
     captured.code === 0 && evidence.operation === "capture_browser_scenario",
     "Actual CLI browser capture Evidence returned",
   );
-  check(
+  acceptance(
     evidence.normalized_result.completeness.status === "complete",
     "Requested capture complete",
+  );
+  receipt.facts.capture_completeness = evidence.normalized_result.completeness;
+  check(
+    JSON.stringify(
+      evidence.normalized_result.steps.map((step) => step.step_id),
+    ) ===
+      JSON.stringify([
+        "scenario_start",
+        "ready",
+        "save",
+        "read-saved",
+        "read-source",
+      ]),
+    "All five declared capture steps retained",
   );
   check(
     evidence.normalized_result.steps.every(
@@ -355,6 +380,23 @@ try {
   check(
     !JSON.stringify(evidence).includes(session.token),
     "Declared ephemeral token absent from captured Evidence",
+  );
+  check(
+    evidence.normalized_result.events.items
+      .filter(
+        (event) =>
+          event.kind === "network-content" && event.body.state === "captured",
+      )
+      .every(
+        (event) =>
+          !Buffer.from(
+            event.body.content,
+            event.body.encoding === "base64" ? "base64" : "utf8",
+          )
+            .toString("utf8")
+            .includes(session.token),
+      ),
+    "Declared token absent from decoded retained network bodies",
   );
   await save("capture.json", evidence);
   receipt.facts.capture_id = evidence.evidence_id;
@@ -433,15 +475,33 @@ try {
     body: await source404.json(),
   });
   await stop(target);
+  receipt.facts.target_exit = target.exit ?? null;
+  check(
+    targetShutdownPassed(target.exit),
+    "Target exits cleanly with code 0 and no signal",
+  );
   async function targetUnavailable() {
-    let unavailable = false;
-    try {
-      await fetch(`${session.origin}/`, { signal: AbortSignal.timeout(2000) });
-    } catch (error) {
-      unavailable = error.cause?.code === "ECONNREFUSED";
-    }
+    const address = new URL(session.origin);
+    const result = await new Promise((done) => {
+      const socket = net.connect({
+        host: address.hostname,
+        port: Number(address.port),
+      });
+      socket.setTimeout(2000);
+      socket.once("connect", () => {
+        socket.destroy();
+        done("connected");
+      });
+      socket.once("error", (error) => done(error.code));
+      socket.once("timeout", () => {
+        socket.destroy();
+        done("timeout");
+      });
+    });
+    receipt.facts.listener_probes ??= [];
+    receipt.facts.listener_probes.push(result);
     check(
-      unavailable,
+      result === "ECONNREFUSED",
       "Original target connection refused during offline replay",
     );
   }
@@ -554,7 +614,7 @@ try {
         tool.record_ordinals.includes(content.replay.record_ordinal),
       `${name}: expected match and source binding`,
     );
-    check(
+    acceptance(
       content.replay.body_recorded && !content.replay.truncated,
       `${name}: full recorded body`,
     );
@@ -562,19 +622,27 @@ try {
       result._meta?.provenance?.untrusted_content === true,
       `${name}: target-content trust marker`,
     );
-    assert.deepEqual(
-      content.body,
-      expectedBody,
-      `${name}: independent filesystem/fixture oracle`,
-    );
-    receipt.checks.push({
-      label: `${name}: independent expected body`,
-      pass: true,
-    });
+    if (content.replay.body_recorded && !content.replay.truncated) {
+      assert.deepEqual(
+        content.body,
+        expectedBody,
+        `${name}: independent filesystem/fixture oracle`,
+      );
+      receipt.checks.push({
+        label: `${name}: independent expected body`,
+        pass: true,
+      });
+    } else {
+      check(
+        content.replay.body_recorded === false && content.body === null,
+        `${name}: absent body stays unavailable without backfill`,
+      );
+    }
     receipt.facts[name] = {
       status: content.status,
       ...content.replay,
       body_sha256: hash(JSON.stringify(content.body)),
+      body_oracle: content.replay.body_recorded ? "PASS" : "UNAVAILABLE",
       untrusted_content: true,
     };
     return content;
@@ -634,19 +702,18 @@ try {
     label: "All declared input bytes unchanged",
     pass: true,
   });
-  receipt.status = "PASS";
+  controlsCompleted = true;
 } catch (error) {
-  receipt.status = "FAIL";
   receipt.failure = { message: error.message, stack: error.stack };
-  process.exitCode = 1;
 } finally {
   if (client)
     await client.close().catch(() => {
       receipt.cleanup.push({ name: "mcp-client", error: "close failed" });
-      receipt.status = "FAIL";
-      process.exitCode = 1;
     });
-  for (const state of owned) await stop(state);
+  for (const state of owned)
+    await stop(state).catch((error) => {
+      receipt.cleanup.push({ name: state.name, error: String(error) });
+    });
   if (session) {
     for (const state of owned)
       if (
@@ -654,16 +721,28 @@ try {
         state.stderr.includes(session.token)
       ) {
         receipt.cleanup.push({ name: state.name, token_in_local_log: true });
-        receipt.status = "FAIL";
-        process.exitCode = 1;
       }
-    await unlink(join(root, "session.json"));
-    receipt.cleanup.push({ name: "private-session-file", removed: true });
+    await unlink(join(root, "session.json")).then(
+      () =>
+        receipt.cleanup.push({ name: "private-session-file", removed: true }),
+      (error) =>
+        receipt.cleanup.push({
+          name: "private-session-file",
+          removed: false,
+          error: String(error),
+        }),
+    );
   }
-  if (receipt.cleanup.some((item) => item.forced || item.error)) {
-    receipt.status = "FAIL";
-    process.exitCode = 1;
-  }
+  const assessment = assessPilot({
+    checks: receipt.checks,
+    cleanup: receipt.cleanup,
+    failure: receipt.failure,
+    controlsCompleted,
+    targetExit: target?.exit,
+  });
+  receipt.status = assessment.status;
+  receipt.full_acceptance = assessment.full_acceptance;
+  process.exitCode = assessment.exit_code;
   receipt.completed_at = new Date().toISOString();
   await save("receipt.local.json", receipt);
   console.log(

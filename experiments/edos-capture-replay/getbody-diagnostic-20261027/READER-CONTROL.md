@@ -1,0 +1,7 @@
+# One narrower follow-up
+
+The first native A/B/A2 run completed all 15 source actions, but recorded 0/5, 2/5 and 1/5 failed network requests respectively. Failure occurred before `unroute.begin`, including while a persistent neutral route kept interception enabled. No `Fetch.failRequest` preceded those failures; only the explicit abort calibration sent it. Thus interception shutdown is not a necessary cause and the proposed route-lifetime fix is not supported.
+
+The one pre-authorized narrower follow-up keeps unchanged production source and temporary routing. In an owned synthetic page only, temporarily suppress `ReadableStreamDefaultReader.releaseLock` for ten B requests; A and A2 each use ten normal requests. Observe browser abort calls, suppressed releases, native terminal events, independent server completion and retained bytes. This is a diagnostic browser-method intervention, not a proposed production leak or an application mutation. All reader objects live only in this owned browser context, closed after the run. No arbitrary sleep is inserted into source actions. A bounded wait after each group observes actual request terminal events.
+
+If suppression fails to discriminate, stop causal claims at the established source/native boundary. Do not manufacture a correction. The separately requested fresh CLI capture/replay remains authorized, with its own actual outcome and unchanged full completeness gate.

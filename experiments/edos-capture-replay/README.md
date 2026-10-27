@@ -1,6 +1,14 @@
 # Bounded EdOS browser capture and offline replay
 
-**Partial result, not full acceptance.** Two browser attempts produced one real
+**Latest result: full acceptance remains FAIL.** The bounded
+[GET-body diagnosis and fresh pilot](getbody-diagnostic-20261027/REPORT.md)
+reproduced `ERR_ABORTED` on the pinned baseline, without establishing a cause or
+justifying a core fix. The new capture retained POST and candidates GET but lost
+reference GET. Independent oracle and negative controls completed: 58 of 61
+assertions passed, with three failed gates around that one missing body. See the
+[new receipt](getbody-diagnostic-20261027/RESULTS.json).
+
+**Earlier 2026-10-26 result, preserved:** Two browser attempts produced one real
 capture with all actions completed, but its GET-candidates response body was
 unavailable (`net::ERR_ABORTED`). The strict capture gate failed. A separate
 continuation verified 58 selected diagnostic assertions on that unchanged
@@ -13,7 +21,7 @@ declared requests through the browser. This is not the complete EdOS frontend.
 The private EdOS source is not distributed here. No provider or product code is
 changed by this lab.
 
-## Observed checks
+## Earlier 2026-10-26 observed checks
 
 | Surface                          | Actual result                                                     | Boundary                                                |
 | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
@@ -61,8 +69,11 @@ profile. It declares the actual token as a redaction secret before navigation.
 Raw outputs stay in that private directory; never publish them without a
 separate review. The independent `oracle.mjs` imports neither EdOS nor REA.
 
-The strict runner fails if capture completeness is insufficient. Do not remove
-that gate to manufacture a pass. A separately declared diagnostic continuation
+The current runner retains failed completeness/body acceptance gates while
+collecting the independent controls, then exits 1 for partial acceptance. Cleanup
+and target-exit failures also keep acceptance closed. Do not remove a failed gate
+to manufacture a pass. Its post-trial hardening was checked separately from the
+recorded browser execution. The older separately declared diagnostic continuation
 can read original partial Evidence using an independently retained ID:
 
 ```sh
@@ -79,7 +90,8 @@ qualify a complete capture. Check its receipt and exit status together.
 
 ## Evidence scope
 
-`RESULTS.json` is a reviewed, sanitized first-party export. Exact raw artifacts
+`RESULTS.json` and the dated diagnostic receipt are reviewed, sanitized first-party
+exports. Exact raw artifacts
 and the private source remain local; public readers cannot independently
 reproduce the private target from this directory alone. The 58 assertions and
 repeated diagnostic requests are not independent experimental samples.
@@ -92,6 +104,6 @@ Semantic Evidence IDs, raw file hashes and output hashes are not signatures.
 
 This work does not establish stateful replay equivalence, renewed authorization,
 full UI correctness, all-provider compatibility, production readiness, release,
-adoption or productivity improvement. Next useful work is a separately bounded
-investigation of the missing GET body with native event correlation. No core
-fix is claimed without a confirmed cause.
+adoption or productivity improvement. The dated diagnosis supplies native event
+correlation but leaves cause unknown. Its report states a future discriminator;
+no core fix is claimed without a confirmed cause.
