@@ -1,6 +1,14 @@
 # Bounded EdOS browser capture and offline replay
 
-**Latest result: full acceptance remains FAIL.** The bounded
+**Latest lifetime/protocol checkpoint:** a GET failed with strong Response/reader/
+signal retention and no temporary routing. Root cause remains unknown; no core
+fix was made. The separate fresh pilot retained all five response bodies and
+passed every selected replay oracle/control, but full acceptance remains FAIL
+because four GET **request** bodies were `not_exposed` (61/62 assertions pass).
+See the [lifetime report](lifetime-diagnostic-20261027/REPORT.md) and
+[new receipt](lifetime-diagnostic-20261027/RESULTS.json).
+
+**Previous GET-body checkpoint, preserved:** The bounded
 [GET-body diagnosis and fresh pilot](getbody-diagnostic-20261027/REPORT.md)
 reproduced `ERR_ABORTED` on the pinned baseline, without establishing a cause or
 justifying a core fix. The new capture retained POST and candidates GET but lost

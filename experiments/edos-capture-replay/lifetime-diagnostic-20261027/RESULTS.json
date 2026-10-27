@@ -1,0 +1,972 @@
+{
+  "schema": "rea-lifetime-selected-evidence-v1",
+  "local_date": "2026-10-27",
+  "timezone": "Europe/Berlin",
+  "decision": "Bounded diagnostic completed. Strong Response/reader/signal retention and absence of temporary interception do not prevent all native failures. Root cause unknown; no core fix or rebuild. Fresh pilot retained all response bodies but full gate remains FAIL for request-body coverage.",
+  "baseline": {
+    "commit": "669e617eec5422ebce1ab271af0fc7b51e90dc11",
+    "fork_parent": "2e7b3a5c52409de996cb5dd25e6442c569850123",
+    "research_parent": "86b37cbabdb46f95ed20528183e77e1ff1c9bda6",
+    "node": "v24.22.1",
+    "playwright_core": "1.58.2",
+    "expected_playwright_chromium": "145.0.7632.6 / revision 1208",
+    "matching_browser_available_in_checked_locations": false,
+    "browser_protocol_version": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/155.0.8059.86",
+      "revision": "@804d6b05f089b27af8342622a36558c49401a1d4",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "jsVersion": "15.5.35.25"
+    },
+    "browser_launcher_sha256": "011a77fd50ddc001d31c4ef042e655a0ffb8ca64646c6ab4fcd6fe0c6ba7f1be",
+    "browser_framework": {
+      "bytes": 519576720,
+      "sha256": "31e490f22d701cb5d592d7068ec9b772a0bf55c048a20140cf857b6330b2ecaf"
+    },
+    "request_producer_sha256": "e2a9354907bb9aa76249bfbd37fff7bf26fe0c2c841d6a3d8303b7418a14b2cf",
+    "coverage_classifier_source_sha256": {
+      "src/browser/network/PlaywrightNetworkContent.ts": "c48da2a0bbfa1597de6c073d2cc1de840ec204e22cf9955145a13a28747f3eff",
+      "src/browser/network/PlaywrightScenarioNetwork.ts": "731f0960d4ae21a257d3f6b664ad1ce69b4e0c70a7a6b66745671e1d475210a5",
+      "src/browser/PlaywrightBrowserScenarioProvider.ts": "407f94bea104164039956989336c2ad29cfdfe3a5b2ba283d8e5e48a4be26ea5"
+    },
+    "scope": "Existing compiled runtime, prior test/helper/doc changes in checkout; source producer unchanged. No clean build, browser/dependency update or whole-host/bundle attestation."
+  },
+  "native": {
+    "status": "OBSERVED",
+    "process_exit": 0,
+    "started_at": "2026-10-27T00:44:56.552Z",
+    "completed_at": "2026-10-27T00:45:18.756Z",
+    "executed_driver_sha256": "5e8095e513ae0d2cdc7dfc285439b6fe7e45727fa7d497c3d8df725faffcc011",
+    "driver_is_published_exact_bytes": true,
+    "raw_report_sha256": "18940b3a6b45aa71878611bfe93e96cd8e2a8ffe8e37dcf4319e961f579e7246",
+    "matrix": [
+      {
+        "group": "anchor-before",
+        "actions": 4,
+        "failed": 0,
+        "bodies": 4,
+        "action_errors": 0,
+        "reader_done": 0
+      },
+      {
+        "group": "on-A",
+        "actions": 6,
+        "failed": 1,
+        "bodies": 5,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "on-B",
+        "actions": 6,
+        "failed": 0,
+        "bodies": 6,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "on-A2",
+        "actions": 6,
+        "failed": 0,
+        "bodies": 6,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "off-A",
+        "actions": 6,
+        "failed": 1,
+        "bodies": 5,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "off-B",
+        "actions": 6,
+        "failed": 1,
+        "bodies": 5,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "off-A2",
+        "actions": 6,
+        "failed": 0,
+        "bodies": 6,
+        "action_errors": 0,
+        "reader_done": 6
+      },
+      {
+        "group": "anchor-after",
+        "actions": 4,
+        "failed": 0,
+        "bodies": 4,
+        "action_errors": 0,
+        "reader_done": 0
+      }
+    ],
+    "checks": {
+      "total": 255,
+      "passed": 255
+    },
+    "ordinary_requests": 44,
+    "ordinary_native_failures": ["on-A-1", "off-A-4", "off-B-5"],
+    "tagged_server_hits": 46,
+    "duplicate_hits": 0,
+    "negative_route_reached_server": false,
+    "negative_signal": {
+      "first_bytes": 336,
+      "error": "AbortError",
+      "terminal": {
+        "kind": "failed",
+        "error": "net::ERR_ABORTED"
+      }
+    },
+    "negative_body_oracle_rejected": true,
+    "negative_checks": [
+      {
+        "label": "negative-route: retention treatment held until terminal and body settlement",
+        "pass": true
+      },
+      {
+        "label": "real route-abort negative rejected before server",
+        "pass": true
+      },
+      {
+        "label": "signal abort instrumentation calibrated",
+        "pass": true
+      },
+      {
+        "label": "reader rejection instrumentation calibrated",
+        "pass": true
+      },
+      {
+        "label": "negative-body: retention treatment held until terminal and body settlement",
+        "pass": true
+      },
+      {
+        "label": "independent payload oracle rejects deliberately changed response",
+        "pass": true
+      }
+    ],
+    "protocol_audit": {
+      "get_response_body_sends": 42,
+      "load_network_resource_sends": 0,
+      "fetch_fail_request_sends": 1,
+      "gate_off_main_and_passive_sessions_fetch_commands": 0,
+      "gate_off_scope": "Independent read-only protocol review of the gate-off page main session and passive session; does not attribute cause to browser or protocol."
+    },
+    "decisive_request": {
+      "id": "off-B-5",
+      "gate": false,
+      "retain": true,
+      "instrumented": true,
+      "negative": false,
+      "action_error": null,
+      "terminal": {
+        "kind": "failed",
+        "error": "net::ERR_ABORTED"
+      },
+      "body": null,
+      "expected_sha256": "6b8ba7649cb475b44fe1672897f6aa94a60980ae20d5ad8d85708f6308905cce",
+      "body_matches": false,
+      "retention": {
+        "count": 1,
+        "response": true,
+        "reader": true,
+        "signal": true
+      }
+    },
+    "decisive_timeline": [
+      {
+        "at": "2026-10-27T00:45:16.262Z",
+        "kind": "action.begin",
+        "id": "off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.262Z",
+        "kind": "route.begin",
+        "id": "off-B-5",
+        "gate": false
+      },
+      {
+        "at": "2026-10-27T00:45:16.262Z",
+        "kind": "route.end",
+        "id": "off-B-5",
+        "gate": false
+      },
+      {
+        "at": "2026-10-27T00:45:16.267Z",
+        "kind": "server.request",
+        "id": "off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.267Z",
+        "kind": "server.finish",
+        "id": "off-B-5",
+        "bytes": 328,
+        "sha256": "6b8ba7649cb475b44fe1672897f6aa94a60980ae20d5ad8d85708f6308905cce"
+      },
+      {
+        "at": "2026-10-27T00:45:16.267Z",
+        "kind": "server.close",
+        "id": "off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.271Z",
+        "kind": "fetch.begin",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916265.2
+      },
+      {
+        "at": "2026-10-27T00:45:16.272Z",
+        "kind": "cdp.requestWillBeSent",
+        "page": "gate-off",
+        "requestId": "46297.13",
+        "native_timestamp": 213421.005967,
+        "path": "/data?id=off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.274Z",
+        "kind": "fetch.resolved",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916268.5,
+        "status": 200
+      },
+      {
+        "at": "2026-10-27T00:45:16.274Z",
+        "kind": "cdp.responseReceived",
+        "page": "gate-off",
+        "requestId": "46297.13",
+        "native_timestamp": 213421.008944,
+        "path": "/data?id=off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "reader.read",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916268.8,
+        "done": false,
+        "bytes": 328
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "pw.failed",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "error": "net::ERR_ABORTED"
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "reader.closed",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916269.2
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "reader.read",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916269.2,
+        "done": true,
+        "bytes": 0
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "reader.releaseLock",
+        "page": "gate-off",
+        "id": "off-B-5",
+        "page_ms": 1793061916269.3
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "unroute.begin",
+        "id": "off-B-5",
+        "gate": false
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "unroute.end",
+        "id": "off-B-5",
+        "gate": false
+      },
+      {
+        "at": "2026-10-27T00:45:16.275Z",
+        "kind": "action.end",
+        "id": "off-B-5"
+      },
+      {
+        "at": "2026-10-27T00:45:16.276Z",
+        "kind": "cdp.loadingFailed",
+        "page": "gate-off",
+        "requestId": "46297.13",
+        "native_timestamp": 213421.009649,
+        "error": "net::ERR_ABORTED",
+        "canceled": true
+      },
+      {
+        "at": "2026-10-27T00:45:16.285Z",
+        "kind": "retention.released",
+        "id": "off-B-5"
+      }
+    ],
+    "source_unchanged": true,
+    "driver_unchanged": true,
+    "browser_closed": true,
+    "server_closed": true
+  },
+  "pilot": {
+    "started_at": "2026-10-27T00:46:34.227Z",
+    "completed_at": "2026-10-27T00:47:22.646Z",
+    "status": "PARTIAL_CONTROLS_COMPLETE",
+    "full_acceptance": "FAIL",
+    "process_exit": 1,
+    "assertions": 62,
+    "passed": 61,
+    "failed_gates": [
+      {
+        "label": "Requested capture complete",
+        "pass": false,
+        "gating": true
+      }
+    ],
+    "checks": [
+      {
+        "label": "EdOS frozen module pinned",
+        "pass": true
+      },
+      {
+        "label": "oracle-before: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "oracle-before: independent filesystem oracle",
+        "pass": true
+      },
+      {
+        "label": "capture: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "Actual CLI browser capture Evidence returned",
+        "pass": true
+      },
+      {
+        "label": "Requested capture complete",
+        "pass": false,
+        "gating": true
+      },
+      {
+        "label": "All five declared capture steps retained",
+        "pass": true
+      },
+      {
+        "label": "All browser actions completed",
+        "pass": true
+      },
+      {
+        "label": "REA reports owned browser termination",
+        "pass": true
+      },
+      {
+        "label": "Declared ephemeral token absent from captured Evidence",
+        "pass": true
+      },
+      {
+        "label": "Declared token absent from decoded retained network bodies",
+        "pass": true
+      },
+      {
+        "label": "oracle-after-capture: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "oracle-after-capture: independent filesystem oracle",
+        "pass": true
+      },
+      {
+        "label": "oracle-negative-calibration: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "Independent oracle rejects a false empty-state expectation",
+        "pass": true
+      },
+      {
+        "label": "wrong-token: HTTP 403",
+        "pass": true
+      },
+      {
+        "label": "oracle-wrong-token: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "oracle-wrong-token: independent filesystem oracle",
+        "pass": true
+      },
+      {
+        "label": "wrong-token: committed revision unchanged",
+        "pass": true
+      },
+      {
+        "label": "stale-sequence: HTTP 409",
+        "pass": true
+      },
+      {
+        "label": "oracle-stale-sequence: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "oracle-stale-sequence: independent filesystem oracle",
+        "pass": true
+      },
+      {
+        "label": "stale-sequence: committed revision unchanged",
+        "pass": true
+      },
+      {
+        "label": "Live unrecorded source query returns 404",
+        "pass": true
+      },
+      {
+        "label": "Target exits cleanly with code 0 and no signal",
+        "pass": true
+      },
+      {
+        "label": "Original target connection refused during offline replay",
+        "pass": true
+      },
+      {
+        "label": "manifest: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "Public authenticated Evidence projection succeeds",
+        "pass": true
+      },
+      {
+        "label": "tamper: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "Semantic tamper rejected by public Evidence consumer",
+        "pass": true
+      },
+      {
+        "label": "replay-post: recorded HTTP 200",
+        "pass": true
+      },
+      {
+        "label": "replay-post: expected match and source binding",
+        "pass": true
+      },
+      {
+        "label": "replay-post: full recorded body",
+        "pass": true,
+        "gating": true
+      },
+      {
+        "label": "replay-post: target-content trust marker",
+        "pass": true
+      },
+      {
+        "label": "replay-post: independent expected body",
+        "pass": true
+      },
+      {
+        "label": "replay-candidates: recorded HTTP 200",
+        "pass": true
+      },
+      {
+        "label": "replay-candidates: expected match and source binding",
+        "pass": true
+      },
+      {
+        "label": "replay-candidates: full recorded body",
+        "pass": true,
+        "gating": true
+      },
+      {
+        "label": "replay-candidates: target-content trust marker",
+        "pass": true
+      },
+      {
+        "label": "replay-candidates: independent expected body",
+        "pass": true
+      },
+      {
+        "label": "replay-reference: recorded HTTP 200",
+        "pass": true
+      },
+      {
+        "label": "replay-reference: expected match and source binding",
+        "pass": true
+      },
+      {
+        "label": "replay-reference: full recorded body",
+        "pass": true,
+        "gating": true
+      },
+      {
+        "label": "replay-reference: target-content trust marker",
+        "pass": true
+      },
+      {
+        "label": "replay-reference: independent expected body",
+        "pass": true
+      },
+      {
+        "label": "replay-query-negative: recorded HTTP 200",
+        "pass": true
+      },
+      {
+        "label": "replay-query-negative: expected match and source binding",
+        "pass": true
+      },
+      {
+        "label": "replay-query-negative: full recorded body",
+        "pass": true,
+        "gating": true
+      },
+      {
+        "label": "replay-query-negative: target-content trust marker",
+        "pass": true
+      },
+      {
+        "label": "replay-query-negative: independent expected body",
+        "pass": true
+      },
+      {
+        "label": "replay-body-negative: recorded HTTP 200",
+        "pass": true
+      },
+      {
+        "label": "replay-body-negative: expected match and source binding",
+        "pass": true
+      },
+      {
+        "label": "replay-body-negative: full recorded body",
+        "pass": true,
+        "gating": true
+      },
+      {
+        "label": "replay-body-negative: target-content trust marker",
+        "pass": true
+      },
+      {
+        "label": "replay-body-negative: independent expected body",
+        "pass": true
+      },
+      {
+        "label": "oracle-after-replay: bounded execution",
+        "pass": true
+      },
+      {
+        "label": "oracle-after-replay: independent filesystem oracle",
+        "pass": true
+      },
+      {
+        "label": "Offline replay left committed revision unchanged",
+        "pass": true
+      },
+      {
+        "label": "Original target connection refused during offline replay",
+        "pass": true
+      },
+      {
+        "label": "Replay server graceful SIGTERM exit",
+        "pass": true
+      },
+      {
+        "label": "Executed EdOS copy remains identical to pinned source",
+        "pass": true
+      },
+      {
+        "label": "All declared input bytes unchanged",
+        "pass": true
+      }
+    ],
+    "capture_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+    "manifest_id": "ev_0d0ae147f67180c9b7e7b52486dc0425e1c5128cb8072d91b2379ee4160abaef",
+    "capture_completeness": {
+      "status": "incomplete",
+      "equality_eligible": false,
+      "missing_sections": ["events"],
+      "truncated_sections": []
+    },
+    "response_contents": [
+      {
+        "sequence": 9,
+        "source_event_sequence": 3,
+        "transaction_id": "request-1",
+        "path": "/",
+        "phase": "response",
+        "state": "captured",
+        "decoded_retained_body_sha256": "a25f7c0e3f3322289fca49e57dffdc93dde6f4244624f1c867e37c87cb0668cc"
+      },
+      {
+        "sequence": 10,
+        "source_event_sequence": 7,
+        "transaction_id": "request-2",
+        "path": "/api/scene-workspace",
+        "phase": "response",
+        "state": "captured",
+        "decoded_retained_body_sha256": "97e5881fa9d3bad6534f0b36b26002c25436ee2faf9850e3bfb17f7c22ba397f"
+      },
+      {
+        "sequence": 15,
+        "source_event_sequence": 13,
+        "transaction_id": "request-3",
+        "path": "/api/scene-workspace/candidates",
+        "phase": "response",
+        "state": "captured",
+        "decoded_retained_body_sha256": "723e874c14fd58db64f122aa4948b72e6ab1d3a2a7a12dac12c3c4e4aa0e9282"
+      },
+      {
+        "sequence": 20,
+        "source_event_sequence": 18,
+        "transaction_id": "request-4",
+        "path": "/api/scene-workspace/candidates",
+        "phase": "response",
+        "state": "captured",
+        "decoded_retained_body_sha256": "7e15079f998fd381be9e9f2baea8ff7f367eb2d08475c85c888ce1a205217734"
+      },
+      {
+        "sequence": 25,
+        "source_event_sequence": 23,
+        "transaction_id": "request-5",
+        "path": "/api/scene-workspace/source?id=reference",
+        "phase": "response",
+        "state": "captured",
+        "decoded_retained_body_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89"
+      }
+    ],
+    "request_body_coverage_gaps": [
+      {
+        "sequence": 2,
+        "source_event_sequence": 1,
+        "transaction_id": "request-1",
+        "path": "/",
+        "phase": "request",
+        "state": "not_exposed"
+      },
+      {
+        "sequence": 5,
+        "source_event_sequence": 4,
+        "transaction_id": "request-2",
+        "path": "/api/scene-workspace",
+        "phase": "request",
+        "state": "not_exposed"
+      },
+      {
+        "sequence": 17,
+        "source_event_sequence": 16,
+        "transaction_id": "request-4",
+        "path": "/api/scene-workspace/candidates",
+        "phase": "request",
+        "state": "not_exposed"
+      },
+      {
+        "sequence": 22,
+        "source_event_sequence": 21,
+        "transaction_id": "request-5",
+        "path": "/api/scene-workspace/source?id=reference",
+        "phase": "request",
+        "state": "not_exposed"
+      }
+    ],
+    "request_failed_events": 0,
+    "err_aborted_present": false,
+    "gate_reason": "Four selected GET request bodies are not_exposed. Baseline PlaywrightNetworkContent maps null postDataBuffer to not_exposed; PlaywrightScenarioNetwork.collect adds a gap for this state; provider maps event limitations to missing events. All five response bodies are captured. This is not a stale flag or a fresh response-body loss.",
+    "replay": {
+      "replay-post": {
+        "status": 200,
+        "record_ordinal": 2,
+        "evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+        "exact_match": true,
+        "recorded_path": "/api/scene-workspace/candidates",
+        "recorded_query": null,
+        "recorded_line_truncated": false,
+        "content_type_truncated": false,
+        "body_recorded": true,
+        "body_encoding": "utf-8",
+        "truncated": false,
+        "body_oracle": "PASS",
+        "untrusted_content": true,
+        "serialized_body_json_sha256": "723e874c14fd58db64f122aa4948b72e6ab1d3a2a7a12dac12c3c4e4aa0e9282"
+      },
+      "replay-candidates": {
+        "status": 200,
+        "record_ordinal": 3,
+        "evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+        "exact_match": true,
+        "recorded_path": "/api/scene-workspace/candidates",
+        "recorded_query": null,
+        "recorded_line_truncated": false,
+        "content_type_truncated": false,
+        "body_recorded": true,
+        "body_encoding": "utf-8",
+        "truncated": false,
+        "body_oracle": "PASS",
+        "untrusted_content": true,
+        "serialized_body_json_sha256": "7e15079f998fd381be9e9f2baea8ff7f367eb2d08475c85c888ce1a205217734"
+      },
+      "replay-reference": {
+        "status": 200,
+        "record_ordinal": 4,
+        "evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+        "exact_match": true,
+        "recorded_path": "/api/scene-workspace/source",
+        "recorded_query": "?id=reference",
+        "recorded_line_truncated": false,
+        "content_type_truncated": false,
+        "body_recorded": true,
+        "body_encoding": "utf-8",
+        "truncated": false,
+        "body_oracle": "PASS",
+        "untrusted_content": true,
+        "serialized_body_json_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89"
+      },
+      "replay-query-negative": {
+        "status": 200,
+        "record_ordinal": 4,
+        "evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+        "exact_match": false,
+        "recorded_path": "/api/scene-workspace/source",
+        "recorded_query": "?id=reference",
+        "recorded_line_truncated": false,
+        "content_type_truncated": false,
+        "body_recorded": true,
+        "body_encoding": "utf-8",
+        "truncated": false,
+        "body_oracle": "PASS",
+        "untrusted_content": true,
+        "serialized_body_json_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89"
+      },
+      "replay-body-negative": {
+        "status": 200,
+        "record_ordinal": 2,
+        "evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+        "exact_match": true,
+        "recorded_path": "/api/scene-workspace/candidates",
+        "recorded_query": null,
+        "recorded_line_truncated": false,
+        "content_type_truncated": false,
+        "body_recorded": true,
+        "body_encoding": "utf-8",
+        "truncated": false,
+        "body_oracle": "PASS",
+        "untrusted_content": true,
+        "serialized_body_json_sha256": "723e874c14fd58db64f122aa4948b72e6ab1d3a2a7a12dac12c3c4e4aa0e9282"
+      }
+    },
+    "oracle": {
+      "method": "Independent filesystem/fixture checker imports neither REA nor EdOS; committed state/source/reference compared before and after controls/replay.",
+      "before": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "51356019192f9ea1fa366ce0f983b067e2f3ae1cf299d277188d366b45d86019",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": [],
+        "sequence": 0
+      },
+      "after": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "51356019192f9ea1fa366ce0f983b067e2f3ae1cf299d277188d366b45d86019",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": ["00000001.json"],
+        "revision_sha256": "613cbaf9d56d3789c0c37019211863a4d5150359d44a0d4c0c945736c727ecbf",
+        "sequence": 1
+      },
+      "negative_calibration": {
+        "exit": 1,
+        "status": "FAIL",
+        "failed_check": "exact revision set with no pending or extra files"
+      },
+      "wrong_token": {
+        "status": 403,
+        "unchanged_revision": true,
+        "session": "original captured session"
+      },
+      "stale_sequence": {
+        "status": 409,
+        "unchanged_revision": true,
+        "session": "original captured session"
+      },
+      "tamper": {
+        "code": "invalid_request",
+        "evidence_id_issue": true,
+        "cli_exit": 1
+      },
+      "live_unknown_source_status": 404,
+      "stopped_target_tcp_probes": ["ECONNREFUSED", "ECONNREFUSED"]
+    },
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "155.0.8059.86"
+    },
+    "target_exit": {
+      "code": 0,
+      "signal": null
+    },
+    "cleanup": [
+      {
+        "name": "target",
+        "forced": false
+      },
+      {
+        "name": "replay-server",
+        "forced": false
+      },
+      {
+        "name": "private-session-file",
+        "removed": true
+      }
+    ],
+    "commands": [
+      {
+        "name": "oracle-before",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 397,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "capture",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 17613,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "oracle-after-capture",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 440,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "oracle-negative-calibration",
+        "code": 1,
+        "signal": null,
+        "elapsed_ms": 390,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "oracle-wrong-token",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 414,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "oracle-stale-sequence",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 393,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "target",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 20678,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "manifest",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 3605,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "tamper",
+        "code": 1,
+        "signal": null,
+        "elapsed_ms": 4575,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "oracle-after-replay",
+        "code": 0,
+        "signal": null,
+        "elapsed_ms": 345,
+        "timed_out": false,
+        "error": null
+      },
+      {
+        "name": "replay-server",
+        "code": 143,
+        "signal": null,
+        "elapsed_ms": 6228,
+        "timed_out": false,
+        "error": null
+      }
+    ],
+    "bindings": {
+      "runtime_entries": 2393,
+      "runtime_binding_sha256": "ba28922f65e0c78e6d69bbca72a2d118598226a701a62670cc358d9685e17cf7",
+      "edos_module_sha256": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+      "chrome_launcher_sha256": "011a77fd50ddc001d31c4ef042e655a0ffb8ca64646c6ab4fcd6fe0c6ba7f1be",
+      "harness": [
+        [
+          "run-pilot.mjs",
+          "63bacf9fb16d40da164349a76d8e995e86ff009d32ad44b2f9c0c021e5f8138f"
+        ],
+        [
+          "pilot-assessment.mjs",
+          "2b4ec1c09d84e2211a96d42dd527d066f99b39a830a4b46510962d0069ff1080"
+        ],
+        [
+          "target.mjs",
+          "4fd3032651d2b22a8c7237ac114a5d0f64d423676de22fa41ee0b0583fcba63e"
+        ],
+        [
+          "oracle.mjs",
+          "ec6f4dff9d514b0666afcfd3e44364fb7a11f9ebef9fe4fbea6f0a571899ee78"
+        ],
+        [
+          "fixture.json",
+          "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236"
+        ]
+      ],
+      "before_after_equal": true
+    },
+    "raw_receipt_sha256": "259f12f9f00fb1bf3cc82316ff65744c2b971dee42375de81409258e0e518501"
+  },
+  "independent_review": {
+    "scope": "Read-only source, native protocol and actual pilot artifact/filesystem review; no independent new browser replication.",
+    "result": "Confirms off-B-5 counterexample, zero protocol refetch/duplicates, correct distinction of captured responses versus four not_exposed request bodies, and retained full FAIL."
+  },
+  "limitations": [
+    "Sequential small cells and correlated diagnostic checks are not reliability estimates or independent sample counts.",
+    "Instrumentation may perturb timing; eight green uninstrumented anchors do not prove instrumentation caused the three matrix failures.",
+    "Strong retention covers Response, reader and AbortSignal, not a separately retained AbortController. No GC or browser-version comparison was performed.",
+    "Gate OFF is an isolated synthetic diagnostic with dispatch guard disabled, not a proposed production correction.",
+    "Native and fresh-pilot outcomes differ. All responses captured in the fresh pilot does not prove the intermittent native failure fixed.",
+    "not_exposed is not proof a request body was absent. The existing complete-capture gate is preserved; no scope or semantics were weakened.",
+    "Replay returns recordings, does not renew authorization or execute writes; query fallback and ignored POST-body matching remain observed limitations.",
+    "Response.body hashes describe retained API bytes, not original wire attestation. Serialized MCP-body JSON hashes and raw file/semantic Evidence identities have distinct domains and are not signatures.",
+    "Raw protocol/capture data and private frozen EdOS source remain local. Synthetic API contour is not full UI or general production qualification.",
+    "No merge/release/adoption/productivity effect is established; root cause remains unknown."
+  ],
+  "next": "If further diagnosis is commissioned, isolate instrumentation/consumer behavior or inspect native body availability after completed-reader/native-failed ordering without backfill; a compatible browser comparison needs a separately declared environment change."
+}
