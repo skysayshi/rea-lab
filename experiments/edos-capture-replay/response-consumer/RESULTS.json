@@ -1,0 +1,110 @@
+{
+  "schema": "edos-actual-response-consumer-v1",
+  "scope": "frozen-product-callback-fixture-integration",
+  "status": "SCOPED_CONSUMER_APPLIED",
+  "node": "v24.22.1",
+  "cases": [
+    {
+      "name": "actual source callback installs exact independent reference",
+      "status": "PASS",
+      "source_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/scene-workspace/source",
+          "query": "?id=reference",
+          "bodyKeys": []
+        }
+      ]
+    },
+    {
+      "name": "older overlapping response cannot replace current source",
+      "status": "PASS",
+      "requests": 2,
+      "source_installations": 1
+    },
+    {
+      "name": "unknown source query stays refused through actual callback",
+      "status": "PASS",
+      "decision": "REJECTED",
+      "error": "No unique response matches the exact recorded request",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/scene-workspace/source",
+          "query": "?id=unknown",
+          "bodyKeys": []
+        }
+      ]
+    },
+    {
+      "name": "actual dirty save is incompatible with the recorded POST intent",
+      "status": "PASS",
+      "decision": "UNSUPPORTED_RECORDED_INTENT",
+      "draft_preserved": true,
+      "request_body_sha256": "b7ec2fef06dba2fd535b43edce73ac6f529ec95268686509fa76d3a6665d8a35",
+      "calls": [
+        {
+          "method": "POST",
+          "path": "/api/scene-workspace/candidates",
+          "query": null,
+          "bodyKeys": [
+            "baseRevision",
+            "dirty",
+            "expectedSequence",
+            "sectionId",
+            "text",
+            "title"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "source transition remains closed when preceding dirty save is refused",
+      "status": "PASS",
+      "decision": "REJECTED",
+      "source_get_dispatched": false,
+      "draft_preserved": true
+    },
+    {
+      "name": "stale-response oracle detects in-memory generation-guard mutant",
+      "status": "PASS",
+      "decision": "EXPECTED_ORACLE_FAILURE",
+      "mutation": "source-install generation predicate only",
+      "bindings": {
+        "generation_mutant": true,
+        "evaluated_open_source_sha256": "91a359d3a8fae48efa65b80a3a194feef59ffaa80b5e600689c61d59fb4a2c42"
+      }
+    }
+  ],
+  "passed": 6,
+  "total": 6,
+  "input_sha256": {
+    "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+    "typescript": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+    "pack": "c9cfc0f66b4c50b7dc6da21b20bf66a82928e12caa3573c869dd2a67849bac17"
+  },
+  "inputs_unchanged": true,
+  "oracle_fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+  "probe_bindings": {
+    "component_sha256": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+    "typescript_sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+    "typescript_package_sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6",
+    "typescript_version": "5.9.3",
+    "pack_sha256": "c9cfc0f66b4c50b7dc6da21b20bf66a82928e12caa3573c869dd2a67849bac17",
+    "api_sha256": "f9bae5ddb9f35191d1f75bcf7dda927b253e7337f1259805db79ad1e0e365e63",
+    "open_source_sha256": "edd2815d7055531fbd5c9c107cf7167eb8a9b4fa6095b4d3e2da9d4022e557e2",
+    "save_sha256": "76d22e9a1598f13f2ce5000700beb4d11ef270f50ca138248b96d54073f2c3b8"
+  },
+  "full_capture_acceptance": "FAIL",
+  "product_source_fix": false,
+  "new_browser_server_capture_runs": 0,
+  "limitations": [
+    "Actual AST-extracted API/openSource/save callbacks with explicit in-memory dependencies, not a mounted React/DOM/browser workflow.",
+    "Source-reading success uses one reference record from the existing three-record pack; it does not qualify every response or endpoint.",
+    "Dirty editor POST is refused because its full body differs from the captured request; no fields were stripped and no live save was executed.",
+    "Synthetic transport headers and HTTP Response objects do not validate or renew authorization.",
+    "The negative mutant exists only in memory for oracle calibration; original product source is unchanged.",
+    "Historical full capture FAIL, unknown browser cause, release, team adoption and product effect remain unresolved or unobserved."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "scope": "frozen-product-callback-fixture-integration",
+  "node": "v24.22.1",
+  "cases": {
+    "passed": 6,
+    "total": 6,
+    "ordinary_scenarios": 5,
+    "oracle_mutant_calibrations": 1
+  },
+  "executed_product_callbacks": [
+    "api",
+    "openSource",
+    "save"
+  ],
+  "syntax": {
+    "files": 3,
+    "status": "PASS"
+  },
+  "format": {
+    "files": 3,
+    "status": "PASS"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "whitespace": "PASS",
+  "final_receipt_sha256": "bfd3c4feda1895f641185b9987b63e0e077c91bb6aa96143c0ec85f737a83788",
+  "provisional_receipt": {
+    "sha256": "1eee5f46ed01233fb4c11154ccf22f1829a59786fd42fc81c6ae6b694722bb82",
+    "cases": 6,
+    "used_for_current_claim": false,
+    "note": "Full serialized-body equality added after review; final stronger run is authoritative, not an independent replication."
+  },
+  "review": {
+    "method": "separate reader reviewed source, probe, oracle and checks",
+    "corrections": [
+      "Independent expected draft object and empty editor updates asserted before first execution",
+      "Full decoded request body observed and compared against independent draft before final execution"
+    ]
+  },
+  "original_inputs_unchanged": [
+    "component",
+    "typescript",
+    "typescriptPackage",
+    "fixture",
+    "pack"
+  ],
+  "artifact_sha256": {
+    "probe.mjs": "b4d9a17c1f92b8ae06746d6c0fa6b17661a551a2bca0054d8a49de533ffdffc0",
+    "oracle.mjs": "96b8500d3267d599a4e4a1d18dbc171cbe6556fe798ad343b7a4538648cda149",
+    "run-checks.mjs": "ad6e02a04e9581e57c53e0edeb7442834ed8a0e7e6aab72c6477f033d18f26ca",
+    "RESULTS.json": "bfd3c4feda1895f641185b9987b63e0e077c91bb6aa96143c0ec85f737a83788"
+  },
+  "not_run": [
+    "mounted React/DOM",
+    "browser/server/new capture",
+    "successful save/actual persistence",
+    "complete product test suite/build",
+    "auth renewal",
+    "external adoption/effect"
+  ]
+}

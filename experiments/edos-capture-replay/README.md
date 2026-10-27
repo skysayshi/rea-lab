@@ -108,6 +108,13 @@ and runnable `response-fixtures/example.mjs`.
 
 ## Evidence scope
 
+The next [actual consumer application](response-consumer/README.md) executes the
+frozen EdOS API/source/save callbacks with explicit in-memory dependencies. Six
+cases verify exact reference reading, stale-response rejection and dirty-draft
+preservation. The real minimal dirty-save body is incompatible with the recorded
+POST intent and stays refused. This is callback-level application, with no mounted
+UI, live authentication, product writes or change to the historical full gate.
+
 `RESULTS.json` and the dated diagnostic receipt are reviewed, sanitized first-party
 exports. Exact raw artifacts
 and the private source remain local; public readers cannot independently
