@@ -13,6 +13,7 @@ const scenario = browserScenarioSchema.parse({
   secrets: [{ secret_id: "declared", environment_variable: "SECRET" }],
 });
 const secrets = resolveScenarioSecrets(scenario, { SECRET: "x" });
+const noSecrets = resolveScenarioSecrets({ ...scenario, secrets: [] }, {});
 const options = {
   timeoutMs: 100,
   maxBodyBytes: 4,
@@ -24,6 +25,54 @@ const source = {
   headers: () => ({ "content-type": "text/plain" }),
   headersArray: async () => [],
 };
+
+it("distinguishes unexposed request bytes from an explicitly exposed empty buffer", async () => {
+  expect(
+    await captureNetworkBody(
+      async () => null,
+      "request",
+      source,
+      noSecrets,
+      options,
+    ),
+  ).toEqual({ state: "not_exposed" });
+  expect(
+    await captureNetworkBody(
+      async () => Buffer.alloc(0),
+      "request",
+      source,
+      noSecrets,
+      options,
+    ),
+  ).toEqual({
+    state: "captured",
+    representation: "browser-exposed-request-bytes",
+    encoding: "base64",
+    content: "",
+    bytes: 0,
+    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    media_type: "text/plain",
+    redacted: false,
+  });
+});
+
+it("preserves a request-body read error separately from unexposed bytes", async () => {
+  expect(
+    await captureNetworkBody(
+      async () => {
+        throw new Error("Request body read failed");
+      },
+      "request",
+      source,
+      noSecrets,
+      options,
+    ),
+  ).toEqual({
+    state: "unavailable",
+    reason: "body-read-failed",
+    message: "Request body read failed",
+  });
+});
 
 it("enforces the retained body byte limit after secret expansion", async () => {
   expect(

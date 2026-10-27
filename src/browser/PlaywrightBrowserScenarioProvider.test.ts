@@ -9,6 +9,9 @@ import { describe, expect, it, vi } from "vitest";
 
 import type { BrowserScenarioSessionPort } from "./BrowserScenarioSessionPort.js";
 import { PlaywrightBrowserScenarioProvider } from "./PlaywrightBrowserScenarioProvider.js";
+import { PlaywrightScenarioNetwork } from "./network/PlaywrightScenarioNetwork.js";
+import { createBrowserScenarioEvidence } from "../application/BrowserScenarioEvidence.js";
+import { resolveScenarioSecrets } from "../../tests/fixtures/browserScenarioSecrets.js";
 import { sanitizeBrowserUrl } from "../domain/browserObservation.js";
 import {
   browserScenarioSchema,
@@ -16,6 +19,7 @@ import {
 } from "../domain/browserScenario.js";
 import type { BrowserScenarioAction } from "../domain/browserScenarioValues.js";
 import {
+  browserScenarioEventSchema,
   browserStepArtifactsSchema,
   type BrowserScenarioEvent,
   type BrowserScenarioEventFamily,
@@ -275,6 +279,137 @@ const capturedResponseBodyEvents = (): readonly BrowserScenarioEvent[] => [
     },
   },
 ];
+
+it.each([
+  {
+    label: "unexposed",
+    read: () => null,
+    body: { state: "not_exposed" },
+    complete: false,
+  },
+  {
+    label: "explicitly empty",
+    read: () => Buffer.alloc(0),
+    body: { state: "captured", bytes: 0, content: "" },
+    complete: true,
+  },
+  {
+    label: "nonempty",
+    read: () => Buffer.from("GET body"),
+    body: { state: "captured", bytes: 8, content: "R0VUIGJvZHk=" },
+    complete: true,
+  },
+  {
+    label: "failed read",
+    read: () => {
+      throw new Error("Synthetic request read failed");
+    },
+    body: { state: "unavailable", reason: "body-read-failed" },
+    complete: false,
+  },
+])(
+  "preserves $label GET request-body coverage from collector through Evidence",
+  async ({ read, body, complete }) => {
+    const selected = scenario({ events: ["network"] });
+    const input = browserScenarioSchema.parse({
+      ...selected,
+      capture: {
+        ...selected.capture,
+        network: {
+          request_body: true,
+          response_body: true,
+          header_values: true,
+        },
+      },
+    });
+    const items: BrowserScenarioEvent[] = [];
+    const rejectOmission = () => {
+      throw new Error("Unexpected synthetic event omission");
+    };
+    const collector = new PlaywrightScenarioNetwork({
+      selection: input.capture.network,
+      limits: input.capture.limits,
+      secrets: resolveScenarioSecrets(input, {}),
+      emit: (event) => {
+        const sequence = items.length + 1;
+        items.push(
+          browserScenarioEventSchema.parse({
+            ...event,
+            sequence,
+            step_index: 0,
+          }),
+        );
+        return { status: "retained", sequence };
+      },
+      admitText: () => ({ status: "retained", sequence: items.length + 1 }),
+      admitContentBody: () => ({
+        status: "retained",
+        sequence: items.length + 1,
+      }),
+      omitNetwork: rejectOmission,
+      omitEvent: rejectOmission,
+    });
+    const request = {
+      method: () => "GET",
+      url: () => "https://app.example.test/resource",
+      resourceType: () => "fetch",
+      headers: () => ({}),
+      headersArray: async () => [],
+      postDataBuffer: read,
+      redirectedFrom: () => null,
+      failure: () => null,
+    };
+    collector.request(request);
+    collector.response({
+      request: () => request,
+      url: request.url,
+      status: () => 200,
+      headers: request.headers,
+      headersArray: request.headersArray,
+      body: async () => Buffer.from("complete response"),
+    });
+    collector.finished(request);
+    await collector.finish();
+
+    const session = new FakeSession("launch");
+    session.eventItems = items;
+    session.eventGaps = collector.limitations();
+    const provider = new PlaywrightBrowserScenarioProvider(async () => session);
+    const captured = await provider.captureScenario(input);
+    if (!captured.ok) throw captured.error;
+    const completeness = {
+      status: complete ? "complete" : "incomplete",
+      equality_eligible: complete,
+      missing_sections: complete ? [] : ["events"],
+    };
+    expect(captured.value.completeness).toMatchObject(completeness);
+    const evidence = createBrowserScenarioEvidence(
+      input,
+      captured.value,
+      provider.identity(),
+    );
+    expect(evidence.normalized_result).toMatchObject({
+      completeness,
+      events: {
+        items: expect.arrayContaining([
+          expect.objectContaining({
+            kind: "network-content",
+            phase: "request",
+            body: expect.objectContaining(body),
+          }),
+          expect.objectContaining({
+            kind: "network-content",
+            phase: "response",
+            body: expect.objectContaining({ state: "captured" }),
+          }),
+        ]),
+      },
+    });
+    expect(evidence.limitations).toEqual(
+      expect.arrayContaining([...session.eventGaps]),
+    );
+  },
+);
 
 describe("PlaywrightBrowserScenarioProvider", () => {
   it("reports response-body provenance uncertainty without marking event coverage missing", async () => {

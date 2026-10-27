@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import { expect, it } from "vitest";
+import { scenarioCaptureFixture } from "../../tests/fixtures/browserScenarioCapture.js";
 
 import { sanitizeBrowserUrl } from "./browserObservation.js";
 import {
@@ -8,8 +9,17 @@ import {
   browserScenarioEventSchema,
   browserStepArtifactsSchema,
 } from "./browserScenarioCaptureValues.js";
-import { browserScenarioCaptureSchema } from "./browserScenarioCapture.js";
+import {
+  browserScenarioCaptureSchema,
+  retainedBrowserScenarioCaptureSchema,
+} from "./browserScenarioCapture.js";
 import { DEFAULT_BROWSER_SCENARIO_CAPTURE_LIMITS } from "./browserScenarioCaptureLimits.js";
+import type {
+  BrowserNetworkBody,
+  BrowserNetworkHeaders,
+} from "./browserNetworkEvidence.js";
+import { compareBrowserScenarios } from "./browserScenarioDiff.js";
+import { compareBrowserScenariosInputSchema } from "./browserScenarioDiffValues.js";
 
 const networkEvent = {
   sequence: 1,
@@ -386,4 +396,151 @@ it("derives equality eligibility from exact completeness state", () => {
       truncated_sections: ["events"],
     }).success,
   ).toBe(false);
+});
+
+const contentCapture = (
+  phase: "request" | "response",
+  body: BrowserNetworkBody,
+  headers: BrowserNetworkHeaders = { state: "captured", items: [] },
+) => {
+  const base = scenarioCaptureFixture([], {
+    request_body: phase === "request",
+    response_body: phase === "response",
+    header_values: true,
+  });
+  return {
+    ...base,
+    events: {
+      ...base.events,
+      retained: 2,
+      dropped: 0,
+      items: [
+        {
+          ...networkEvent,
+          kind: phase,
+          status: phase === "request" ? null : 200,
+          failure: null,
+        },
+        {
+          sequence: 2,
+          step_index: 0,
+          kind: "network-content",
+          transaction_id: networkEvent.transaction_id,
+          source_event_sequence: 1,
+          phase,
+          headers,
+          body,
+        },
+      ],
+    },
+  };
+};
+
+const emptyBody = (phase: "request" | "response"): BrowserNetworkBody => ({
+  state: "captured",
+  representation:
+    phase === "request"
+      ? "browser-exposed-request-bytes"
+      : "playwright-response-body-bytes",
+  encoding: "base64",
+  content: "",
+  bytes: 0,
+  sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  media_type: null,
+  redacted: false,
+});
+
+it.each(["request", "response"] as const)(
+  "requires missing event coverage for selected %s content gaps",
+  (phase) => {
+    const cases = [
+      contentCapture(phase, { state: "not_exposed" }),
+      contentCapture(phase, {
+        state: "unavailable",
+        reason: "body-read-failed",
+        message: "Synthetic read failure",
+      }),
+      contentCapture(phase, emptyBody(phase), {
+        state: "unavailable",
+        message: "Synthetic header failure",
+      }),
+    ];
+    for (const capture of cases) {
+      const { event_families: _selection, ...legacyScenario } =
+        capture.scenario;
+      for (const [schema, input] of [
+        [browserScenarioCaptureSchema, capture],
+        [
+          retainedBrowserScenarioCaptureSchema,
+          { ...capture, scenario: legacyScenario },
+        ],
+      ] as const) {
+        const rejected = schema.safeParse(input);
+        expect(rejected.success).toBe(false);
+        if (!rejected.success)
+          expect(rejected.error.issues).toContainEqual(
+            expect.objectContaining({
+              path: ["completeness", "missing_sections"],
+            }),
+          );
+        for (const missing of ["dom", "events"]) {
+          const admitted = schema.safeParse({
+            ...input,
+            completeness: {
+              status: "incomplete",
+              equality_eligible: false,
+              missing_sections: [missing],
+              truncated_sections: [],
+            },
+          });
+          expect(admitted.success).toBe(missing === "events");
+          if (admitted.success)
+            expect(admitted.data.completeness.equality_eligible).toBe(false);
+        }
+      }
+    }
+  },
+);
+
+it.each(["request", "response"] as const)(
+  "admits explicitly captured zero-byte %s bodies as complete",
+  (phase) => {
+    const capture = contentCapture(phase, emptyBody(phase));
+    for (const schema of [
+      browserScenarioCaptureSchema,
+      retainedBrowserScenarioCaptureSchema,
+    ]) {
+      const admitted = schema.parse(capture);
+      expect(admitted.completeness.equality_eligible).toBe(true);
+      expect(admitted.events.items[1]).toMatchObject({
+        body: { state: "captured", bytes: 0, content: "" },
+      });
+    }
+  },
+);
+
+it("rejects false complete body evidence before comparison while preserving unknown partial comparisons", () => {
+  const capture = contentCapture("request", { state: "not_exposed" });
+  expect(
+    compareBrowserScenariosInputSchema.safeParse({
+      before_scenario: capture,
+      after_scenario: capture,
+    }).success,
+  ).toBe(false);
+  const partial = {
+    ...capture,
+    completeness: {
+      status: "incomplete",
+      equality_eligible: false,
+      missing_sections: ["events"],
+      truncated_sections: [],
+    },
+  };
+  const comparison = compareBrowserScenarios(
+    compareBrowserScenariosInputSchema.parse({
+      before_scenario: partial,
+      after_scenario: partial,
+    }),
+  );
+  expect(comparison.overall_status).toBe("unknown");
 });

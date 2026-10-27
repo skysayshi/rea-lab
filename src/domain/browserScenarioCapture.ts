@@ -64,6 +64,31 @@ export const retainedBrowserScenarioCaptureSchema = z
             "Network content must reference an earlier matching transaction phase",
         });
     }
+    // Imported captures must preserve the producer's selected-content gaps;
+    // a caller-supplied completeness flag cannot turn unknown bytes into equality.
+    const selection = capture.scenario.network_content;
+    const unavailableSelectedContent = capture.events.items.some(
+      (event) =>
+        event.kind === "network-content" &&
+        ((selection.header_values && event.headers.state === "unavailable") ||
+          ((event.phase === "request"
+            ? selection.request_body
+            : selection.response_body) &&
+            (event.body.state === "not_exposed" ||
+              event.body.state === "unavailable"))),
+    );
+    if (
+      unavailableSelectedContent &&
+      !capture.completeness.missing_sections.some(
+        (section) => section === "events",
+      )
+    )
+      context.addIssue({
+        code: "custom",
+        path: ["completeness", "missing_sections"],
+        message:
+          "Unavailable selected network content requires missing event coverage",
+      });
     if (capture.events.retained !== capture.events.items.length)
       context.addIssue({
         code: "custom",

@@ -496,7 +496,14 @@ Capturing more data alone does not establish a website change.
 states. Captured bodies retain base64 bytes, byte count, media type, and SHA-256
 of the retained bytes. Request bytes are those exposed by Playwright; a
 `not_exposed` request body does not prove absence or complete multipart file
-coverage. Response bytes are the result of Playwright's `Response.body()` API.
+coverage. A returned zero-length Buffer is instead captured as zero bytes with
+the empty-content digest. Neither the GET/HEAD method nor a null body combined
+with a zero reported size establishes absence of original request bytes.
+Semantic capture validation requires `events` in `missing_sections` when
+selected body content is `not_exposed` or `unavailable`, or selected headers
+are `unavailable`. Contradictory imported completeness claims are rejected;
+unknown content is never rewritten as empty content.
+Response bytes are the result of Playwright's `Response.body()` API.
 Playwright may satisfy that API with a credentialed follow-up load of the
 request URL when CDP has no response body. Event and transaction references
 identify the associated Playwright response object, but do not verify that the

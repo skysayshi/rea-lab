@@ -746,6 +746,119 @@ it("preserves read errors and does not turn unexposed or empty bytes into the sa
   expect(collector.limitations().length).toBeGreaterThan(0);
 });
 
+it.each(["GET", "HEAD", "POST"])(
+  "keeps the selected %s request-body gap unless bytes are exposed",
+  async (method) => {
+    for (const exposed of [false, true]) {
+      const { collector, events } = harness();
+      const request = new RequestFixture("");
+      request.method = () => method;
+      request.headers = () => ({});
+      request.postDataBuffer = () => (exposed ? Buffer.alloc(0) : null);
+      collector.request(request);
+      collector.response(new ResponseFixture(request, "complete response"));
+      collector.finished(request);
+      await collector.finish();
+
+      expect(
+        events.find(
+          (event) =>
+            event.kind === "network-content" && event.phase === "request",
+        ),
+      ).toMatchObject({
+        body: exposed
+          ? { state: "captured", bytes: 0, content: "" }
+          : { state: "not_exposed" },
+      });
+      // Every response is retained; only the request-body observation differs.
+      expect(
+        events.find(
+          (event) =>
+            event.kind === "network-content" && event.phase === "response",
+        ),
+      ).toMatchObject({ body: { state: "captured" } });
+      expect(collector.limitations()).toHaveLength(exposed ? 0 : 1);
+    }
+  },
+);
+
+it.each([
+  ["content-length", "0"],
+  ["content-length", "8"],
+  ["transfer-encoding", "chunked"],
+])("does not infer missing GET bytes from %s: %s", async (name, value) => {
+  const { collector, events } = harness();
+  const request = new RequestFixture("unused");
+  request.method = () => "GET";
+  request.headers = () => ({ [name]: value });
+  request.postDataBuffer = () => null;
+  collector.request(request);
+  collector.finished(request);
+  await collector.finish();
+
+  expect(
+    events.find((event) => event.kind === "network-content"),
+  ).toMatchObject({
+    phase: "request",
+    headers: { state: "captured", items: [{ name, value, redacted: false }] },
+    body: { state: "not_exposed" },
+  });
+  expect(collector.limitations()).toHaveLength(1);
+});
+
+it("retains exposed nonempty GET request bytes without replacing them with emptiness", async () => {
+  const { collector, events } = harness();
+  const request = new RequestFixture("GET body");
+  request.method = () => "GET";
+  collector.request(request);
+  collector.finished(request);
+  await collector.finish();
+
+  const content = events.find((event) => event.kind === "network-content");
+  expect(content).toMatchObject({
+    phase: "request",
+    body: { state: "captured", bytes: 8 },
+  });
+  expect(bodyText(content!)).toBe("GET body");
+  expect(collector.limitations()).toEqual([]);
+});
+
+it("keeps a GET request-body read failure as an explicit coverage gap", async () => {
+  const { collector, events } = harness();
+  const request = new RequestFixture("unused");
+  request.method = () => "GET";
+  request.postDataBuffer = () => {
+    throw new Error("Request body unavailable");
+  };
+  collector.request(request);
+  collector.finished(request);
+  await collector.finish();
+
+  expect(
+    events.find((event) => event.kind === "network-content"),
+  ).toMatchObject({
+    phase: "request",
+    body: { state: "unavailable", reason: "body-read-failed" },
+  });
+  expect(collector.limitations()).toHaveLength(1);
+});
+
+it("leaves unselected request bodies unrequested without reading or claiming their bytes", async () => {
+  const { collector, events } = harness({ ...selection, request_body: false });
+  const request = new RequestFixture("not observed");
+  request.method = () => "GET";
+  collector.request(request);
+  collector.finished(request);
+  await collector.finish();
+
+  expect(request.bodyReads).toBe(0);
+  expect(
+    events.find((event) => event.kind === "network-content"),
+  ).toMatchObject({ phase: "request", body: { state: "not_requested" } });
+  // No gap in the selected facets is not a claim of full request-body capture.
+  expect(collector.limitations()).toEqual([]);
+});
+
 it("redacts declared encodings in body media metadata", async () => {
   const { collector, events } = harness({
     request_body: false,
