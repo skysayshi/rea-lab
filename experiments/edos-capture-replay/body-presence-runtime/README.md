@@ -116,3 +116,11 @@ the live disabled-observer control and two offline oracle calibrations.
 [Its receipt](live-20261028/RECEIPT.json) binds unchanged inputs and runtime
 to the exact raw artifacts. The older results above remain historical;
 full-capture acceptance stays FAIL.
+
+## Completeness attribution and useful consumer scope
+
+[The subsequent reuse report](../normal-editor-fixtures/README.md#why-the-browser-capture-is-still-incomplete)
+traces the fresh capture to three native body gaps and the disabled-observer gap.
+Unselected response bodies are not the cause of incomplete; they prevent response
+fixture export from that corpus. A separate historical normal-editor fixture
+provides a strict consumer regression without changing that capture or its FAIL.

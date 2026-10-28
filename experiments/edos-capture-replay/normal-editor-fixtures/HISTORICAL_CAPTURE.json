@@ -1,0 +1,128 @@
+{
+  "schema": "edos-normal-editor-flow-capture-v1",
+  "kind": "synthetic-isolated-handler",
+  "captured_at": "2026-10-27T21:07:04.679Z",
+  "node": "v24.22.1",
+  "original_fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+  "producer_pins": {
+    "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+    "server": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+    "fingerprint": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+    "compiler": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+    "compilerPackage": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+  },
+  "tool_sha256": {
+    "capture-flow.mjs": "4316fd2be9c7a301da29c21e16947c74aa3a61bca71d9b3bd554052d5c6a00a7",
+    "producer.mjs": "fb618eaa26bc123cb455011fa3b99693441246ea1bb651689127e95763fbfa34",
+    "oracle.mjs": "940ceb9725f5e3987ab168b301e9408b2fd203f4938cad720f408914229f1940",
+    "flow.mjs": "c6bf6e219b4622998a7a0bd25305ca54087507379c9e3c2afd70edaa55001e72"
+  },
+  "callback_sha256": {
+    "candidatePlaceAfterSave": "74199dea076498c4a5a794c4727d3e9096cb7e522ae40d92c1670ccf9cac8727",
+    "api": "f9bae5ddb9f35191d1f75bcf7dda927b253e7337f1259805db79ad1e0e365e63",
+    "edit": "f2c486d537e8ec6637fb9cea57e3c8f40c26d17b1eddb584245e3c18dffdab64",
+    "save": "76d22e9a1598f13f2ce5000700beb4d11ef270f50ca138248b96d54073f2c3b8",
+    "openVariant": "155fe29ebb64bf0d94e65778a779ef5d51e1083eeab67461602d6ea6f1bc5134",
+    "titleOnChange": "f0ebd1fa5213b77f9b6993a3d214721ac8ecf6c7f089f8c0a40745309c8f3e50",
+    "textOnChange": "ba6357d10bf4ae13ac8ee2bff08680aeffa2e48fbe4f4b6822637dbf0012ed2f",
+    "manuscriptFingerprint": "4f34ce1a4d469393960366f50939dcb1f66ed7e1f310779fadf6a8d903fcb591"
+  },
+  "storage_receipts": [
+    {
+      "ordinal": 0,
+      "status": 200,
+      "request_body_sha256": "4c6d229325f163154df1c3c7fa4dc0c7477fa5b7920709e1bdea6b1d5a9663b2",
+      "response_body_sha256": "f64d3c997760c3825e5a44cf4df42e6a7f9d0e093b5e3940a4ab0873949c20d9",
+      "revision_hashes_before": {},
+      "revision_hashes_after": {
+        "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231"
+      },
+      "persisted_revision": {
+        "filename": "00000001.json",
+        "body_text": "{\n  \"sequence\": 1,\n  \"items\": [\n    {\n      \"id\": \"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Синтетическая сцена — вариант 1\",\n      \"text\": \"ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\\n\\nИсходная тестовая реплика.\",\n      \"updatedAt\": \"2026-10-27T21:07:04.386Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "body_sha256": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231",
+        "byte_length": 510
+      },
+      "response_equals_persisted_revision": true
+    },
+    {
+      "ordinal": 1,
+      "status": 200,
+      "request_body_sha256": "3f0c98e7354459ee1c13f2b74a20df5f1ea5e9d9b5468c66dbfb110808d45b12",
+      "response_body_sha256": "3ffa99075dbe9fbfa6e4960cdf71c2def491915f4a90ef07486ac82de4561108",
+      "revision_hashes_before": {
+        "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231"
+      },
+      "revision_hashes_after": {
+        "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231",
+        "00000002.json": "9f0a5e09d1a39128a59fd7f5599dcac1853bc4dfd0f4c013e3d6d86bfb609460"
+      },
+      "persisted_revision": {
+        "filename": "00000002.json",
+        "body_text": "{\n  \"sequence\": 2,\n  \"items\": [\n    {\n      \"id\": \"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Синтетический вариант — правка\",\n      \"text\": \"Синтетический кандидат: ё, й и 🚀.\\nВторая строка сохранена точно.\\n\",\n      \"updatedAt\": \"2026-10-27T21:07:04.578Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "body_sha256": "9f0a5e09d1a39128a59fd7f5599dcac1853bc4dfd0f4c013e3d6d86bfb609460",
+        "byte_length": 515
+      },
+      "response_equals_persisted_revision": true
+    },
+    {
+      "ordinal": 2,
+      "status": 409,
+      "request_body_sha256": "4fff551ffdf9c38be2689d880b8344b57ae61d3d7a98496c2cb76f25456e8c95",
+      "response_body_sha256": "e8035bdf7c5fe77adc54faf2695d3a851cb87b90645ae3e2e67bd5321d3948dc",
+      "revision_hashes_before": {
+        "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231",
+        "00000002.json": "9f0a5e09d1a39128a59fd7f5599dcac1853bc4dfd0f4c013e3d6d86bfb609460"
+      },
+      "revision_hashes_after": {
+        "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231",
+        "00000002.json": "9f0a5e09d1a39128a59fd7f5599dcac1853bc4dfd0f4c013e3d6d86bfb609460"
+      },
+      "all_revision_bytes_unchanged": true
+    }
+  ],
+  "exercised_cases": [
+    {
+      "name": "source-created seven-field editor saves and migrates controlled reading place",
+      "status": "PASS"
+    },
+    {
+      "name": "actual JSX edits resave ten-field candidate with same identity at sequence two",
+      "status": "PASS"
+    },
+    {
+      "name": "separately opened stale editor retains full dirty state after actual API409",
+      "status": "PASS"
+    }
+  ],
+  "snapshot_sha256": {
+    "created": "4cbb64de9b1ffffcc6755a2131b244375b3bd810cae2a4a964bf41ae664574d4",
+    "updated": "50ca3197d9869c3ba0a22a3c8d5ea111fd7fefa36ac6574118561068283fba61",
+    "stale_before": "36459cb7a2aab1d8b23219a13a71bbff6d4bbd898d3dff1f1a89364400c4b6a8",
+    "stale_after": "2435a264a8607e58c4ffef88613525b5f3570b03e83ca871ce5d256c278c45b3"
+  },
+  "final_state": {
+    "sequence": 2,
+    "candidate_count": 1,
+    "immutable_revision_count": 2,
+    "pending_file_count": 0,
+    "revision_sha256": {
+      "00000001.json": "fbb97a7c23ecd38592720e45f35bee5f70fb5541f8305c8676f2f8a800cc0231",
+      "00000002.json": "9f0a5e09d1a39128a59fd7f5599dcac1853bc4dfd0f4c013e3d6d86bfb609460"
+    }
+  },
+  "assertions": {
+    "source_files_unchanged": true,
+    "original_fixture_unchanged": true,
+    "pinned_inputs_unchanged": true,
+    "first_revision_immutable": true,
+    "stale_refusal_no_write": true,
+    "token_not_persisted": true
+  },
+  "evidence_scope": "Real isolated server handler and synthetic temporary revisions; offline replay is a separate emulation.",
+  "live_author_save": "NOT_PERFORMED",
+  "browser_dom_network": "NOT_PERFORMED",
+  "full_capture_acceptance": "FAIL",
+  "fixture_file_sha256": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+  "temporary_storage_cleanup": "completed"
+}

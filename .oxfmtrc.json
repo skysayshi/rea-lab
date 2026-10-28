@@ -11,6 +11,8 @@
     "CHANGELOG.md",
     "experiments/edos-capture-replay/body-presence-runtime/historical/**",
     "experiments/edos-capture-replay/body-presence-runtime/live-20261028/raw/**",
+    "experiments/edos-capture-replay/normal-editor-fixtures/fixture.json",
+    "experiments/edos-capture-replay/normal-editor-fixtures/HISTORICAL_CAPTURE.json",
     "package-lock.json",
     "_reference/**",
     "third_party/**"
