@@ -1,0 +1,294 @@
+{
+  "schema": "rea-body-presence-fresh-runtime-receipt-v1",
+  "date": "2026-10-28",
+  "timezone": "Europe/Berlin",
+  "decision": "PASS_SCOPED_SYNTHETIC_OBSERVATION",
+  "execution_baseline": {
+    "commit": "81d7006b0b333b7fd34f67f57f1d847d72f10307",
+    "tree": "a70849eaa5a0e633fc72a7f4d0001f7c6fa0c158",
+    "clean_before_and_after": true,
+    "runtime_harness_unchanged": true,
+    "research_input_commit": "b9e39937b0f3fdae8f9d3a816150e8ab1e99a53b"
+  },
+  "attempts": {
+    "browser_runs": 1,
+    "presence_requests": 4,
+    "initial_navigation_steps": 1,
+    "offline_oracle_mutations": 4,
+    "replay_runs": 0,
+    "retry_runs": 0,
+    "offline_calibration_invocations": 2,
+    "distinct_offline_control_types": 2
+  },
+  "versions": {
+    "node": "24.22.1",
+    "npm": "11.16.0",
+    "playwright_core": "1.58.2",
+    "typescript_native_compiler": "7.0.2",
+    "chrome_launcher": "156.0.8078.48",
+    "provider_reported_product": "Chromium"
+  },
+  "bindings": {
+    "head": "81d7006b0b333b7fd34f67f57f1d847d72f10307",
+    "git_tree": "a70849eaa5a0e633fc72a7f4d0001f7c6fa0c158",
+    "source_files": 6538,
+    "source_manifest_sha256": "cc3f20aad8d713e8fc1cb26224ca4ba8113bf19127233961a23f57b25b4720ac",
+    "playwright_files": 363,
+    "playwright_manifest_sha256": "297fc3f088ba8f8d106ae39ab96d7ac7d5ea661315a4464144aef4d05e1d5770",
+    "file_sha256": {
+      "lock": "22e0c3c6367814f81111b7b9a17bce5e37e190b6c4e2b1e81a648c6a1bcd7767",
+      "installed_lock": "cc600992a6400171db92beffbdf37b379df8dbcee6e8381666627b0c83206c26",
+      "node": "cc6f41f72e3eb4460154952e56a35afdd96b6995cea51cd25e637355a2955a51",
+      "chrome_launcher": "4f71e9dbe725fec1110977b6a6dd0708fb32fbde9c905b4b461cef880ac08288",
+      "chrome_engine": "640dbdee25690843f733f40c669cde55c78396dafa1c5b4b25cf11b4413151a4",
+      "compiler": "76e4987d060ef8207875a53a73619ce665ff16fb2800c0d57a452e21c829bd7b",
+      "harness": "9b6c67d8b5dbb734f13a95436b035877ceee3c312424cf4050e461616a1fba25"
+    },
+    "runtime_files": 2391,
+    "runtime_manifest_sha256": "ee6ca8a306e810275f84af2db0e67acbf97565a2dfe7f7b2df3db83388b4b7ef"
+  },
+  "binding_verification": {
+    "before_build_inputs_equal_built_inputs": true,
+    "built_inputs_and_runtime_equal_after": true,
+    "manifest_digest_encoding": "SHA-256 of UTF-8 JSON.stringify(entry array), no whitespace or trailing newline; not the pretty-printed manifest file digest",
+    "source_entries_order": "git ls-files --stage -z order",
+    "runtime_and_playwright_entries_order": "relative path localeCompare order",
+    "gitlink_count": 5,
+    "gitlinks": "recorded referenced commit only; submodule contents were not inspected",
+    "coverage": "tracked files, full dist, full playwright-core, lockfiles, Node/compiler binaries and Chrome launcher/current framework engine; not all node_modules, the complete browser bundle or OS"
+  },
+  "build": {
+    "command": "npm run build:cached",
+    "exit_code": 0,
+    "tasks_successful": 3,
+    "tasks_total": 3,
+    "cache_hits": 0,
+    "reported_elapsed_seconds": 72.983,
+    "log_sha256": "58eb92df71aa71d31701d18a2bd940b81373058f9916fdce6b21521adcbba4aa",
+    "warnings": "Experimental stripTypeScriptTypes and ineffective dynamic import bundling warnings; no build error"
+  },
+  "command": {
+    "executable": "node",
+    "entrypoint": "scripts/rea.mjs",
+    "operation": "capture-browser-scenario",
+    "scenario_file": "raw/SCENARIO.json",
+    "json": true,
+    "harness": "scripts/lib/browser-presence-e2e.mjs",
+    "command_timeout_ms": 60000,
+    "per_request_timeout_ms": 5000
+  },
+  "observation": {
+    "schema": "rea-runtime-presence-smoke-v1",
+    "status": "OBSERVED",
+    "node": "v24.22.1",
+    "cli": true,
+    "mcp": false,
+    "full_capture_acceptance": "FAIL",
+    "scope": "One controlled synthetic loopback scenario through the public capture-browser-scenario CLI. Presence is scoped to Fetch pre-dispatch; transport correlation does not independently authenticate Request identity.",
+    "cleanup": {
+      "command_owner_closed": true,
+      "runtime_removed": true,
+      "receiver_closed": true
+    },
+    "harness_sha256": "9b6c67d8b5dbb734f13a95436b035877ceee3c312424cf4050e461616a1fba25",
+    "evidence_sha256": "4315f2339c6f9cc6dbea674617ccc61fb12a510445570fc20959d6aa8cdd190e",
+    "capture_sha256": "227f61d048f9a7b073764d63e745492f1f9da0ce8518a0fc31a47f09409d083f",
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "156.0.8078.48"
+    },
+    "cases": [
+      {
+        "case_id": "absent",
+        "state": "absent",
+        "transaction_id": "request-2",
+        "source_event_sequence": 5,
+        "producer_run_id": "6d045b9b-46b8-468c-a791-7ef47e6fb969",
+        "producer_request_id": "20d39fda-f8ca-4671-b334-d5bfb65cbe5c",
+        "receiver_bytes": 0,
+        "original_body": {
+          "state": "not_exposed"
+        }
+      },
+      {
+        "case_id": "present-empty",
+        "state": "present-empty",
+        "transaction_id": "request-3",
+        "source_event_sequence": 10,
+        "producer_run_id": "25b52576-702d-4f3a-b943-c0d86a74ae40",
+        "producer_request_id": "daa747ab-d1ab-4031-8b96-2cc8557d4f2a",
+        "receiver_bytes": 0,
+        "original_body": {
+          "state": "not_exposed"
+        }
+      },
+      {
+        "case_id": "present",
+        "state": "present",
+        "transaction_id": "request-4",
+        "source_event_sequence": 15,
+        "producer_run_id": "5e01d0d0-b929-4602-bed5-75b6f8a8d9be",
+        "producer_request_id": "12134f58-99e5-4d9c-9ee1-89dde73dc042",
+        "receiver_bytes": 43,
+        "original_body": {
+          "state": "captured",
+          "representation": "browser-exposed-request-bytes",
+          "encoding": "base64",
+          "content": "0KHQuNC90YLQtdGC0LjRh9C10YHQutC+0LUg0YLQtdC70L4g0ZEg8J+agA==",
+          "bytes": 43,
+          "sha256": "3d2d430fcc24cbfde389041d99325a6a30b9ba4b66da4af003611ec9e01554f4",
+          "media_type": "text/plain;charset=UTF-8",
+          "redacted": false
+        }
+      },
+      {
+        "case_id": "unknown",
+        "state": "unknown",
+        "transaction_id": "request-5",
+        "source_event_sequence": 20,
+        "producer_run_id": "158a0c76-cb93-45fd-bd21-a30e568e3238",
+        "producer_request_id": "b131ab21-1a84-4086-a87a-396aa0bc6831",
+        "receiver_bytes": 50,
+        "original_body": {
+          "state": "captured",
+          "representation": "browser-exposed-request-bytes",
+          "encoding": "base64",
+          "content": "0J3QsNCx0LvRjtC00LXQvdC40LUgcHJlc2VuY2Ug0L7RgtC60LvRjtGH0LXQvdC+Lgo=",
+          "bytes": 50,
+          "sha256": "d2f53971435b9cfc8c6e5383b0dd14c4a448f53a815bcd80f9eb8906ae9d9855",
+          "media_type": "text/plain;charset=UTF-8",
+          "redacted": false
+        }
+      }
+    ],
+    "network_summary": {
+      "selected": true,
+      "transactions": 5,
+      "without_request": 0,
+      "ambiguous_transactions": 0,
+      "failed_transactions": 0,
+      "by_origin": [
+        {
+          "origin": "http://127.0.0.1:59773",
+          "transactions": 5
+        }
+      ],
+      "by_resource_type": [
+        {
+          "resource_type": "document",
+          "transactions": 1
+        },
+        {
+          "resource_type": "fetch",
+          "transactions": 4
+        }
+      ],
+      "by_status_class": [
+        {
+          "status_class": "2xx",
+          "transactions": 5
+        }
+      ]
+    },
+    "evidence_id": "ev_1260f46effbc7554ed48a207e685435ef4b65eab483b49173df68b8d17140175",
+    "completeness": {
+      "status": "incomplete",
+      "equality_eligible": false,
+      "missing_sections": ["events"],
+      "truncated_sections": []
+    },
+    "server_sha256": "5da4fa13d114dd69571df8e6b6f58c0dd4384dfe817eb946d74aaf53ddc6adb6",
+    "elapsed_ms": 21810
+  },
+  "calibration": {
+    "schema": "rea-body-presence-oracle-calibration-v1",
+    "status": "PASS",
+    "positive_recorded_cases": 4,
+    "live_control": "disabled observer remains unknown despite delivered nonempty payload",
+    "controls": [
+      {
+        "name": "disabled observer falsely promoted",
+        "status": "EXPECTED_ORACLE_REJECTION",
+        "actual": "present",
+        "expected": "unknown",
+        "error_code": "ERR_ASSERTION"
+      },
+      {
+        "name": "receiver payload corrupted",
+        "status": "EXPECTED_ORACLE_REJECTION",
+        "actual": "WA==",
+        "expected": "0KHQuNC90YLQtdGC0LjRh9C10YHQutC+0LUg0YLQtdC70L4g0ZEg8J+agA==",
+        "error_code": "ERR_ASSERTION"
+      }
+    ],
+    "new_browser_runs": 0,
+    "raw_sha256": {
+      "CAPTURE.json": "227f61d048f9a7b073764d63e745492f1f9da0ce8518a0fc31a47f09409d083f",
+      "SERVER.json": "5da4fa13d114dd69571df8e6b6f58c0dd4384dfe817eb946d74aaf53ddc6adb6",
+      "SCENARIO.json": "3e901dd9178dd38367e72bb57252582623c850e2e984526f8217ec7b2f6eb936"
+    },
+    "originals_unchanged": true,
+    "historical_full_capture_acceptance": "FAIL"
+  },
+  "artifacts": {
+    "CAPTURE.json": {
+      "sha256": "227f61d048f9a7b073764d63e745492f1f9da0ce8518a0fc31a47f09409d083f",
+      "bytes": 28092
+    },
+    "EVIDENCE.json": {
+      "sha256": "4315f2339c6f9cc6dbea674617ccc61fb12a510445570fc20959d6aa8cdd190e",
+      "bytes": 23253
+    },
+    "SERVER.json": {
+      "sha256": "5da4fa13d114dd69571df8e6b6f58c0dd4384dfe817eb946d74aaf53ddc6adb6",
+      "bytes": 1565
+    },
+    "SCENARIO.json": {
+      "sha256": "3e901dd9178dd38367e72bb57252582623c850e2e984526f8217ec7b2f6eb936",
+      "bytes": 3445
+    },
+    "CALIBRATION.json": {
+      "sha256": "73016805888fe7b14103aabca8add80dc0cf151e8dbaa27653472859d6de51d7",
+      "bytes": 1056
+    }
+  },
+  "local_summary": {
+    "sha256": "2792a5e098b635be0d1adc2bff41f5916689cf2134377e6645848ec63909b850",
+    "publication": "Original retained locally. observation removes only the absolute-path command object; command above is a separately labelled relative projection."
+  },
+  "historical_artifacts": {
+    "unchanged": true,
+    "full_capture_acceptance": "FAIL",
+    "raw_sha256": {
+      "CAPTURE.json": "fde28e64ed51253d967a9c957a815e9995577715f805e1dd317d9949ba09bc7d",
+      "EVIDENCE.json": "90c15e165eb8d39c16fac8d83a4cadda164f2d3c4d405a1d25cdfaf5376744b6",
+      "SERVER.json": "38a6e7dd7571605885026bfa3a979e46a52ee27ab8fb9dd0857f94ea5fbaaf59",
+      "SCENARIO.json": "149c9022e4251b44bc32e13270a63cf0898a2b55b7fe8bc5f473e33abdff6ea2"
+    }
+  },
+  "limits": [
+    "One synthetic loopback observation, not an independent replication series or performance comparison.",
+    "Receiver independently measures delivered payload; producer and correlation establish the claimed Request binding.",
+    "Presence describes Fetch pre-dispatch. Native not_exposed states and incomplete/equality-ineligible capture remain.",
+    "Response bodies are not selected. No replay was performed.",
+    "No current EdOS UI, save, authentication, server, release, adoption or product-effect qualification.",
+    "Malformed evidence and secret-reason fixes retain prior source-test evidence; this run does not inject them live."
+  ],
+  "process_notes": [
+    "Clean execution checkout pinned to corrected baseline; old staging preserved in a separate stash before checkout.",
+    "Initial source inventory needed gitlink handling; an early comparison before inventory completion returned ENOENT. Both were preflight-only, before the single browser attempt.",
+    "No source, runtime harness, dependency installation, acceptance condition or global PWP change was made to obtain this observation."
+  ],
+  "helper_validation": {
+    "initial_scoped_lint": "exit 0 with one max-params warning",
+    "change": "Grouped actual/expected into one parameter; no oracle or runtime change",
+    "final_scoped_lint": "exit 0, no warnings",
+    "offline_recheck": "Same two mutations repeated on a separate artifact copy; calibration output byte-identical",
+    "first_helper_sha256": "dfb1d97503c1faad18a1e81f91930fd522cef8968df8e9bb5238489ebfd15c37",
+    "published_helper_sha256": "ee930104b48cfd2134ad07247ad286b839d26bb92c7ee14bbdd9e5f3d3d691e6",
+    "calibration_output_sha256": "73016805888fe7b14103aabca8add80dc0cf151e8dbaa27653472859d6de51d7"
+  }
+}

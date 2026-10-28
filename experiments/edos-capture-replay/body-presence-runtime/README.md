@@ -107,3 +107,12 @@ The verifier checks fixed raw SHA-256 pins, parses Evidence and capture with the
 built runtime, and reuses the CLI probe's payload oracle and transaction assertions.
 Its output means `PASS_RECORDED_ARTIFACTS`; it is not a new capture or replay run.
 Digest pins identify bytes, not independent authentication of the producer.
+
+## Fresh observation on the corrected baseline
+
+[2026-10-28 report](live-20261028/REPORT.md) records one new public-CLI browser
+run at `81d7006`, with four observed states, an independent payload receiver,
+the live disabled-observer control and two offline oracle calibrations.
+[Its receipt](live-20261028/RECEIPT.json) binds unchanged inputs and runtime
+to the exact raw artifacts. The older results above remain historical;
+full-capture acceptance stays FAIL.

@@ -10,6 +10,7 @@
     "node_modules/**",
     "CHANGELOG.md",
     "experiments/edos-capture-replay/body-presence-runtime/historical/**",
+    "experiments/edos-capture-replay/body-presence-runtime/live-20261028/raw/**",
     "package-lock.json",
     "_reference/**",
     "third_party/**"
