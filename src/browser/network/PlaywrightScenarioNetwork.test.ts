@@ -7,6 +7,7 @@ import {
   type BrowserScenarioEvent,
 } from "../../domain/browserScenarioCaptureValues.js";
 import type { BrowserNetworkContentSelection } from "../../domain/browserNetworkEvidence.js";
+import { EMPTY_REQUEST_BODY_SHA256 } from "../../domain/browserRequestBodyPresence.js";
 import { resolveScenarioSecrets } from "../../../tests/fixtures/browserScenarioSecrets.js";
 import {
   PlaywrightScenarioNetwork,
@@ -102,6 +103,7 @@ const harness = (
   signal?: AbortSignal,
   secretValue = "私密",
   limitsInput: unknown = {},
+  omittedKinds: ReadonlySet<string> = new Set(),
 ) => {
   const scenario = browserScenarioSchema.parse({
     browser: { mode: "launch", executable_path: "/fixture/chrome" },
@@ -116,7 +118,12 @@ const harness = (
     FIXTURE_SECRET: secretValue,
   });
   const events: BrowserScenarioEvent[] = [];
+  let sequence = 0;
   const omittedEventCounts = new Map<string, number>();
+  const admitText = vi.fn(() => ({
+    status: "retained" as const,
+    sequence: events.length + 1,
+  }));
   const collector = new PlaywrightScenarioNetwork({
     selection: selected,
     limits: scenario.capture.limits,
@@ -124,13 +131,15 @@ const harness = (
     readTimeoutMs: 50,
     ...(signal === undefined ? {} : { signal }),
     emit: (event) => {
-      const sequence = events.length + 1;
+      sequence += 1;
+      if (omittedKinds.has(event.kind))
+        return { status: "omitted", sequence, reason: "max-events" };
       events.push(
         browserScenarioEventSchema.parse({ ...event, sequence, step_index: 0 }),
       );
       return { status: "retained", sequence };
     },
-    admitText: () => ({ status: "retained", sequence: events.length + 1 }),
+    admitText,
     admitContentBody: () => ({
       status: "retained",
       sequence: events.length + 1,
@@ -159,8 +168,331 @@ const harness = (
     secrets,
     networkOmissions,
     omittedEventCounts,
+    admitText,
   };
 };
+
+const presenceProducer = (request = 1) => ({
+  source: "runtime-owned-fetch-request" as const,
+  run_id: "network-fixture-run",
+  request_id: `producer-request-${String(request)}`,
+  dispatch_sequence: request,
+  same_request_verified: true as const,
+});
+const absentObservation = {
+  status: "observed",
+  body_is_null: true,
+  measurement: { status: "not-applicable" },
+} as const;
+
+it("binds presence only to the exact retained root Request and refuses reuse", async () => {
+  const { collector, events } = harness({
+    request_body: false,
+    response_body: false,
+    header_values: false,
+  });
+  const request = new RequestFixture("same");
+  const another = new RequestFixture("same");
+  collector.request(request);
+  expect(
+    collector.observeRequestBodyPresence(
+      another,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "foreign-request" } });
+  expect(
+    collector.observeRequestBodyPresence(
+      request,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: true, value: { status: "retained" } });
+  expect(events).toContainEqual(
+    expect.objectContaining({
+      kind: "request-body-presence",
+      transaction_id: "request-1",
+      source_event_sequence: 1,
+      phase: "request",
+      redirect_hop: 0,
+      presence: expect.objectContaining({
+        state: "absent",
+        producer: presenceProducer(),
+      }),
+    }),
+  );
+  expect(
+    collector.observeRequestBodyPresence(
+      request,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "repeated-observation" } });
+  collector.request(another);
+  expect(
+    collector.observeRequestBodyPresence(
+      another,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "reused-producer-identity" } });
+  const redirected = new RequestFixture("redirected");
+  redirected.predecessor = request;
+  collector.request(redirected);
+  expect(
+    collector.observeRequestBodyPresence(
+      redirected,
+      absentObservation,
+      presenceProducer(3),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "non-root-request" } });
+  await collector.finish();
+  expect(
+    collector.observeRequestBodyPresence(
+      another,
+      absentObservation,
+      presenceProducer(2),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "sealed" } });
+});
+
+it("keeps native not_exposed and its coverage gap when presence proves absent or empty", async () => {
+  const { collector, events } = harness({
+    request_body: true,
+    response_body: false,
+    header_values: false,
+  });
+  for (const [index, observation] of [
+    absentObservation,
+    {
+      status: "observed",
+      body_is_null: false,
+      measurement: {
+        status: "complete",
+        bytes: 0,
+        sha256: EMPTY_REQUEST_BODY_SHA256,
+      },
+    } as const,
+  ].entries()) {
+    const request = new RequestFixture("ignored");
+    request.postDataBuffer = () => null;
+    collector.request(request);
+    expect(
+      collector.observeRequestBodyPresence(
+        request,
+        observation,
+        presenceProducer(index + 1),
+      ).ok,
+    ).toBe(true);
+  }
+  const disabled = new RequestFixture("unobserved");
+  collector.request(disabled);
+  collector.observeRequestBodyPresence(
+    disabled,
+    { status: "disabled", reason: "control" },
+    presenceProducer(3),
+  );
+  await collector.finish();
+  expect(
+    events
+      .filter((event) => event.kind === "request-body-presence")
+      .map((event) => event.presence.state),
+  ).toEqual(["absent", "present-empty", "unknown"]);
+  expect(
+    events.filter(
+      (event) =>
+        event.kind === "network-content" && event.body.state === "not_exposed",
+    ),
+  ).toHaveLength(2);
+  expect(collector.limitations()).toContain(
+    "Some selected network content was unavailable; per-transaction content states retain the reason.",
+  );
+  expect(collector.limitations()).toContain(
+    "Some selected request body presence observations were unknown or incomplete; the producer observation retains the reason.",
+  );
+});
+
+it.each(["incomplete", "disabled"] as const)(
+  "redacts declared secret spellings in request body presence reasons (%s)",
+  async (status) => {
+    const secret = "fixture/private token";
+    const spellings = [
+      secret,
+      encodeURIComponent(secret),
+      new URLSearchParams({ value: secret }).toString().slice("value=".length),
+    ];
+    const reason = `Read failed: ${spellings.join("; ")}`;
+    const h = harness(
+      { request_body: true, response_body: false, header_values: false },
+      undefined,
+      secret,
+    );
+    const request = new RequestFixture("native-unexposed");
+    request.postDataBuffer = () => null;
+    h.collector.request(request);
+    h.admitText.mockClear();
+    const redact = vi.spyOn(h.secrets, "redact");
+    const observation =
+      status === "disabled"
+        ? { status: "disabled" as const, reason }
+        : {
+            status: "observed" as const,
+            body_is_null: false,
+            measurement: { status: "incomplete" as const, reason },
+          };
+    expect(
+      h.collector.observeRequestBodyPresence(
+        request,
+        observation,
+        presenceProducer(),
+      ),
+    ).toMatchObject({ ok: true, value: { status: "retained" } });
+    const presence = h.events.find(
+      (event) => event.kind === "request-body-presence",
+    )?.presence;
+    if (presence === undefined) throw new Error("Expected retained presence");
+    const safeReason =
+      presence.observation.status === "disabled"
+        ? presence.observation.reason
+        : presence.observation.measurement.status === "complete"
+          ? undefined
+          : presence.observation.measurement.reason;
+    expect(safeReason).toBe(h.secrets.redact(reason));
+    expect(safeReason).toContain("[REDACTED:declared]");
+    expect(h.admitText).toHaveBeenCalledWith(
+      "request-body-presence",
+      expect.arrayContaining([reason]),
+    );
+    expect(h.admitText.mock.invocationCallOrder[0]).toBeLessThan(
+      redact.mock.invocationCallOrder[0]!,
+    );
+    h.collector.finished(request);
+    await h.collector.finish();
+    expect(h.events).toContainEqual(
+      expect.objectContaining({
+        kind: "network-content",
+        phase: "request",
+        body: { state: "not_exposed" },
+      }),
+    );
+    expect(h.collector.limitations()).toContain(
+      "Some selected network content was unavailable; per-transaction content states retain the reason.",
+    );
+    expect(h.collector.limitations()).toContain(
+      "Some selected request body presence observations were unknown or incomplete; the producer observation retains the reason.",
+    );
+    for (const spelling of spellings)
+      expect(JSON.stringify(h.events)).not.toContain(spelling);
+  },
+);
+
+it.each(["incomplete", "disabled"] as const)(
+  "fails closed when redaction expands request body presence reasons beyond their schema (%s)",
+  async (status) => {
+    const h = harness(
+      { request_body: true, response_body: false, header_values: false },
+      undefined,
+      "x",
+    );
+    const request = new RequestFixture("native-unexposed");
+    request.postDataBuffer = () => null;
+    h.collector.request(request);
+    const reason = "x".repeat(80);
+    expect(h.secrets.redact(reason).length).toBeGreaterThan(1024);
+    const observation =
+      status === "disabled"
+        ? { status: "disabled" as const, reason }
+        : {
+            status: "observed" as const,
+            body_is_null: false,
+            measurement: { status: "incomplete" as const, reason },
+          };
+    const result = h.collector.observeRequestBodyPresence(
+      request,
+      observation,
+      presenceProducer(),
+    );
+    expect(result).toMatchObject({
+      ok: false,
+      error: { code: "body-presence-binding", reason: "invalid-observation" },
+    });
+    expect(
+      h.events.some((event) => event.kind === "request-body-presence"),
+    ).toBe(false);
+    expect(JSON.stringify(result)).not.toContain(reason);
+    h.collector.finished(request);
+    await h.collector.finish();
+    expect(h.events).toContainEqual(
+      expect.objectContaining({
+        kind: "network-content",
+        phase: "request",
+        body: { state: "not_exposed" },
+      }),
+    );
+    expect(h.collector.limitations()).toContain(
+      "Selected request body presence metadata could not be retained after secret redaction.",
+    );
+    expect(h.collector.limitations()).toContain(
+      "Some selected network content was unavailable; per-transaction content states retain the reason.",
+    );
+  },
+);
+
+it("refuses unretained request anchors and accounts for presence event omission", async () => {
+  const selected = {
+    request_body: false,
+    response_body: false,
+    header_values: false,
+  };
+  const unretained = harness(
+    selected,
+    undefined,
+    "secret",
+    {},
+    new Set(["request"]),
+  );
+  const request = new RequestFixture("same");
+  unretained.collector.request(request);
+  expect(
+    unretained.collector.observeRequestBodyPresence(
+      request,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "request-not-retained" } });
+  await unretained.collector.finish();
+  const omitted = harness(
+    selected,
+    undefined,
+    "secret",
+    {},
+    new Set(["request-body-presence"]),
+  );
+  omitted.collector.request(request);
+  expect(
+    omitted.collector.observeRequestBodyPresence(
+      request,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({
+    ok: true,
+    value: { status: "omitted", reason: "max-events" },
+  });
+  expect(
+    omitted.networkOmissions
+      .get("request-1")
+      ?.kinds.has("request-body-presence"),
+  ).toBe(true);
+  expect(
+    omitted.collector.observeRequestBodyPresence(
+      request,
+      absentObservation,
+      presenceProducer(),
+    ),
+  ).toMatchObject({ ok: false, error: { reason: "repeated-observation" } });
+  await omitted.collector.finish();
+});
 
 const bodyText = (event: BrowserScenarioEvent) => {
   if (event.kind !== "network-content" || event.body.state !== "captured")

@@ -332,6 +332,23 @@ export const browserScenarioActionSchema = z.discriminatedUnion("action", [
       .describe(
         "JSON request body, sent with Content-Type application/json unless a header sets one; not allowed for GET or HEAD.",
       ),
+    text: z
+      .string()
+      .max(4096)
+      .optional()
+      .describe(
+        "Literal text body, including an empty string; restricted to the synthetic-loopback body presence probe, mutually exclusive with json.",
+      ),
+    body_presence: z
+      .strictObject({
+        mode: z.literal("synthetic-loopback"),
+        observe: z.boolean(),
+        measure: z.boolean(),
+      })
+      .optional()
+      .describe(
+        "Opt-in Request body presence producer for an owned launched loopback /presence fixture. Presence is separate from browser-exposed body bytes and capture completeness.",
+      ),
     expected_status: z
       .array(
         z

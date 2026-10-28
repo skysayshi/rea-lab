@@ -84,7 +84,11 @@ export const browserScenarioTransactionGroups = (
       groups.set(event.transaction_id, group);
     }
     group.indices.push(index);
-    if (event.kind === "network-content") continue;
+    if (
+      event.kind === "network-content" ||
+      event.kind === "request-body-presence"
+    )
+      continue;
     group.origins.add(event.url.origin);
     group.resourceTypes.add(event.resource_type);
     if (event.kind === "request") group.requests += 1;

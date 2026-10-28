@@ -48,6 +48,14 @@ const browserScenarioLimitations = (
           "Request steps sent their declared requests through the page's own fetch with its cookies and session, following no redirects; they are REA-initiated, not user-interface activity, and header values of at least 8 characters they read from page cookies or local storage are redacted like declared secrets from records made after they were read.",
         ]
       : []),
+    ...(scenario.actions.some(
+      (action) =>
+        action.action === "request" && action.body_presence !== undefined,
+    )
+      ? [
+          "Synthetic loopback Request body presence describes the owned Request at Fetch pre-dispatch, including a failed fetch attempt; it does not prove receiver delivery or wire semantics, authenticate page intrinsics, replace not_exposed native bytes, or repair capture completeness. Instrumentation adds run-local correlation headers, no-store caching and redirect refusal.",
+        ]
+      : []),
     ...(scenario.storage.local_storage.length === 0 &&
     scenario.storage.session_storage.length === 0
       ? []

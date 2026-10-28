@@ -292,7 +292,10 @@ export const scanScenarioCredentialNames = (
           ),
           side,
         );
-    } else if ("transaction_id" in event) {
+    } else if (
+      "transaction_id" in event &&
+      event.kind !== "request-body-presence"
+    ) {
       // Every event of a transaction repeats its URL; a response attached mid-flight may be the only one.
       const key = `${event.transaction_id} ${event.url.url}`;
       if (urls.has(key)) continue;

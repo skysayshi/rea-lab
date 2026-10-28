@@ -26,6 +26,12 @@ import type {
 } from "../domain/browserScenarioCaptureValues.js";
 import { DEFAULT_BROWSER_SCENARIO_CAPTURE_LIMITS } from "../domain/browserScenarioCaptureLimits.js";
 import { PlaywrightScenarioNetwork } from "./network/PlaywrightScenarioNetwork.js";
+import type {
+  BrowserRequestBodyPresenceBindingError,
+  BrowserRequestBodyPresenceObservation,
+  BrowserRequestBodyPresenceProducer,
+} from "../domain/browserRequestBodyPresence.js";
+import { err, type Result } from "../domain/result.js";
 
 type EventName =
   | "console"
@@ -181,6 +187,34 @@ export class PlaywrightScenarioEvents {
 
   lastSequence(): number {
     return this.sequence;
+  }
+
+  /** Forward only producer-owned facts; the network owner resolves Request identity. */
+  observeRequestBodyPresence(
+    request: Request,
+    observation: BrowserRequestBodyPresenceObservation,
+    producer: BrowserRequestBodyPresenceProducer,
+  ): Result<
+    BrowserScenarioEventAdmission,
+    BrowserRequestBodyPresenceBindingError
+  > {
+    if (this.sealed)
+      return err({
+        code: "body-presence-binding",
+        reason: "sealed",
+        message: "Event capture no longer accepts observations.",
+      });
+    if (this.network === undefined)
+      return err({
+        code: "body-presence-binding",
+        reason: "network-not-enabled",
+        message: "Request body presence requires network event capture.",
+      });
+    return this.network.observeRequestBodyPresence(
+      request,
+      observation,
+      producer,
+    );
   }
 
   /** Drain selected network content and freeze the result before browser teardown. */

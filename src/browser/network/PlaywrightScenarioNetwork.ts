@@ -11,6 +11,17 @@ import type {
 } from "../../domain/browserScenarioCaptureValues.js";
 import type { BrowserScenarioSecrets } from "../BrowserScenarioSecrets.js";
 import {
+  BROWSER_REQUEST_BODY_PRESENCE_SCOPE,
+  browserRequestBodyPresenceObservationSchema,
+  browserRequestBodyPresenceProducerSchema,
+  browserRequestBodyPresenceSchema,
+  classifyBrowserRequestBodyPresence,
+  type BrowserRequestBodyPresenceBindingError,
+  type BrowserRequestBodyPresenceObservation,
+  type BrowserRequestBodyPresenceProducer,
+} from "../../domain/browserRequestBodyPresence.js";
+import { err, ok, type Result } from "../../domain/result.js";
+import {
   captureNetworkBody,
   captureNetworkHeaders,
   type NetworkBodyCapture,
@@ -64,6 +75,7 @@ type UnindexedNetworkEvent = BrowserScenarioEvent extends infer Event
         | "request-failed"
         | "request-unfinished"
         | "network-content"
+        | "request-body-presence"
       ? Omit<Event, "sequence" | "step_index">
       : never
     : never
@@ -80,6 +92,8 @@ interface Transaction {
   terminal?: "finished" | "failed";
   responseScheduled: boolean;
   requestObserved: boolean;
+  requestSequence?: number;
+  presenceObserved?: boolean;
 }
 
 interface QueuedContentRead {
@@ -130,6 +144,8 @@ export class PlaywrightScenarioNetwork {
     Transaction
   >();
   private readonly omittedRequests = new WeakSet<ScenarioNetworkRequest>();
+  private readonly presenceProducerRequests = new Set<string>();
+  private readonly presenceDispatches = new Set<string>();
   private readonly omittedPhases = new WeakMap<
     ScenarioNetworkRequest,
     Set<string>
@@ -194,6 +210,7 @@ export class PlaywrightScenarioNetwork {
       return;
     }
     const sequence = admission.sequence;
+    transaction.requestSequence = sequence;
     if (
       this.options.selection.request_body ||
       this.options.selection.header_values
@@ -225,6 +242,174 @@ export class PlaywrightScenarioNetwork {
             : Promise.resolve({ state: "not_requested" }),
         this.options.selection.header_values,
       );
+  }
+
+  /** Bind a controlled producer observation to this exact retained Request object. */
+  observeRequestBodyPresence(
+    request: ScenarioNetworkRequest,
+    observation: BrowserRequestBodyPresenceObservation,
+    producer: BrowserRequestBodyPresenceProducer,
+  ): Result<
+    BrowserScenarioEventAdmission,
+    BrowserRequestBodyPresenceBindingError
+  > {
+    const refuse = (
+      reason: BrowserRequestBodyPresenceBindingError["reason"],
+      message: string,
+    ): Result<never, BrowserRequestBodyPresenceBindingError> =>
+      err({ code: "body-presence-binding", reason, message });
+    if (!this.accepting)
+      return refuse(
+        "sealed",
+        "Network capture no longer accepts observations.",
+      );
+    const transaction = this.transactions.get(request);
+    if (transaction === undefined)
+      return refuse(
+        "foreign-request",
+        "The Request is not owned by this capture.",
+      );
+    if (transaction.requestSequence === undefined)
+      return refuse(
+        "request-not-retained",
+        "No retained request event owns this observation.",
+      );
+    if (
+      transaction.redirectedFromState !== "root" ||
+      transaction.redirectedFrom !== null
+    )
+      return refuse(
+        "non-root-request",
+        "The controlled presence observer supports root requests only.",
+      );
+    if (transaction.presenceObserved === true)
+      return refuse(
+        "repeated-observation",
+        "This Request already owns a presence observation.",
+      );
+    const parsedObservation =
+      browserRequestBodyPresenceObservationSchema.safeParse(observation);
+    const parsedProducer =
+      browserRequestBodyPresenceProducerSchema.safeParse(producer);
+    if (!parsedObservation.success || !parsedProducer.success)
+      return refuse(
+        "invalid-observation",
+        "The presence producer supplied an invalid observation or provenance.",
+      );
+    const producerRequest = JSON.stringify([
+      parsedProducer.data.run_id,
+      parsedProducer.data.request_id,
+    ]);
+    const producerDispatch = JSON.stringify([
+      parsedProducer.data.run_id,
+      parsedProducer.data.dispatch_sequence,
+    ]);
+    if (
+      this.presenceProducerRequests.has(producerRequest) ||
+      this.presenceDispatches.has(producerDispatch)
+    )
+      return refuse(
+        "reused-producer-identity",
+        "This producer Request or dispatch already belongs to another observation.",
+      );
+    transaction.presenceObserved = true;
+    this.presenceProducerRequests.add(producerRequest);
+    this.presenceDispatches.add(producerDispatch);
+    const preflight = this.options.admitText("request-body-presence", [
+      parsedProducer.data.run_id,
+      parsedProducer.data.request_id,
+      parsedObservation.data.status === "disabled"
+        ? parsedObservation.data.reason
+        : "",
+      parsedObservation.data.status === "observed" &&
+      parsedObservation.data.measurement.status !== "complete"
+        ? (parsedObservation.data.measurement.reason ?? "")
+        : "",
+    ]);
+    if (preflight.status === "omitted") {
+      this.options.omitNetwork(
+        transaction.id,
+        "request-body-presence",
+        preflight.reason,
+      );
+      this.gaps.add(
+        "Selected request body presence evidence was omitted by an event resource budget.",
+      );
+      return ok(preflight);
+    }
+    const sanitized = this.redactPresenceObservation(parsedObservation.data);
+    if (!sanitized.ok) {
+      this.gaps.add(
+        "Selected request body presence metadata could not be retained after secret redaction.",
+      );
+      return sanitized;
+    }
+    const presence = browserRequestBodyPresenceSchema.parse({
+      scope: BROWSER_REQUEST_BODY_PRESENCE_SCOPE,
+      ...classifyBrowserRequestBodyPresence(sanitized.value),
+      observation: sanitized.value,
+      producer: parsedProducer.data,
+    });
+    const admission = this.options.emit({
+      kind: "request-body-presence",
+      transaction_id: transaction.id,
+      source_event_sequence: transaction.requestSequence,
+      phase: "request",
+      redirect_hop: 0,
+      presence,
+    });
+    if (admission.status === "omitted")
+      this.options.omitNetwork(
+        transaction.id,
+        "request-body-presence",
+        admission.reason,
+      );
+    if (
+      presence.state === "unknown" ||
+      (presence.observation.status === "observed" &&
+        presence.observation.measurement.status === "incomplete")
+    )
+      this.gaps.add(
+        "Some selected request body presence observations were unknown or incomplete; the producer observation retains the reason.",
+      );
+    return ok(admission);
+  }
+
+  /** Free-form producer reasons share the existing declared-secret redactor. */
+  private redactPresenceObservation(
+    observation: BrowserRequestBodyPresenceObservation,
+  ): Result<
+    BrowserRequestBodyPresenceObservation,
+    BrowserRequestBodyPresenceBindingError
+  > {
+    const sanitized =
+      observation.status === "disabled"
+        ? {
+            ...observation,
+            reason: this.options.secrets.redact(observation.reason),
+          }
+        : observation.measurement.status === "complete" ||
+            observation.measurement.reason === undefined
+          ? observation
+          : {
+              ...observation,
+              measurement: {
+                ...observation.measurement,
+                reason: this.options.secrets.redact(
+                  observation.measurement.reason,
+                ),
+              },
+            };
+    const parsed =
+      browserRequestBodyPresenceObservationSchema.safeParse(sanitized);
+    return parsed.success
+      ? ok(parsed.data)
+      : err({
+          code: "body-presence-binding",
+          reason: "invalid-observation",
+          message:
+            "Presence reasons could not satisfy their bounded schema after secret redaction.",
+        });
   }
 
   /** Observe response metadata without starting a potentially unfinished body read. */

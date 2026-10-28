@@ -239,6 +239,54 @@ describe("scanCredentialNames over structured form parameters", () => {
 });
 
 describe("scanScenarioCredentialNames", () => {
+  it("preserves the credential scan when a transaction also carries presence provenance", () => {
+    const capture = scenarioCaptureFixture([
+      {
+        method: "GET",
+        url: "/presence?api_key=fixture-value",
+        status: 200,
+        mediaType: "application/json",
+        body: '{"token":"retained-fixture-value"}',
+      },
+    ]);
+    const request = capture.events.items.find(
+      (event) => event.kind === "request",
+    );
+    if (request === undefined) throw new Error("Fixture lacks a request");
+    const before = scanScenarioCredentialNames(capture.events.items);
+    expect(
+      scanScenarioCredentialNames([
+        ...capture.events.items,
+        {
+          kind: "request-body-presence",
+          sequence: 99,
+          step_index: request.step_index,
+          transaction_id: request.transaction_id,
+          source_event_sequence: request.sequence,
+          phase: "request",
+          redirect_hop: 0,
+          presence: {
+            scope: "fetch-request-pre-dispatch",
+            state: "unknown",
+            reason: "observer-disabled",
+            observation: {
+              status: "disabled",
+              reason: "producer-observation-disabled",
+            },
+            producer: {
+              source: "runtime-owned-fetch-request",
+              run_id: "authored-credential-scan-run",
+              request_id: "authored-credential-scan-request",
+              dispatch_sequence: 1,
+              same_request_verified: true,
+            },
+          },
+        },
+      ]),
+    ).toEqual(before);
+    expect(before.count).toBe(2);
+  });
+
   it("scans each content event, and each transaction URL once, by event index", () => {
     const capture = scenarioCaptureFixture(
       [

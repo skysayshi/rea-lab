@@ -1,4 +1,5 @@
-import type { Page, Route } from "playwright-core";
+import { randomUUID } from "node:crypto";
+import type { Page, Request, Route } from "playwright-core";
 
 import {
   HEADER_FIELD_VALUE,
@@ -6,6 +7,17 @@ import {
   type BrowserScenarioRequestHeader,
 } from "../domain/browserScenarioValues.js";
 import type { BrowserScenarioSecrets } from "./BrowserScenarioSecrets.js";
+import type {
+  BrowserRequestBodyPresenceObservation,
+  BrowserRequestBodyPresenceProducer,
+} from "../domain/browserRequestBodyPresence.js";
+import { sendPresenceFromPage } from "./PlaywrightRequestBodyPresence.js";
+
+export interface ScenarioRequestBodyPresence {
+  readonly request: Request;
+  readonly observation: BrowserRequestBodyPresenceObservation;
+  readonly producer: BrowserRequestBodyPresenceProducer;
+}
 
 type RequestAction = Extract<BrowserScenarioAction, { action: "request" }>;
 
@@ -223,6 +235,8 @@ export const performScenarioRequest = async (input: {
   readonly secrets: BrowserScenarioSecrets;
   readonly startOrigin: string;
   readonly signal?: AbortSignal | undefined;
+  readonly allowSyntheticPresence?: boolean;
+  readonly onBodyPresence?: (value: ScenarioRequestBodyPresence) => void;
 }): Promise<void> => {
   const { page, action, secrets, startOrigin, signal } = input;
   const deadline =
@@ -238,6 +252,25 @@ export const performScenarioRequest = async (input: {
   if (url.origin !== startOrigin)
     throw new ScenarioRequestError(
       `Request step ${action.step_id} must stay on the start origin ${startOrigin}.`,
+    );
+  const presence = action.body_presence;
+  if (
+    presence !== undefined &&
+    (input.allowSyntheticPresence !== true ||
+      input.onBodyPresence === undefined ||
+      url.protocol !== "http:" ||
+      !["127.0.0.1", "[::1]"].includes(url.hostname) ||
+      url.pathname !== "/presence" ||
+      url.search !== "" ||
+      url.hash !== "" ||
+      action.query.length !== 0 ||
+      deadline === undefined ||
+      action.headers.some(({ name }) =>
+        name.toLowerCase().startsWith("x-rea-presence-"),
+      ))
+  )
+    throw new ScenarioRequestError(
+      "Body presence requires an owned launched loopback fixture and an event collector.",
     );
   const target = withQuery(
     url,
@@ -258,6 +291,22 @@ export const performScenarioRequest = async (input: {
   );
   if (action.json !== undefined && !hasContentType)
     headers.push(["content-type", "application/json"]);
+  const correlation =
+    presence === undefined
+      ? undefined
+      : {
+          run_id: randomUUID(),
+          request_id: randomUUID(),
+          observe: presence.observe,
+          measure: presence.measure,
+          max_body_bytes: 4096,
+          read_timeout_ms: 250,
+        };
+  if (correlation !== undefined)
+    headers.push(
+      ["X-Rea-Presence-Run", correlation.run_id],
+      ["X-Rea-Presence-Token", correlation.request_id],
+    );
   // A step the boundary abandoned, or whose time ran out while values were read, sends nothing.
   const remaining = deadline === undefined ? undefined : deadline - Date.now();
   if (signal?.aborted === true || (remaining !== undefined && remaining <= 0))
@@ -269,7 +318,9 @@ export const performScenarioRequest = async (input: {
     origin: startOrigin,
     method: action.method,
     headers,
-    body: action.json === undefined ? undefined : JSON.stringify(action.json),
+    body:
+      action.text ??
+      (action.json === undefined ? undefined : JSON.stringify(action.json)),
     deadline,
   };
   // The browser can queue evaluate behind a busy page. Keep a host-side gate
@@ -278,9 +329,38 @@ export const performScenarioRequest = async (input: {
   const dispatchUrl = new URL(target);
   dispatchUrl.hash = "";
   const matches = (url: URL): boolean => url.href === dispatchUrl.href;
+  let ownedRequest: Request | undefined;
+  let correlationRejected = false;
   const gate = async (route: Route): Promise<void> => {
     const sent = route.request();
-    if (
+    if (correlation !== undefined) {
+      const actualHeaders = sent.headers();
+      if (
+        actualHeaders["x-rea-presence-token"] !== correlation.request_id ||
+        actualHeaders["x-rea-presence-run"] !== correlation.run_id
+      ) {
+        await route.fallback();
+        return;
+      }
+      let ownsPage = false;
+      try {
+        ownsPage = sent.frame().page() === page;
+      } catch {
+        /* A request without a scoped frame cannot own this witness. */
+      }
+      if (
+        ownedRequest !== undefined ||
+        sent.method() !== request.method ||
+        sent.url() !== dispatchUrl.href ||
+        sent.redirectedFrom() !== null ||
+        !ownsPage
+      ) {
+        correlationRejected = true;
+        await route.abort("aborted");
+        return;
+      }
+      ownedRequest = sent;
+    } else if (
       sent.method() !== request.method ||
       sent.postData() !== (request.body ?? null)
     ) {
@@ -295,11 +375,37 @@ export const performScenarioRequest = async (input: {
     else await route.fallback();
   };
   await page.route(matches, gate);
-  let response: PageResponse;
+  let response: PageResponse & {
+    readonly presence?: {
+      readonly observation: BrowserRequestBodyPresenceObservation;
+      readonly producer: BrowserRequestBodyPresenceProducer;
+    };
+  };
   try {
-    response = await sendFromPage(page, request);
+    response =
+      correlation === undefined
+        ? await sendFromPage(page, request)
+        : await sendPresenceFromPage(page, {
+            ...request,
+            presence: correlation,
+          });
   } finally {
     await page.unroute(matches, gate);
+  }
+  if (correlation !== undefined) {
+    if (
+      response.presence !== undefined &&
+      ownedRequest !== undefined &&
+      !correlationRejected &&
+      response.presence.producer.run_id === correlation.run_id &&
+      response.presence.producer.request_id === correlation.request_id &&
+      response.presence.producer.same_request_verified === true
+    ) {
+      input.onBodyPresence?.({ request: ownedRequest, ...response.presence });
+    } else if (!("error" in response) && !("left" in response))
+      throw new ScenarioRequestError(
+        "Body presence could not bind its producer to one dispatched Request.",
+      );
   }
   if ("error" in response)
     throw new ScenarioRequestError(

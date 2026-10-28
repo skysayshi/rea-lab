@@ -9,6 +9,7 @@
     "docs/api/**",
     "node_modules/**",
     "CHANGELOG.md",
+    "experiments/edos-capture-replay/body-presence-runtime/historical/**",
     "package-lock.json",
     "_reference/**",
     "third_party/**"
