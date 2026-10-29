@@ -1,0 +1,44 @@
+{
+  "schema": "edos-mounted-result-public-projection-v1",
+  "original_result_sha256": "9d86346e17a3455d8281f3d46260b0bd3fcb868f9b5b1b39d3efbcaa38905b44",
+  "projection": "Only retained_scratch_local_path omitted; original FAIL and cleanup fields preserved",
+  "result": {
+    "schema": "edos-mounted-editor-pilot-v1",
+    "status": "FAIL",
+    "started_at": "2026-10-29T01:23:26.234Z",
+    "node": "v24.22.1",
+    "fixture_sha256": "fb0a97b7b349a59b59608edb0aae1453c366228c39a15d356f2fcdc1222280de",
+    "historical_full_capture_acceptance": "FAIL",
+    "new_REA_capture_runs": 0,
+    "cleanup": {
+      "contexts_closed": true,
+      "browser_closed": {
+        "error": "browser_closed cleanup deadline"
+      },
+      "server_closed": true,
+      "scratch_removed": false
+    },
+    "browser_version": "156.0.8078.73",
+    "oracle": {
+      "status": "PASS_MOUNTED_EDITOR_HTTP_OUTCOME",
+      "checks": [
+        "real HTTP/browser POST agreement and authenticated boundaries",
+        "independent persisted values, immutable history and no 409 write",
+        "exact independent 7/10/10-field requests and 200/200/409 replies",
+        "mounted saved/dirty DOM states and stale draft preservation",
+        "declared synthetic source bytes remain unchanged"
+      ],
+      "server_posts": 3,
+      "browser_posts": 3,
+      "request_body_field_counts": [7, 10, 10],
+      "response_statuses": [200, 200, 409],
+      "dom_snapshots": 4,
+      "immutable_revisions": 2,
+      "live_stale_negative_controls": 1
+    },
+    "handler_original_unchanged": true,
+    "component_closure_originals_unchanged": true,
+    "elapsed_ms": 42693,
+    "ended_at": "2026-10-29T01:24:08.917Z"
+  }
+}

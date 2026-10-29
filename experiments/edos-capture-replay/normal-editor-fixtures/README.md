@@ -93,3 +93,10 @@ This bounded reuse is complete when the preserved-input recheck and portable
 consumer are verified. Further expansion should answer a concrete application
 question, such as a separately declared mounted editor/transport check; repeating
 the same synthetic body-presence smoke does not close that boundary.
+
+## Mounted follow-up
+
+[The 2026-10-29 mounted editor/HTTP pilot](../mounted-editor/README.md) observes
+the real component create/update/stale-save path with a separate oracle. Its
+functional assertions passed, but overall acceptance is FAIL because browser
+close exceeded the cleanup deadline. This recorded fixture keeps its own scope.

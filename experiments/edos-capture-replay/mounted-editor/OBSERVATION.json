@@ -1,0 +1,210 @@
+{
+  "schema": "edos-mounted-editor-observation-v1",
+  "posts": [
+    {
+      "ordinal": 0,
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "received_at": "2026-10-29T01:23:48.287Z",
+      "origin_matches": true,
+      "token_matches": true,
+      "content_type": "application/json",
+      "body_text": "{\"sectionId\":\"section-one\",\"title\":\"Mounted create — ё и 🚀\",\"text\":\"Синтетический mounted create: ё и 🚀.\\nПервая редакция.\\n\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"dirty\":true,\"expectedSequence\":0,\"readingKey\":\"draft:af46bff9-80f6-421a-982e-1b436a311f63\"}",
+      "body": {
+        "sectionId": "section-one",
+        "title": "Mounted create — ё и 🚀",
+        "text": "Синтетический mounted create: ё и 🚀.\nПервая редакция.\n",
+        "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "dirty": true,
+        "expectedSequence": 0,
+        "readingKey": "draft:af46bff9-80f6-421a-982e-1b436a311f63"
+      },
+      "response_body": {
+        "sequence": 1,
+        "items": [
+          {
+            "id": "b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+            "sectionId": "section-one",
+            "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+            "title": "Mounted create — ё и 🚀",
+            "text": "Синтетический mounted create: ё и 🚀.\nПервая редакция.\n",
+            "updatedAt": "2026-10-29T01:23:48.304Z",
+            "status": "candidate"
+          }
+        ],
+        "savedId": "b1aa2674-bcce-4237-9c35-e02e2ded17f2"
+      },
+      "status": 200,
+      "finished_at": "2026-10-29T01:23:48.351Z"
+    },
+    {
+      "ordinal": 1,
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "received_at": "2026-10-29T01:23:52.102Z",
+      "origin_matches": true,
+      "token_matches": true,
+      "content_type": "application/json",
+      "body_text": "{\"id\":\"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Mounted update — вторая редакция\",\"text\":\"Синтетический mounted update: й, ё и 🚀.\\nВторая редакция сохранена точно.\\n\",\"updatedAt\":\"2026-10-29T01:23:48.304Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2\"}",
+      "body": {
+        "id": "b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+        "sectionId": "section-one",
+        "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "title": "Mounted update — вторая редакция",
+        "text": "Синтетический mounted update: й, ё и 🚀.\nВторая редакция сохранена точно.\n",
+        "updatedAt": "2026-10-29T01:23:48.304Z",
+        "status": "candidate",
+        "dirty": true,
+        "expectedSequence": 1,
+        "readingKey": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2"
+      },
+      "response_body": {
+        "sequence": 2,
+        "items": [
+          {
+            "id": "b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+            "sectionId": "section-one",
+            "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+            "title": "Mounted update — вторая редакция",
+            "text": "Синтетический mounted update: й, ё и 🚀.\nВторая редакция сохранена точно.\n",
+            "updatedAt": "2026-10-29T01:23:52.122Z",
+            "status": "candidate"
+          }
+        ],
+        "savedId": "b1aa2674-bcce-4237-9c35-e02e2ded17f2"
+      },
+      "status": 200,
+      "finished_at": "2026-10-29T01:23:52.173Z"
+    },
+    {
+      "ordinal": 2,
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "received_at": "2026-10-29T01:23:52.416Z",
+      "origin_matches": true,
+      "token_matches": true,
+      "content_type": "application/json",
+      "body_text": "{\"id\":\"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Mounted stale — сохранить черновик\",\"text\":\"Синтетический устаревший черновик.\\nЭта правка должна остаться в редакторе после 409.\\n\",\"updatedAt\":\"2026-10-29T01:23:48.304Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2\"}",
+      "body": {
+        "id": "b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+        "sectionId": "section-one",
+        "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "title": "Mounted stale — сохранить черновик",
+        "text": "Синтетический устаревший черновик.\nЭта правка должна остаться в редакторе после 409.\n",
+        "updatedAt": "2026-10-29T01:23:48.304Z",
+        "status": "candidate",
+        "dirty": true,
+        "expectedSequence": 1,
+        "readingKey": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2"
+      },
+      "response_body": {
+        "error": "Варианты изменились в другом окне. Сохраните свой текст в файл и перечитайте список."
+      },
+      "status": 409,
+      "finished_at": "2026-10-29T01:23:52.426Z"
+    }
+  ],
+  "browser_posts": [
+    {
+      "context": "A",
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "body_text": "{\"sectionId\":\"section-one\",\"title\":\"Mounted create — ё и 🚀\",\"text\":\"Синтетический mounted create: ё и 🚀.\\nПервая редакция.\\n\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"dirty\":true,\"expectedSequence\":0,\"readingKey\":\"draft:af46bff9-80f6-421a-982e-1b436a311f63\"}",
+      "status": 200
+    },
+    {
+      "context": "A",
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "body_text": "{\"id\":\"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Mounted update — вторая редакция\",\"text\":\"Синтетический mounted update: й, ё и 🚀.\\nВторая редакция сохранена точно.\\n\",\"updatedAt\":\"2026-10-29T01:23:48.304Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2\"}",
+      "status": 200
+    },
+    {
+      "context": "B",
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "body_text": "{\"id\":\"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Mounted stale — сохранить черновик\",\"text\":\"Синтетический устаревший черновик.\\nЭта правка должна остаться в редакторе после 409.\\n\",\"updatedAt\":\"2026-10-29T01:23:48.304Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2\"}",
+      "status": 409
+    }
+  ],
+  "snapshots": {
+    "created": {
+      "title": "Mounted create — ё и 🚀",
+      "text": "Синтетический mounted create: ё и 🚀.\nПервая редакция.\n",
+      "reading_key": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+      "status_state": "saved",
+      "save_disabled": true,
+      "alert_text": ""
+    },
+    "stale_before": {
+      "title": "Mounted stale — сохранить черновик",
+      "text": "Синтетический устаревший черновик.\nЭта правка должна остаться в редакторе после 409.\n",
+      "reading_key": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+      "status_state": "dirty",
+      "save_disabled": false,
+      "alert_text": ""
+    },
+    "updated": {
+      "title": "Mounted update — вторая редакция",
+      "text": "Синтетический mounted update: й, ё и 🚀.\nВторая редакция сохранена точно.\n",
+      "reading_key": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+      "status_state": "saved",
+      "save_disabled": true,
+      "alert_text": ""
+    },
+    "stale_after": {
+      "title": "Mounted stale — сохранить черновик",
+      "text": "Синтетический устаревший черновик.\nЭта правка должна остаться в редакторе после 409.\n",
+      "reading_key": "candidate:b1aa2674-bcce-4237-9c35-e02e2ded17f2",
+      "status_state": "dirty",
+      "save_disabled": false,
+      "alert_text": "Варианты изменились в другом окне. Сохраните свой текст в файл и перечитайте список."
+    }
+  },
+  "revisions": {
+    "after_create": {
+      "00000001.json": {
+        "body_text": "{\n  \"sequence\": 1,\n  \"items\": [\n    {\n      \"id\": \"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Mounted create — ё и 🚀\",\n      \"text\": \"Синтетический mounted create: ё и 🚀.\\nПервая редакция.\\n\",\n      \"updatedAt\": \"2026-10-29T01:23:48.304Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "sha256": "4a2b45e313e6a148c0a8d0844d1f831e5b0d9cf5bddb529229da5e49de0e96e2",
+        "bytes": 454
+      }
+    },
+    "before_stale": {
+      "00000001.json": {
+        "body_text": "{\n  \"sequence\": 1,\n  \"items\": [\n    {\n      \"id\": \"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Mounted create — ё и 🚀\",\n      \"text\": \"Синтетический mounted create: ё и 🚀.\\nПервая редакция.\\n\",\n      \"updatedAt\": \"2026-10-29T01:23:48.304Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "sha256": "4a2b45e313e6a148c0a8d0844d1f831e5b0d9cf5bddb529229da5e49de0e96e2",
+        "bytes": 454
+      },
+      "00000002.json": {
+        "body_text": "{\n  \"sequence\": 2,\n  \"items\": [\n    {\n      \"id\": \"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Mounted update — вторая редакция\",\n      \"text\": \"Синтетический mounted update: й, ё и 🚀.\\nВторая редакция сохранена точно.\\n\",\n      \"updatedAt\": \"2026-10-29T01:23:52.122Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "sha256": "166eab7faa1702c3e15a14b00c8a4c909a76d3bd187b2ebf5c45da3e502f7809",
+        "bytes": 507
+      }
+    },
+    "after_stale": {
+      "00000001.json": {
+        "body_text": "{\n  \"sequence\": 1,\n  \"items\": [\n    {\n      \"id\": \"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Mounted create — ё и 🚀\",\n      \"text\": \"Синтетический mounted create: ё и 🚀.\\nПервая редакция.\\n\",\n      \"updatedAt\": \"2026-10-29T01:23:48.304Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "sha256": "4a2b45e313e6a148c0a8d0844d1f831e5b0d9cf5bddb529229da5e49de0e96e2",
+        "bytes": 454
+      },
+      "00000002.json": {
+        "body_text": "{\n  \"sequence\": 2,\n  \"items\": [\n    {\n      \"id\": \"b1aa2674-bcce-4237-9c35-e02e2ded17f2\",\n      \"sectionId\": \"section-one\",\n      \"baseRevision\": \"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\n      \"title\": \"Mounted update — вторая редакция\",\n      \"text\": \"Синтетический mounted update: й, ё и 🚀.\\nВторая редакция сохранена точно.\\n\",\n      \"updatedAt\": \"2026-10-29T01:23:52.122Z\",\n      \"status\": \"candidate\"\n    }\n  ]\n}",
+        "sha256": "166eab7faa1702c3e15a14b00c8a4c909a76d3bd187b2ebf5c45da3e502f7809",
+        "bytes": 507
+      }
+    }
+  },
+  "sources": {
+    "before": {
+      "scene_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+      "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97"
+    },
+    "after": {
+      "scene_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+      "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97"
+    }
+  },
+  "browser_page_errors": [],
+  "unexpected_page_requests": [],
+  "server_errors": []
+}

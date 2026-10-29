@@ -1,0 +1,25 @@
+{
+  "schema": "edos-mounted-editor-input-v1",
+  "scene_id": "synthetic-mounted-scene",
+  "section_id": "section-one",
+  "section_title": "Синтетическая сцена",
+  "heading": "ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ",
+  "scene_text": "Только синтетический источник.\n\nИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\n\nИсходная тестовая реплика.\n",
+  "reference": {
+    "id": "reference",
+    "title": "Синтетический источник",
+    "text": "Только синтетический разрешённый справочный текст.\n"
+  },
+  "create": {
+    "title": "Mounted create — ё и 🚀",
+    "text": "Синтетический mounted create: ё и 🚀.\nПервая редакция.\n"
+  },
+  "update": {
+    "title": "Mounted update — вторая редакция",
+    "text": "Синтетический mounted update: й, ё и 🚀.\nВторая редакция сохранена точно.\n"
+  },
+  "stale": {
+    "title": "Mounted stale — сохранить черновик",
+    "text": "Синтетический устаревший черновик.\nЭта правка должна остаться в редакторе после 409.\n"
+  }
+}

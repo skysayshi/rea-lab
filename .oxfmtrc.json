@@ -13,6 +13,8 @@
     "experiments/edos-capture-replay/body-presence-runtime/live-20261028/raw/**",
     "experiments/edos-capture-replay/normal-editor-fixtures/fixture.json",
     "experiments/edos-capture-replay/normal-editor-fixtures/HISTORICAL_CAPTURE.json",
+    "experiments/edos-capture-replay/mounted-editor/OBSERVATION.json",
+    "experiments/edos-capture-replay/mounted-editor/fixture.json",
     "package-lock.json",
     "_reference/**",
     "third_party/**"
