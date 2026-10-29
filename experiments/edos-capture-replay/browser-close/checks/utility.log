@@ -1,0 +1,15 @@
+✔ invokes close once and records early fulfilment with no deadline (4.913988ms)
+✔ deadline does not release or reinvoke the original late close (2.278552ms)
+✔ elapsed time rejects a late close even when the timer callback did not run (2.190278ms)
+✔ early rejection remains owned despite settling within the deadline (1.936049ms)
+✔ ceiling returns pending with ownership retained and still observes the original (1.113863ms)
+✔ synchronous close rejection is observed once without losing the lease (2.400886ms)
+✔ observer callback failure is retained while the close operation completes (0.895518ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 440.529536

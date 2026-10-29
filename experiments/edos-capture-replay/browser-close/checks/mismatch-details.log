@@ -1,0 +1,14 @@
+✔ explicit stat parsing retains the command-changing terminal observation (1.636445ms)
+✔ a previously known zombie stays counted, cannot be signalled and releases only on absence (1.743033ms)
+✔ zombie leaders and parents cannot authorize group, path or child discovery (0.921353ms)
+✔ an unknown zombie cannot become newly owned through a live parent or group (0.53593ms)
+✔ non-zombie command changes and different-start zombies remain identity errors (5.242868ms)
+✔ a known live process remains tracked after reparenting without weakening its identity (0.723604ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 361.164407

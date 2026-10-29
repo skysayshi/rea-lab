@@ -1,5 +1,10 @@
 # Bounded EdOS browser capture and offline replay
 
+The later [empty-browser timing/ownership diagnosis](browser-close/README.md)
+performed no EdOS writes. Two no-context closes fulfilled below 10 seconds;
+both release outcomes remain UNKNOWN and the other three variants were not run.
+It preserves every historical FAIL and adds a tested lab close observer.
+
 **Latest lifetime/protocol checkpoint:** a GET failed with strong Response/reader/
 signal retention and no temporary routing. Root cause remains unknown; no core
 fix was made. The separate fresh pilot retained all five response bodies and

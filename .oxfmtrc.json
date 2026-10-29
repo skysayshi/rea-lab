@@ -15,6 +15,8 @@
     "experiments/edos-capture-replay/normal-editor-fixtures/HISTORICAL_CAPTURE.json",
     "experiments/edos-capture-replay/mounted-editor/OBSERVATION.json",
     "experiments/edos-capture-replay/mounted-editor/fixture.json",
+    "experiments/edos-capture-replay/browser-close/observations/**",
+    "experiments/edos-capture-replay/browser-close/zombie-probe/*.json",
     "package-lock.json",
     "_reference/**",
     "third_party/**"

@@ -1,0 +1,13 @@
+{
+  "schema": "owned-delayed-reap-retention-v1",
+  "runtime": "python3 (private runtime path omitted)",
+  "runtime_version": "3.13.17",
+  "exit_code": 0,
+  "tool_chunk_id": "965d40",
+  "tool_wall_time_seconds": 2.978949639,
+  "retention": "Parsed JSON projection reconstructed from complete retained tool output; not attested raw stdout bytes. Source reconstructed from original tool-call stdin; no rerun.",
+  "script_sha256": "cbf90110e807b2ffc789e5fc9ce58bb4e4ace79c9f5f8828a57593001b7e9fba",
+  "projection_sha256": "0fbb6be381a9c1bf06ee457f3bee76f35fa475ba2eaeed24605a134953d7b80e",
+  "first_browser_record": "UNCHANGED; UNKNOWN; no historical stat available",
+  "native_browser_runs": 0
+}

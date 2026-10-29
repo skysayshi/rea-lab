@@ -1,0 +1,28 @@
+{
+  "schema": "browser-close-setup-limitations-v1",
+  "initial_preflight": {
+    "status": "FAIL",
+    "reason": "13 prior build snapshot files had already been removed by the previous recovery",
+    "shell_failed_to_gate_native": true,
+    "full_preexecution_binding_claimed": false
+  },
+  "corrected_preflight": {
+    "status": "PASS_BEFORE_AND_AFTER",
+    "available_earlier_build_inputs": 1802,
+    "removed_snapshot_copies_excluded_and_reported": 13,
+    "playwright_entire_file_set": 363,
+    "node": "v24.22.1",
+    "chrome": "156.0.8078.73",
+    "input_manifest_sha256": "f1d1f805a899d4acad5afc7c5505be760a9233bc197bf9f5c6457cf11247813c",
+    "after_manifest_sha256": "f1d1f805a899d4acad5afc7c5505be760a9233bc197bf9f5c6457cf11247813c",
+    "equal": true
+  },
+  "adapter_overlay_setup": {
+    "status": "FIRST_COPY_FAILED_OS_PERMISSION",
+    "first_test_exit": 1,
+    "first_test_message": "Could not find 'experiments/edos-capture-replay/browser-close/mounted-close.test.mjs'",
+    "actual_tests_executed_in_that_attempt": 0,
+    "corrected": "file patch applied; actual adapter suite then ran6/6PASS",
+    "new_native_or_EdOS_run": false
+  }
+}

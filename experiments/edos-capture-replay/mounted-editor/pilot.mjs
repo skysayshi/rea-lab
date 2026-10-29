@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import {
   mkdir,
   mkdtemp,
@@ -16,6 +16,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { chromium } from "playwright-core";
 import { assertMountedOutcome } from "./oracle.mjs";
 import { startMountedServer } from "./server.mjs";
+import { closeMountedBrowser } from "../browser-close/mounted-close.mjs";
 
 const [product, executable, output] = process.argv.slice(2);
 assert.equal(
@@ -44,6 +45,7 @@ const began = Date.now();
 const scratch = await mkdtemp(join(tmpdir(), "edos-mounted-pilot-"));
 const result = {
   schema: "edos-mounted-editor-pilot-v1",
+  run_id: randomUUID(),
   status: "FAIL",
   started_at: new Date().toISOString(),
   node: process.version,
@@ -407,10 +409,8 @@ async function cleanup() {
     [
       "browser_closed",
       async () => {
-        if (browser) {
-          await browser.close();
-          assert.equal(browser.isConnected(), false);
-        }
+        if (browser)
+          await closeMountedBrowser({ browser, runId: result.run_id, result });
       },
     ],
     [
@@ -421,7 +421,8 @@ async function cleanup() {
     ],
   ]) {
     try {
-      await bounded(close(), 10000, name + " cleanup deadline");
+      if (name === "browser_closed") await close();
+      else await bounded(close(), 10000, name + " cleanup deadline");
       result.cleanup[name] = true;
     } catch (error) {
       result.status = "FAIL";
