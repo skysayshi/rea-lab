@@ -13,6 +13,9 @@ const workerPath = fileURLToPath(
   new URL("./cliCommandSessionWorker.mjs", import.meta.url),
 );
 const SHUTDOWN_GRACE_MS = 1_000;
+// EOF drains commands and verified JavaScript child/root cleanup, which can
+// outlast a signal-delivery grace. Keep both phases bounded independently.
+const RESOURCE_CLEANUP_GRACE_MS = 5_000;
 /** Restart after this many commands so one file cannot retain every heap. */
 const COMMAND_REUSE_LIMIT = 32;
 /** Restart when the worker reports a resident set at least this large. */
@@ -64,7 +67,7 @@ interface CliCommandSessionDependencies {
   /** Optional caller-selected startup and command deadlines; unset by default. */
   readonly startTimeoutMs?: number;
   readonly requestTimeoutMs?: number;
-  /** Grace for EOF cleanup and each signal before escalation. */
+  /** Override both the EOF cleanup grace and each signal grace before escalation. */
   readonly shutdownGraceMs?: number;
 }
 
@@ -126,12 +129,13 @@ const signalChild = (
 
 const stopChild = async (
   child: ChildProcessWithoutNullStreams,
+  cleanupGraceMs: number,
   graceMs: number,
 ): Promise<void> => {
   if (child.exitCode !== null || child.signalCode !== null) return;
   // EOF lets the worker await closeCliJavaScriptResources before exiting.
   if (!child.stdin.writableEnded) child.stdin.end();
-  if (await waitForExit(child, graceMs)) return;
+  if (await waitForExit(child, cleanupGraceMs)) return;
   signalChild(child, "SIGTERM");
   if (await waitForExit(child, graceMs)) return;
   if (child.exitCode !== null || child.signalCode !== null) return;
@@ -180,6 +184,7 @@ class SharedCliProcess implements CliCommandSession {
   readonly #startTimeoutMs: number | undefined;
   readonly #requestTimeoutMs: number | undefined;
   readonly #shutdownGraceMs: number;
+  readonly #cleanupGraceMs: number;
   #child: ChildProcessWithoutNullStreams | undefined;
   #childEnvKey: string | undefined;
   #commands = 0;
@@ -209,6 +214,10 @@ class SharedCliProcess implements CliCommandSession {
     this.#shutdownGraceMs = positiveLimit(
       dependencies.shutdownGraceMs,
       SHUTDOWN_GRACE_MS,
+    );
+    this.#cleanupGraceMs = positiveLimit(
+      dependencies.shutdownGraceMs,
+      RESOURCE_CLEANUP_GRACE_MS,
     );
   }
 
@@ -334,6 +343,7 @@ class SharedCliProcess implements CliCommandSession {
     if (retiring === undefined) return;
     retiring.attempt ??= stopChild(
       retiring.child,
+      this.#cleanupGraceMs,
       this.#shutdownGraceMs,
     ).finally(() => {
       retiring.attempt = undefined;

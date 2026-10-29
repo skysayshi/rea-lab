@@ -1,0 +1,158 @@
+{
+  "browser": {
+    "mode": "launch",
+    "executable_path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true
+  },
+  "start_url": {
+    "url": "http://127.0.0.1:58988/",
+    "query": []
+  },
+  "environment": {
+    "viewport": {
+      "width": 1280,
+      "height": 720,
+      "device_scale_factor": 1
+    },
+    "locale": "en-US",
+    "timezone": "UTC",
+    "color_scheme": "light",
+    "reduced_motion": "reduce",
+    "service_workers": "block"
+  },
+  "actions": [
+    {
+      "step_id": "absent",
+      "timeout_ms": 5000,
+      "action": "request",
+      "method": "GET",
+      "path": "/presence",
+      "query": [],
+      "headers": [
+        {
+          "name": "X-Fixture-Case",
+          "value": {
+            "source": "literal",
+            "value": "absent"
+          }
+        }
+      ],
+      "body_presence": {
+        "mode": "synthetic-loopback",
+        "observe": true,
+        "measure": false
+      },
+      "expected_status": [
+        200
+      ]
+    },
+    {
+      "step_id": "present-empty",
+      "timeout_ms": 5000,
+      "action": "request",
+      "method": "POST",
+      "path": "/presence",
+      "query": [],
+      "headers": [
+        {
+          "name": "X-Fixture-Case",
+          "value": {
+            "source": "literal",
+            "value": "present-empty"
+          }
+        }
+      ],
+      "text": "",
+      "body_presence": {
+        "mode": "synthetic-loopback",
+        "observe": true,
+        "measure": true
+      },
+      "expected_status": [
+        200
+      ]
+    },
+    {
+      "step_id": "present",
+      "timeout_ms": 5000,
+      "action": "request",
+      "method": "POST",
+      "path": "/presence",
+      "query": [],
+      "headers": [
+        {
+          "name": "X-Fixture-Case",
+          "value": {
+            "source": "literal",
+            "value": "present"
+          }
+        }
+      ],
+      "text": "Синтетическое тело ё 🚀",
+      "body_presence": {
+        "mode": "synthetic-loopback",
+        "observe": true,
+        "measure": true
+      },
+      "expected_status": [
+        200
+      ]
+    },
+    {
+      "step_id": "unknown",
+      "timeout_ms": 5000,
+      "action": "request",
+      "method": "POST",
+      "path": "/presence",
+      "query": [],
+      "headers": [
+        {
+          "name": "X-Fixture-Case",
+          "value": {
+            "source": "literal",
+            "value": "unknown"
+          }
+        }
+      ],
+      "text": "Наблюдение presence отключено.\n",
+      "body_presence": {
+        "mode": "synthetic-loopback",
+        "observe": false,
+        "measure": false
+      },
+      "expected_status": [
+        200
+      ]
+    }
+  ],
+  "storage": {
+    "cookies": [],
+    "local_storage": [],
+    "session_storage": []
+  },
+  "secrets": [],
+  "capture": {
+    "after_each_step": [],
+    "at_end": [
+      "url"
+    ],
+    "events": [
+      "network"
+    ],
+    "network": {
+      "request_body": true,
+      "response_body": false,
+      "header_values": false
+    },
+    "limits": {
+      "max_events": 10000,
+      "max_event_allocation_bytes": 4194304,
+      "max_total_event_allocation_bytes": 16777216,
+      "max_network_transactions": 1024,
+      "max_network_body_bytes": 65536,
+      "max_network_body_allocation_bytes": 1048576,
+      "max_network_header_allocation_bytes": 1048576,
+      "max_network_metadata_allocation_bytes": 1048576
+    }
+  }
+}

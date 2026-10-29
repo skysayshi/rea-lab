@@ -1,0 +1,1198 @@
+{
+  "schema": "rea-edos-bounded-pilot-sanitized-v1",
+  "recorded_at": "2026-10-26T22:06:58.381Z",
+  "result": "PARTIAL: selected diagnostic checks PASS; full capture acceptance FAIL",
+  "execution_status": "partial-capture-with-verified-selected-offline-replay",
+  "source": {
+    "rea_product_baseline": "669e617eec5422ebce1ab271af0fc7b51e90dc11",
+    "rea_worklab_before": "383a705be141777a0e5691fa9eeaf9dbf6645d34",
+    "rea_runtime_git_head": "669e617eec5422ebce1ab271af0fc7b51e90dc11",
+    "runtime": "previously compiled baseline checkout with recorded test/helper/doc/lab changes, not a fresh clean build",
+    "node": "v24.22.1",
+    "package_lock_sha256": "22e0c3c6367814f81111b7b9a17bce5e37e190b6c4e2b1e81a648c6a1bcd7767",
+    "dist_and_launcher_bound_files": 2393,
+    "ordered_file_hash_list_sha256": "ba28922f65e0c78e6d69bbca72a2d118598226a701a62670cc358d9685e17cf7",
+    "bound_files_changed_after_all_runs": [],
+    "edos_module_sha256": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+    "edos_prior_checkout_head": "6b1b7c4ca050b42f001d9a62c1383f8e1cd5a060",
+    "edos_identity_note": "prior checkout was dirty; raw module hash is execution identity, not HEAD alone",
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "155.0.8059.86"
+    },
+    "chrome_executable_sha256": "011a77fd50ddc001d31c4ef042e655a0ffb8ca64646c6ab4fcd6fe0c6ba7f1be"
+  },
+  "attempts": [
+    {
+      "phase": "capture-attempt-01",
+      "started_at": "2026-10-26T21:54:57.935Z",
+      "completed_at": "2026-10-26T21:55:58.420Z",
+      "status": "FAIL",
+      "full_pilot_acceptance": "FAIL",
+      "failure": "Actual CLI browser capture Evidence returned",
+      "checks": [
+        {
+          "label": "EdOS frozen module pinned",
+          "pass": true
+        },
+        {
+          "label": "oracle-before: bounded execution",
+          "pass": true
+        },
+        {
+          "label": "oracle-before: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "capture: bounded execution",
+          "pass": true
+        },
+        {
+          "label": "Actual CLI browser capture Evidence returned",
+          "pass": false
+        }
+      ],
+      "commands": [
+        {
+          "name": "oracle-before",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 532,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "capture",
+          "exit": 1,
+          "signal": null,
+          "elapsed_ms": 56065,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "target",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 57049,
+          "timed_out": false,
+          "error": null
+        }
+      ],
+      "cleanup": [
+        {
+          "name": "target",
+          "forced": false
+        },
+        {
+          "name": "private-session-file",
+          "removed": true
+        }
+      ],
+      "raw_local_receipt_sha256": "9fbc0440f014da7889bbfb8c0dec680b7ccfb008a02108ce1eb7cdba2b6fcd2c"
+    },
+    {
+      "phase": "capture-attempt-02",
+      "started_at": "2026-10-26T21:58:32.079Z",
+      "completed_at": "2026-10-26T21:58:47.200Z",
+      "status": "FAIL",
+      "full_pilot_acceptance": "FAIL",
+      "failure": "Requested capture complete",
+      "checks": [
+        {
+          "label": "EdOS frozen module pinned",
+          "pass": true
+        },
+        {
+          "label": "oracle-before: bounded execution",
+          "pass": true
+        },
+        {
+          "label": "oracle-before: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "capture: bounded execution",
+          "pass": true
+        },
+        {
+          "label": "Actual CLI browser capture Evidence returned",
+          "pass": true
+        },
+        {
+          "label": "Requested capture complete",
+          "pass": false
+        }
+      ],
+      "commands": [
+        {
+          "name": "oracle-before",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 296,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "capture",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 11091,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "target",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 11890,
+          "timed_out": false,
+          "error": null
+        }
+      ],
+      "cleanup": [
+        {
+          "name": "target",
+          "forced": false
+        },
+        {
+          "name": "private-session-file",
+          "removed": true
+        }
+      ],
+      "raw_local_receipt_sha256": "0afe7363b633544ba7de34a392b2c6e5e8d9fb549b851461956686b801248470"
+    },
+    {
+      "phase": "diagnostic-continuation-01",
+      "started_at": "2026-10-26T22:03:16.663Z",
+      "completed_at": "2026-10-26T22:03:18.312Z",
+      "status": "FAIL",
+      "full_pilot_acceptance": "FAIL_INCOMPLETE_CAPTURE",
+      "failure": "Fresh control target stopped before replay",
+      "checks": [
+        {
+          "label": "Externally retained original Evidence ID",
+          "pass": true
+        },
+        {
+          "label": "Actual completed browser request actions",
+          "pass": true
+        },
+        {
+          "label": "Original incomplete capture classification preserved",
+          "pass": true
+        },
+        {
+          "label": "REA reports original browser termination",
+          "pass": true
+        },
+        {
+          "label": "Bootstrap response token actually redacted after decoding",
+          "pass": true
+        },
+        {
+          "label": "oracle-before-controls: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-before-controls: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "oracle-negative-calibration: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "Independent oracle rejects false empty-state expectation",
+          "pass": true
+        },
+        {
+          "label": "Unchanged real EdOS module",
+          "pass": true
+        },
+        {
+          "label": "Fresh negative-control session obtained through actual GET",
+          "pass": true
+        },
+        {
+          "label": "wrong-token: expected HTTP 403",
+          "pass": true
+        },
+        {
+          "label": "oracle-wrong-token: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-wrong-token: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "wrong-token: no committed write",
+          "pass": true
+        },
+        {
+          "label": "stale-sequence: expected HTTP 409",
+          "pass": true
+        },
+        {
+          "label": "oracle-stale-sequence: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-stale-sequence: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "stale-sequence: no committed write",
+          "pass": true
+        },
+        {
+          "label": "Live unknown source query returns 404",
+          "pass": true
+        },
+        {
+          "label": "Fresh control target stopped before replay",
+          "pass": false
+        }
+      ],
+      "commands": [
+        {
+          "name": "oracle-before-controls",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 421,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-negative-calibration",
+          "exit": 1,
+          "signal": null,
+          "elapsed_ms": 299,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-wrong-token",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 366,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-stale-sequence",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 354,
+          "timed_out": false,
+          "error": null
+        }
+      ],
+      "cleanup": [
+        {
+          "name": "fresh-negative-control-target",
+          "closed": true
+        }
+      ],
+      "raw_local_receipt_sha256": "f61e94a21d237685f07878b268c15e6fbb75410d2249669867f4c1b1afe08b64"
+    },
+    {
+      "phase": "diagnostic-continuation-02",
+      "started_at": "2026-10-26T22:04:53.851Z",
+      "completed_at": "2026-10-26T22:05:08.153Z",
+      "status": "PASS_SELECTED_DIAGNOSTICS_ON_PARTIAL_CAPTURE",
+      "full_pilot_acceptance": "FAIL_INCOMPLETE_CAPTURE",
+      "failure": null,
+      "checks": [
+        {
+          "label": "Externally retained original Evidence ID",
+          "pass": true
+        },
+        {
+          "label": "Actual completed browser request actions",
+          "pass": true
+        },
+        {
+          "label": "Original incomplete capture classification preserved",
+          "pass": true
+        },
+        {
+          "label": "REA reports original browser termination",
+          "pass": true
+        },
+        {
+          "label": "Bootstrap response token actually redacted after decoding",
+          "pass": true
+        },
+        {
+          "label": "oracle-before-controls: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-before-controls: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "oracle-negative-calibration: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "Independent oracle rejects false empty-state expectation",
+          "pass": true
+        },
+        {
+          "label": "Unchanged real EdOS module",
+          "pass": true
+        },
+        {
+          "label": "Fresh negative-control session obtained through actual GET",
+          "pass": true
+        },
+        {
+          "label": "wrong-token: expected HTTP 403",
+          "pass": true
+        },
+        {
+          "label": "oracle-wrong-token: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-wrong-token: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "wrong-token: no committed write",
+          "pass": true
+        },
+        {
+          "label": "stale-sequence: expected HTTP 409",
+          "pass": true
+        },
+        {
+          "label": "oracle-stale-sequence: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-stale-sequence: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "stale-sequence: no committed write",
+          "pass": true
+        },
+        {
+          "label": "Live unknown source query returns 404",
+          "pass": true
+        },
+        {
+          "label": "Fresh control target stopped before replay",
+          "pass": true
+        },
+        {
+          "label": "Original captured target stopped before replay",
+          "pass": true
+        },
+        {
+          "label": "manifest: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "Public projection authenticated and bound original parent",
+          "pass": true
+        },
+        {
+          "label": "tamper: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "Public consumer rejects semantic tamper with original ID",
+          "pass": true
+        },
+        {
+          "label": "Actual replay server listening",
+          "pass": true
+        },
+        {
+          "label": "replay-post: recorded HTTP200",
+          "pass": true
+        },
+        {
+          "label": "replay-post: expected source and match",
+          "pass": true
+        },
+        {
+          "label": "replay-post: target content untrusted",
+          "pass": true
+        },
+        {
+          "label": "replay-post: complete selected body",
+          "pass": true
+        },
+        {
+          "label": "replay-post: independent oracle",
+          "pass": true
+        },
+        {
+          "label": "replay-reference: recorded HTTP200",
+          "pass": true
+        },
+        {
+          "label": "replay-reference: expected source and match",
+          "pass": true
+        },
+        {
+          "label": "replay-reference: target content untrusted",
+          "pass": true
+        },
+        {
+          "label": "replay-reference: complete selected body",
+          "pass": true
+        },
+        {
+          "label": "replay-reference: independent oracle",
+          "pass": true
+        },
+        {
+          "label": "replay-query-negative: recorded HTTP200",
+          "pass": true
+        },
+        {
+          "label": "replay-query-negative: expected source and match",
+          "pass": true
+        },
+        {
+          "label": "replay-query-negative: target content untrusted",
+          "pass": true
+        },
+        {
+          "label": "replay-query-negative: complete selected body",
+          "pass": true
+        },
+        {
+          "label": "replay-query-negative: independent oracle",
+          "pass": true
+        },
+        {
+          "label": "replay-body-negative: recorded HTTP200",
+          "pass": true
+        },
+        {
+          "label": "replay-body-negative: expected source and match",
+          "pass": true
+        },
+        {
+          "label": "replay-body-negative: target content untrusted",
+          "pass": true
+        },
+        {
+          "label": "replay-body-negative: complete selected body",
+          "pass": true
+        },
+        {
+          "label": "replay-body-negative: independent oracle",
+          "pass": true
+        },
+        {
+          "label": "replay-missing-candidates: recorded HTTP200",
+          "pass": true
+        },
+        {
+          "label": "replay-missing-candidates: expected source and match",
+          "pass": true
+        },
+        {
+          "label": "replay-missing-candidates: target content untrusted",
+          "pass": true
+        },
+        {
+          "label": "replay-missing-candidates: missing capture body remains unavailable",
+          "pass": true
+        },
+        {
+          "label": "oracle-after-replay: completed within deadline",
+          "pass": true
+        },
+        {
+          "label": "oracle-after-replay: independent filesystem oracle",
+          "pass": true
+        },
+        {
+          "label": "Offline replay made no filesystem write",
+          "pass": true
+        },
+        {
+          "label": "Fresh target still stopped",
+          "pass": true
+        },
+        {
+          "label": "Original target still stopped",
+          "pass": true
+        },
+        {
+          "label": "Replay server graceful exit143",
+          "pass": true
+        },
+        {
+          "label": "All declared continuation inputs unchanged",
+          "pass": true
+        }
+      ],
+      "commands": [
+        {
+          "name": "oracle-before-controls",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 297,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-negative-calibration",
+          "exit": 1,
+          "signal": null,
+          "elapsed_ms": 274,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-wrong-token",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 254,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-stale-sequence",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 440,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "manifest",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 4838,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "tamper",
+          "exit": 1,
+          "signal": null,
+          "elapsed_ms": 2867,
+          "timed_out": false,
+          "error": null
+        },
+        {
+          "name": "oracle-after-replay",
+          "exit": 0,
+          "signal": null,
+          "elapsed_ms": 268,
+          "timed_out": false,
+          "error": null
+        }
+      ],
+      "cleanup": [
+        {
+          "name": "fresh-negative-control-target",
+          "closed": true
+        },
+        {
+          "name": "replay",
+          "exit": {
+            "code": 143,
+            "signal": null
+          }
+        }
+      ],
+      "raw_local_receipt_sha256": "2773d8a24e476c2b88820de435d6263a4efb260aeff5ffe0db1c08aad8d8b69b"
+    }
+  ],
+  "facts": {
+    "capture": {
+      "id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "raw_sha256": "24d7c9e00ad1e0a292b81e54a34529c3b5fbbdb5dbffa5e1e8fa86572da607b1",
+      "completeness": {
+        "status": "incomplete",
+        "equality_eligible": false,
+        "missing_sections": ["events"],
+        "truncated_sections": []
+      },
+      "browser": {
+        "mode": "launch",
+        "process_ownership": "provider-owned",
+        "cleanup": "terminated-owned-process",
+        "product": "Chromium",
+        "version": "155.0.8059.86"
+      },
+      "steps": [
+        {
+          "id": "scenario_start",
+          "status": "completed"
+        },
+        {
+          "id": "ready",
+          "status": "completed"
+        },
+        {
+          "id": "save",
+          "status": "completed"
+        },
+        {
+          "id": "read-saved",
+          "status": "completed"
+        },
+        {
+          "id": "read-source",
+          "status": "completed"
+        }
+      ],
+      "unavailable": [
+        {
+          "sequence": 20,
+          "source_sequence": 18,
+          "body": {
+            "state": "unavailable",
+            "reason": "request-failed",
+            "message": "net::ERR_ABORTED"
+          }
+        }
+      ]
+    },
+    "oracle-before-controls": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "valid explicit oracle invocation",
+          "pass": true
+        },
+        {
+          "name": "config binds only the isolated scene source",
+          "pass": true
+        },
+        {
+          "name": "config binds the declared section and reference",
+          "pass": true
+        },
+        {
+          "name": "config contains exactly the synthetic allowlisted reference",
+          "pass": true
+        },
+        {
+          "name": "source is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "source bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "reference is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "reference bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate directory is an ordinary directory",
+          "pass": true
+        },
+        {
+          "name": "exact revision set with no pending or extra files",
+          "pass": true
+        },
+        {
+          "name": "revision is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "one committed candidate at sequence one",
+          "pass": true
+        },
+        {
+          "name": "candidate belongs to the requested section",
+          "pass": true
+        },
+        {
+          "name": "candidate title matches the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate Unicode and newline bytes match the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate has not been promoted to source or canon",
+          "pass": true
+        },
+        {
+          "name": "candidate is bound to the original source digest",
+          "pass": true
+        },
+        {
+          "name": "candidate has a UUID v4 identity",
+          "pass": true
+        },
+        {
+          "name": "candidate has a parseable update timestamp",
+          "pass": true
+        }
+      ],
+      "facts": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "795eb324f90bbe62b5ac38cc377509a118b3b56c28b25a4c9bcbae2cea9610e7",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": ["00000001.json"],
+        "revision_sha256": "e61e012b4d27d73d579258e287217b82a9543ac978b87e417ccac132d0afe123",
+        "sequence": 1
+      }
+    },
+    "oracle_calibration": {
+      "exit": 1,
+      "failure": "exact revision set with no pending or extra files"
+    },
+    "oracle-wrong-token": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "valid explicit oracle invocation",
+          "pass": true
+        },
+        {
+          "name": "config binds only the isolated scene source",
+          "pass": true
+        },
+        {
+          "name": "config binds the declared section and reference",
+          "pass": true
+        },
+        {
+          "name": "config contains exactly the synthetic allowlisted reference",
+          "pass": true
+        },
+        {
+          "name": "source is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "source bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "reference is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "reference bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate directory is an ordinary directory",
+          "pass": true
+        },
+        {
+          "name": "exact revision set with no pending or extra files",
+          "pass": true
+        },
+        {
+          "name": "revision is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "one committed candidate at sequence one",
+          "pass": true
+        },
+        {
+          "name": "candidate belongs to the requested section",
+          "pass": true
+        },
+        {
+          "name": "candidate title matches the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate Unicode and newline bytes match the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate has not been promoted to source or canon",
+          "pass": true
+        },
+        {
+          "name": "candidate is bound to the original source digest",
+          "pass": true
+        },
+        {
+          "name": "candidate has a UUID v4 identity",
+          "pass": true
+        },
+        {
+          "name": "candidate has a parseable update timestamp",
+          "pass": true
+        }
+      ],
+      "facts": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "795eb324f90bbe62b5ac38cc377509a118b3b56c28b25a4c9bcbae2cea9610e7",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": ["00000001.json"],
+        "revision_sha256": "e61e012b4d27d73d579258e287217b82a9543ac978b87e417ccac132d0afe123",
+        "sequence": 1
+      }
+    },
+    "wrong-token": {
+      "status": 403,
+      "unchanged_revision": true,
+      "session": "new diagnostic session, not original captured session"
+    },
+    "oracle-stale-sequence": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "valid explicit oracle invocation",
+          "pass": true
+        },
+        {
+          "name": "config binds only the isolated scene source",
+          "pass": true
+        },
+        {
+          "name": "config binds the declared section and reference",
+          "pass": true
+        },
+        {
+          "name": "config contains exactly the synthetic allowlisted reference",
+          "pass": true
+        },
+        {
+          "name": "source is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "source bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "reference is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "reference bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate directory is an ordinary directory",
+          "pass": true
+        },
+        {
+          "name": "exact revision set with no pending or extra files",
+          "pass": true
+        },
+        {
+          "name": "revision is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "one committed candidate at sequence one",
+          "pass": true
+        },
+        {
+          "name": "candidate belongs to the requested section",
+          "pass": true
+        },
+        {
+          "name": "candidate title matches the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate Unicode and newline bytes match the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate has not been promoted to source or canon",
+          "pass": true
+        },
+        {
+          "name": "candidate is bound to the original source digest",
+          "pass": true
+        },
+        {
+          "name": "candidate has a UUID v4 identity",
+          "pass": true
+        },
+        {
+          "name": "candidate has a parseable update timestamp",
+          "pass": true
+        }
+      ],
+      "facts": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "795eb324f90bbe62b5ac38cc377509a118b3b56c28b25a4c9bcbae2cea9610e7",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": ["00000001.json"],
+        "revision_sha256": "e61e012b4d27d73d579258e287217b82a9543ac978b87e417ccac132d0afe123",
+        "sequence": 1
+      }
+    },
+    "stale-sequence": {
+      "status": 409,
+      "unchanged_revision": true,
+      "session": "new diagnostic session, not original captured session"
+    },
+    "live_query_negative": {
+      "status": 404
+    },
+    "listener_probes": [
+      {
+        "label": "Fresh control target stopped before replay",
+        "result": "ECONNREFUSED"
+      },
+      {
+        "label": "Original captured target stopped before replay",
+        "result": "ECONNREFUSED"
+      },
+      {
+        "label": "Fresh target still stopped",
+        "result": "ECONNREFUSED"
+      },
+      {
+        "label": "Original target still stopped",
+        "result": "ECONNREFUSED"
+      }
+    ],
+    "manifest": {
+      "id": "ev_21ec3abe7c6e1873ca383ad271ab798af097ea7cfd67fdbc124a27c816d65e94",
+      "parent_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce"
+    },
+    "tamper": {
+      "exit": 1,
+      "code": "invalid_request",
+      "evidence_id_issue": true
+    },
+    "replay-post": {
+      "status": 200,
+      "record_ordinal": 2,
+      "evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "exact_match": true,
+      "recorded_path": "/api/scene-workspace/candidates",
+      "recorded_query": null,
+      "recorded_line_truncated": false,
+      "content_type_truncated": false,
+      "body_recorded": true,
+      "body_encoding": "utf-8",
+      "truncated": false,
+      "body_sha256": "9aa97925e5d6042743fd83ee16e2bca8990d3afe21b2671a5683073bb242cc21",
+      "body_oracle": "PASS",
+      "untrusted_content": true
+    },
+    "replay-reference": {
+      "status": 200,
+      "record_ordinal": 4,
+      "evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "exact_match": true,
+      "recorded_path": "/api/scene-workspace/source",
+      "recorded_query": "?id=reference",
+      "recorded_line_truncated": false,
+      "content_type_truncated": false,
+      "body_recorded": true,
+      "body_encoding": "utf-8",
+      "truncated": false,
+      "body_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89",
+      "body_oracle": "PASS",
+      "untrusted_content": true
+    },
+    "replay-query-negative": {
+      "status": 200,
+      "record_ordinal": 4,
+      "evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "exact_match": false,
+      "recorded_path": "/api/scene-workspace/source",
+      "recorded_query": "?id=reference",
+      "recorded_line_truncated": false,
+      "content_type_truncated": false,
+      "body_recorded": true,
+      "body_encoding": "utf-8",
+      "truncated": false,
+      "body_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89",
+      "body_oracle": "PASS",
+      "untrusted_content": true
+    },
+    "replay-body-negative": {
+      "status": 200,
+      "record_ordinal": 2,
+      "evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "exact_match": true,
+      "recorded_path": "/api/scene-workspace/candidates",
+      "recorded_query": null,
+      "recorded_line_truncated": false,
+      "content_type_truncated": false,
+      "body_recorded": true,
+      "body_encoding": "utf-8",
+      "truncated": false,
+      "body_sha256": "9aa97925e5d6042743fd83ee16e2bca8990d3afe21b2671a5683073bb242cc21",
+      "body_oracle": "PASS",
+      "untrusted_content": true
+    },
+    "replay-missing-candidates": {
+      "status": 200,
+      "record_ordinal": 3,
+      "evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "exact_match": true,
+      "recorded_path": "/api/scene-workspace/candidates",
+      "recorded_query": null,
+      "recorded_line_truncated": false,
+      "content_type_truncated": false,
+      "body_recorded": false,
+      "body_encoding": "utf-8",
+      "truncated": false,
+      "body_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "body_oracle": "UNAVAILABLE",
+      "untrusted_content": true
+    },
+    "oracle-after-replay": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "valid explicit oracle invocation",
+          "pass": true
+        },
+        {
+          "name": "config binds only the isolated scene source",
+          "pass": true
+        },
+        {
+          "name": "config binds the declared section and reference",
+          "pass": true
+        },
+        {
+          "name": "config contains exactly the synthetic allowlisted reference",
+          "pass": true
+        },
+        {
+          "name": "source is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "source bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "reference is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "reference bytes remain exactly unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate directory is an ordinary directory",
+          "pass": true
+        },
+        {
+          "name": "exact revision set with no pending or extra files",
+          "pass": true
+        },
+        {
+          "name": "revision is an ordinary file",
+          "pass": true
+        },
+        {
+          "name": "one committed candidate at sequence one",
+          "pass": true
+        },
+        {
+          "name": "candidate belongs to the requested section",
+          "pass": true
+        },
+        {
+          "name": "candidate title matches the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate Unicode and newline bytes match the independent input",
+          "pass": true
+        },
+        {
+          "name": "candidate has not been promoted to source or canon",
+          "pass": true
+        },
+        {
+          "name": "candidate is bound to the original source digest",
+          "pass": true
+        },
+        {
+          "name": "candidate has a UUID v4 identity",
+          "pass": true
+        },
+        {
+          "name": "candidate has a parseable update timestamp",
+          "pass": true
+        }
+      ],
+      "facts": {
+        "fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+        "config_sha256": "795eb324f90bbe62b5ac38cc377509a118b3b56c28b25a4c9bcbae2cea9610e7",
+        "source_sha256": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "reference_sha256": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "candidate_files": ["00000001.json"],
+        "revision_sha256": "e61e012b4d27d73d579258e287217b82a9543ac978b87e417ccac132d0afe123",
+        "sequence": 1
+      }
+    }
+  },
+  "retained_artifacts": {
+    "capture_evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+    "capture_raw_bytes_sha256": "24d7c9e00ad1e0a292b81e54a34529c3b5fbbdb5dbffa5e1e8fa86572da607b1",
+    "manifest_evidence_id": "ev_21ec3abe7c6e1873ca383ad271ab798af097ea7cfd67fdbc124a27c816d65e94",
+    "manifest_raw_bytes_sha256": "c1303a2afb20c6241f38d3eea47073a3e45404d9246deea3dfafc270966b4f65",
+    "capture_completeness": {
+      "status": "incomplete",
+      "equality_eligible": false,
+      "missing_sections": ["events"],
+      "truncated_sections": []
+    },
+    "missing_get_replay": {
+      "status": 200,
+      "body": null,
+      "content_type": null,
+      "body_recorded": false
+    }
+  },
+  "authored_harness": {
+    "run-pilot.mjs": "2e56b25fc69a902f447c2fbd8ec8f7be2370d50fdbc2154a31de5b28cb466f8c",
+    "continue-partial.mjs": "84df9b2bebfa6a0c406e94d4521e9fb46ad046569d62ad7128675e43a01e5965",
+    "target.mjs": "4fd3032651d2b22a8c7237ac114a5d0f64d423676de22fa41ee0b0583fcba63e",
+    "oracle.mjs": "ec6f4dff9d514b0666afcfd3e44364fb7a11f9ebef9fe4fbea6f0a571899ee78",
+    "fixture.json": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236"
+  },
+  "interpretation": {
+    "real_product_write": "Observed once in actual browser-mediated POST; exact synthetic Unicode/newline data confirmed independently on disk.",
+    "auth_negative": "HTTP403 under a fresh diagnostic session using wrong token and current sequence1; original browser session already closed. Valid fresh token with stale sequence0 returns409.",
+    "evidence_authentication": "Unkeyed semantic-ID consistency plus externally pinned original ID and manifest-parent binding. No actor/signer attestation.",
+    "replay": "Actual public CLI environment-serve --replay-only with actual MCP Client; both original and diagnostic targets confirmed TCP ECONNREFUSED before/after replay.",
+    "unavailable_get": "HTTP200 without body is not product equivalence. Its unavailable body remains null; no backfill from disk or other response.",
+    "body_negative": "Unrecorded POST body still returns recorded successful body and exact_match:true. Matching is path/query only, not auth/body equivalence.",
+    "query_negative": "Unknown live source query returns404; offline replay falls back to recorded200 with exact_match:false.",
+    "first_capture": "20s launch deadline then cleanup_incomplete retained; later empty owned tmp/home and no observed run-bound process. Cause unknown.",
+    "second_capture": "60s configured deadline, actual provider duration below20s; cannot infer timeout increase caused recovery. GET body request-failed ERR_ABORTED cause unconfirmed.",
+    "first_continuation": "Stopped after controls at fetch-based shutdown probe, error detail not retained. New TCP probe avoids HTTP connection reuse; root cause of first probe failure remains unknown. Repeated control checks are not independent experiments.",
+    "raw_artifacts": "Retained locally only; public summary exports no tokens, private project module or personal paths."
+  },
+  "limits": [
+    "No full-capture PASS, full-UI qualification or capture equality claim.",
+    "No new authenticated write during replay or state-machine equivalence.",
+    "No clean installation, all-provider/full-suite qualification, release, merge, deployment, adoption, causal productivity or external reproduction.",
+    "One real captured product scenario; assertion count and diagnostic repeats are not sample size.",
+    "Raw/canonical/semantic hashes have distinct domains and are not signatures."
+  ]
+}

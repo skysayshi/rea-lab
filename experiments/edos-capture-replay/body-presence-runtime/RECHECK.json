@@ -1,0 +1,224 @@
+{
+  "schema": "rea-body-presence-recheck-v1",
+  "date": "2026-10-28",
+  "timezone": "Europe/Berlin",
+  "status": "PASS_SCOPED_RECHECK",
+  "base_sha": "566e463de75a4cea041cb00317a559a7a31b066f",
+  "fixes": [
+    "Reserve correlation headers only for instrumented actions",
+    "Retain contradictory complete length/digest observations as unknown",
+    "Redact declared secrets in producer reasons; typed refusal and coverage gap on redaction overflow"
+  ],
+  "source": {
+    "historical_files_verified_before_edits": 24,
+    "original_manifest_sha256": "7de0f496e5a65083f930ad6fdbdf96ad969f4ce801284253485abebd07668be6",
+    "original_integrity_sha256": "9369b0696e997ad1be1f4c04a182e7ddbe132a0c7f0187f3d72a13bc2d9a21cb",
+    "historical_artifacts_reverified": 20,
+    "final_stage_equal": true,
+    "final_checked_files": {
+      "experiments/edos-capture-replay/body-presence-runtime/README.md": "4d85f6f5b55c30f5331af618cd8c89668dc5f681f27e40d00d37f100a5671ec9",
+      "scripts/lib/browser-presence-e2e.mjs": "9b6c67d8b5dbb734f13a95436b035877ceee3c312424cf4050e461616a1fba25",
+      "src/browser/PlaywrightRequestBodyPresence.test.ts": "c5d47c214928891077f1e2ef64203a7fa09f682b7bdcd4092f98d57f1e8f693f",
+      "src/browser/PlaywrightRequestBodyPresence.ts": "4f7c91df8ad9b084ef5e108504c8e6c61fb78b0c9a19eebcfe2e17284e39b139",
+      "src/browser/PlaywrightScenarioRequestPresence.test.ts": "e8c99b492e08c6dc4cba05077563e208a527ab83d86a463cc96dff472d303dc5",
+      "src/domain/analysisView/browserScenarioNetworkView.test.ts": "a83f9472925dd415cf8b64384158bf4955d5f5bfb72ce13e17bd1f72449a5d18",
+      "src/domain/browserRequestBodyPresence.test.ts": "0ae09d9467eb18373a25a3c5e51f4b0cb780dcd5239954de229ed04857f39ac4",
+      "src/domain/browserRequestBodyPresence.ts": "1b40e96b6aeb44511f9ec3153a2f2fd604357bebfdc0c3f5ff2f31826127d2eb",
+      "src/application/environment/environmentBuildReport.test.ts": "ad17a6157effad79740d6c5782a141cb71fca3eb8b552dcd5e6161792843ac13",
+      "src/application/environment/environmentBuildReport.ts": "a18cc06e63c8c4040246527e1c54ecbfe757dfa74852af11c2afd333c600150c",
+      "src/browser/BrowserScenarioPartialObservation.ts": "9936584aa4fa08684a20d46c516d77c71fecfea12798e65b1b277bcd02149837",
+      "src/browser/PlaywrightScenarioActions.ts": "787af447a5bac0becc7d7a120f24cd382dfff3f75f22d7ed7ca75212992b128c",
+      "src/browser/PlaywrightScenarioEvents.test.ts": "01eca5840ad94b21d5da4d6cfa6ecbb7392468a2ee9486afa8dfd7b24b413827",
+      "src/browser/PlaywrightScenarioEvents.ts": "515e4cdba5132c5fca222e84f6532d33e2611bdc17f36673f1cbba67ec08c63e",
+      "src/browser/PlaywrightScenarioRequest.ts": "74eb84bc6cc0c171ed7b14792f31110755f9a3bcd253f524467c1c6335144d2a",
+      "src/browser/PlaywrightScenarioSession.ts": "5c8c90a705f8d8acc3d4e45a01fcd596e8efccd4f938d676f06e063fa16a6d81",
+      "src/browser/network/PlaywrightScenarioNetwork.test.ts": "56dc9c6a21173244d59d9967fb8acb0745005c0985506501b2e1e751c8f8834b",
+      "src/browser/network/PlaywrightScenarioNetwork.ts": "d572b71a260a1485c12f0cbace5c1b02dcd72fe1bc1e50d1996057a7f34f5374",
+      "src/domain/analysisView/browserScenarioNetworkView.ts": "2b443754b822df605a5b8a29dfbf5f1075f88a43689a2e97cfdc7d9cb19a2b56",
+      "src/domain/browserScenario.ts": "0f743e123705fafa9b9a0b06ddf26afc6371414ab94f387658efa765f7bcda11",
+      "src/domain/browserScenarioCapture.ts": "bc519c38d4a69e6eab43dd6f79834ce7d692977371deb8e453c7f32cc3b5d84d",
+      "src/domain/browserScenarioCaptureValues.ts": "e34de968c8e04edc77999bab5eef76331e734ef4322ba35c589f2391a5937726",
+      "src/domain/browserScenarioNetworkComparison.ts": "6f323f3a8f1a16acbe72622a2ba6e4613646364bf30547369b4c72dfe1eb668a",
+      "src/domain/browserScenarioValues.ts": "6e502f428d1bfcf46ce5091f56e0ae25bddd3673fc254ee1fd804f7c4fe13531",
+      ".oxfmtrc.json": "e43f076b67c503a24466ec9fc68d37d34354822fa1e40e9615c19861ce72c776",
+      "experiments/edos-capture-replay/README.md": "d109162fe345da6d41c84e1d955b0ea25f9e62e4f443d149141ea843dda709dc",
+      "experiments/edos-capture-replay/body-presence-runtime/verify-recorded.mjs": "850f0e5fe8311bac2a901517aa96755f02a2998f86ceeacc39cf5128d73022d8",
+      "experiments/edos-capture-replay/body-presence-runtime/RECHECK.md": "7e5fe6bedc2a1e3dd41220ec48258ab0b009042ad6532f57b062640cb7ccbf39"
+    },
+    "changed_from_historical": [
+      "experiments/edos-capture-replay/body-presence-runtime/README.md",
+      "scripts/lib/browser-presence-e2e.mjs",
+      "src/browser/PlaywrightScenarioRequestPresence.test.ts",
+      "src/domain/browserRequestBodyPresence.test.ts",
+      "src/domain/browserRequestBodyPresence.ts",
+      "src/browser/network/PlaywrightScenarioNetwork.test.ts",
+      "src/browser/network/PlaywrightScenarioNetwork.ts",
+      "src/domain/browserScenario.ts"
+    ],
+    "unchanged_browser_producer": true,
+    "unchanged_request_dispatch": true
+  },
+  "historical": {
+    "scope": "prior local synthetic public-CLI observation; imported without rerunning browser",
+    "source_tests": {
+      "files": 14,
+      "passed": 174,
+      "failed": 0,
+      "log": "TESTS.final.log"
+    },
+    "public_cli": {
+      "runs": 1,
+      "elapsed_ms": 57161,
+      "request_count": 4,
+      "states": ["absent", "present-empty", "present", "unknown"],
+      "native_body_states": [
+        "not_exposed",
+        "not_exposed",
+        "captured",
+        "captured"
+      ],
+      "browser": {
+        "mode": "launch",
+        "process_ownership": "provider-owned",
+        "cleanup": "terminated-owned-process",
+        "product": "Chromium",
+        "version": "156.0.8078.48"
+      },
+      "cleanup": {
+        "command_owner_closed": true,
+        "runtime_removed": true,
+        "receiver_closed": true
+      },
+      "capture_sha256": "fde28e64ed51253d967a9c957a815e9995577715f805e1dd317d9949ba09bc7d",
+      "evidence_id": "ev_15bbd02686dd981ef6f0d6b5b2d50ee7cda3af02d30e9c2817feaf2c368908e5",
+      "completeness": {
+        "status": "incomplete",
+        "equality_eligible": false,
+        "missing_sections": ["events"],
+        "truncated_sections": []
+      }
+    },
+    "raw_artifacts": {
+      "CAPTURE.json": "fde28e64ed51253d967a9c957a815e9995577715f805e1dd317d9949ba09bc7d",
+      "EVIDENCE.json": "90c15e165eb8d39c16fac8d83a4cadda164f2d3c4d405a1d25cdfaf5376744b6",
+      "SERVER.json": "38a6e7dd7571605885026bfa3a979e46a52ee27ab8fb9dd0857f94ea5fbaaf59",
+      "SCENARIO.json": "149c9022e4251b44bc32e13270a63cf0898a2b55b7fe8bc5f473e33abdff6ea2"
+    },
+    "initial_source_test_failure": {
+      "passed": 172,
+      "failed": 1,
+      "log": "TESTS.initial.log",
+      "preserved_failure": "Existing 50ms real-timer active-read test: expected 16, observed 20 during concurrent build. Assertion and production path unchanged; source-derived timing diagnosis, no baseline reproduction."
+    },
+    "iteration_failures": {
+      "initial_typecheck": "FAIL during editing: missing non-DOM read-result type and consumers assuming a URL on all transaction events; fixed before final checks",
+      "initial_build": "FAIL: stage parsed obsolete missing DOM type annotation; final rebuilt source fixed"
+    }
+  },
+  "current_checks": {
+    "regression_before_fix": {
+      "boundary_cases_failed": 2,
+      "boundary_cases_passed": 10,
+      "secret_cases_failed": 4
+    },
+    "secret_focused_after_fix": {
+      "passed": 4,
+      "unselected": 33
+    },
+    "selected_source_tests": {
+      "files": 14,
+      "unique_tests_passed": 179,
+      "single_clean_run": false,
+      "first": {
+        "files_passed": 11,
+        "tests_passed": 118,
+        "suites_failed_to_load": 3,
+        "error": "ENOENT: Vitest temporary SSR transform file missing; cause unconfirmed"
+      },
+      "retry": {
+        "files": 3,
+        "tests_passed": 61,
+        "unchanged": true
+      }
+    },
+    "build_cached": "PASS",
+    "check_fast": "PASS",
+    "docs_check": {
+      "status": "PASS",
+      "conformance_tests": 9
+    },
+    "format": {
+      "status": "PASS",
+      "files": 28,
+      "raw_historical_files_excluded": true
+    },
+    "whitespace": "PASS",
+    "offline_recorded": {
+      "status": "PASS_RECORDED_ARTIFACTS",
+      "new_browser_runs": 0,
+      "capture_sha256": "fde28e64ed51253d967a9c957a815e9995577715f805e1dd317d9949ba09bc7d",
+      "cases": [
+        {
+          "case_id": "absent",
+          "state": "absent",
+          "receiver_bytes": 0
+        },
+        {
+          "case_id": "present-empty",
+          "state": "present-empty",
+          "receiver_bytes": 0
+        },
+        {
+          "case_id": "present",
+          "state": "present",
+          "receiver_bytes": 43
+        },
+        {
+          "case_id": "unknown",
+          "state": "unknown",
+          "receiver_bytes": 50
+        }
+      ],
+      "completeness": {
+        "status": "incomplete",
+        "equality_eligible": false,
+        "missing_sections": ["events"],
+        "truncated_sections": []
+      },
+      "historical_full_capture_acceptance": "FAIL"
+    },
+    "negative_control": {
+      "status": "EXPECTED_REFUSAL",
+      "mutation": "one extra newline in temporary raw capture copy",
+      "exit_code": 1,
+      "pass_output_emitted": false,
+      "original_artifacts_modified": false
+    },
+    "new_browser_runs": 0,
+    "new_server_runs": 0
+  },
+  "log_sha256": {
+    "before-fix.log": "d6e41c768e4700d3c5de9ba8fbef21fb39e388da62daa9cae127d3a8caa68905",
+    "secret-before-fix.log": "c6a99b4eb169f008abf7d5756d4697bff5032062a3e7434177587e917b3356f4",
+    "secret-after-fix.log": "83bcf3bad8b7784221bb0c785943a9b4d690d6f8ec7f4e9f3155e5ae85a2fa32",
+    "tests.log": "96ade5b496ca624614b7e3a470929e7cef24b24bb264e5966d706ab6ecae8591",
+    "tests-retry.log": "c224519cbc726d7c4b986e3e12dd5dab168f2ba46319ffda462289e811954145",
+    "build.log": "18751b72f54346606ef4ee552ac29091734ccdb6a2c5573d8fc7b8912e621fac",
+    "check-fast.log": "3e300b1caaca07d4af5efb2a7569c77dcf1909457f1aebfaf62968054c4e7791",
+    "docs-check.log": "372a12c1f74f35be1fdd03be2856b0b198dafee11d2de46a1c46d138bf0a352c",
+    "format.log": "68cc5fb1de0742a8dc4858080a0fecf00dae52e9f7923dc53af13d81d33d9515",
+    "recorded-check.json": "49736323693023417fc4718515a34fed2490a5a7cf243d5d7a201093c752be4a",
+    "negative-control.json": "6c39d1d25b322240b8d84f0afb64b98e1a7740c92f1157e7270039a229f6b7ea",
+    "tampered-pin.log": "2e02e856b68762e25a34891588b073741138830e10a556c9f6c6d996848ddfe2",
+    "historical-offline-verification.json": "a68fe882928024750b198f6c914c696efc4f000855615071678758da106952e4"
+  },
+  "limitations": [
+    "This is a fork-local draft prototype, not official capability or release qualification.",
+    "Historical full capture acceptance remains FAIL; current retained capture remains incomplete and equality-ineligible.",
+    "Current validation covers corrected source boundaries and recorded artifacts, not a new live-provider execution.",
+    "Prior full-capture failures, unknown browser cause and original EdOS dirty-save fixture incompatibility remain unchanged.",
+    "No current EdOS/UI/auth/save/server, adoption or product effect is established.",
+    "Local log digests identify retained receipts; they do not independently authenticate the producer."
+  ],
+  "next_decision": "Use portable recorded checks for the declared synthetic scope; separately bound any live product/provider qualification."
+}

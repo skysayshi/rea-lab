@@ -1,0 +1,514 @@
+{
+  "schema": "browser-close-timing-case-v1",
+  "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+  "case_id": "no-context",
+  "configuration": {
+    "contexts": 0,
+    "pages_per_context": 0
+  },
+  "api_close": {
+    "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+    "operation_id": "browser-close-1",
+    "operation_status": "fulfilled",
+    "within_deadline": true,
+    "ownership_retained": false,
+    "started_at_ms": 14680.186807,
+    "settled_at_ms": 21993.222536,
+    "settle_duration_ms": 7313.035729000001,
+    "observed_duration_ms": 7313.035729000001,
+    "deadline_ms": 10000,
+    "observation_ms": 45000,
+    "error": null,
+    "observer_errors": []
+  },
+  "events": [
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 1,
+      "at_ms": 4544.030353,
+      "event": "launch_started",
+      "received_at_ms": 5450.792651
+    },
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 2,
+      "at_ms": 14679.361534,
+      "event": "launch_fulfilled",
+      "browser_version": "156.0.8078.73",
+      "received_at_ms": 16643.473314
+    },
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 3,
+      "at_ms": 14680.186807,
+      "operation_id": "browser-close-1",
+      "event": "invoked",
+      "elapsed_ms": 0,
+      "connected": true,
+      "contexts": 0,
+      "received_at_ms": 16643.51004
+    },
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 4,
+      "at_ms": 14890.369421,
+      "event": "browser_disconnected",
+      "received_at_ms": 16643.521434
+    },
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 5,
+      "at_ms": 21993.222536,
+      "operation_id": "browser-close-1",
+      "event": "fulfilled",
+      "elapsed_ms": 7313.035729000001,
+      "after_ceiling": false,
+      "error": null,
+      "connected": false,
+      "contexts": 0,
+      "received_at_ms": 23418.061836
+    },
+    {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "seq": 6,
+      "at_ms": 21994.800685,
+      "event": "cell_result",
+      "result": {
+        "schema": "browser-close-child-v1",
+        "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+        "configuration": {
+          "case_id": "no-context",
+          "contexts": 0,
+          "pages_per_context": 0
+        },
+        "context_calls": [],
+        "context_setup_complete": true,
+        "api_close": {
+          "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+          "operation_id": "browser-close-1",
+          "operation_status": "fulfilled",
+          "within_deadline": true,
+          "ownership_retained": false,
+          "started_at_ms": 14680.186807,
+          "settled_at_ms": 21993.222536,
+          "settle_duration_ms": 7313.035729000001,
+          "observed_duration_ms": 7313.035729000001,
+          "deadline_ms": 10000,
+          "observation_ms": 45000,
+          "error": null,
+          "observer_errors": []
+        },
+        "browser_version": "156.0.8078.73",
+        "connected_after_observation": false
+      },
+      "received_at_ms": 23418.121009
+    }
+  ],
+  "debug_phases": [
+    {
+      "phase": "launched",
+      "received_at_ms": 9649.629056,
+      "raw_line_sha256": "38843d7403345bd98c4cabafadfee637bf7b0b837a0aa4f32f70b61438aa9693"
+    },
+    {
+      "phase": "graceful_start",
+      "received_at_ms": 16638.46362,
+      "raw_line_sha256": "1ddd0906ca18aae17e447feb43b387f1c38520bacefbafd66f0cb3a9eac554ef"
+    },
+    {
+      "phase": "close_protocol_reply",
+      "received_at_ms": 16638.526749,
+      "raw_line_sha256": "e86eee24438212db17ba87de75744c6aa9dc6d417d7fc43af1606d59d84506a4"
+    },
+    {
+      "phase": "node_child_close",
+      "received_at_ms": 23416.09089,
+      "raw_line_sha256": "835d667504a6bf835287c71fc26d315100e655118b6ae9cac2175f425ae09225"
+    },
+    {
+      "phase": "temp_cleanup_start",
+      "received_at_ms": 23416.191666,
+      "raw_line_sha256": "0ee25e5d776f5f5b329cbf29acf0a75e90d46461def377c01744922b053a5dd2"
+    },
+    {
+      "phase": "temp_cleanup_end",
+      "received_at_ms": 23416.203143,
+      "raw_line_sha256": "b5f345a6ec25c2a16f3bc7d3d7df583b9adac8dab2d4cd36788d8f255f0d9eb4"
+    },
+    {
+      "phase": "graceful_end",
+      "received_at_ms": 23416.214843,
+      "raw_line_sha256": "a3c36d66f85a9c848f0859ad859d0bfd2fb78464a2cd6be5e2f112d09cde22dd"
+    }
+  ],
+  "context_setup_complete": true,
+  "child_failure": null,
+  "browser_version": "156.0.8078.73",
+  "ownership": {
+    "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+    "child_process": {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "pid": 86437,
+      "identity_validated": true,
+      "proof": "Owned ChildProcess reference and exact spawned run-id argument",
+      "exited": true,
+      "exit_code": 0,
+      "signal": null
+    },
+    "browser_process": {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "pid": 86496,
+      "launch_log_observed": true,
+      "identity_validated": true,
+      "profile_relative": "tmp/playwright_chromiumdev_profile-7qNPwK"
+    },
+    "final": {
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "owned_processes": 0,
+      "profile_dirs_present": [],
+      "artifact_dirs_present": [],
+      "sampler_error": "Owned PID identity changed: 86519; Owned PID identity changed: 86538; Owned PID identity changed: 86539; Owned PID identity changed: 86540; Owned PID identity changed: 86496"
+    }
+  },
+  "claims": {
+    "timely_close": "PASS",
+    "release": "UNKNOWN"
+  },
+  "interventions": [],
+  "process_samples": [
+    {
+      "at_ms": 2541.079253,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 3510.233037,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 4558.671432,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 5448.54751,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 6518.23164,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 7426.741326,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 8578.770272,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 9646.385,
+      "owned_processes": [],
+      "identity_validated": false
+    },
+    {
+      "at_ms": 10820.678963,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Rs",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 11800.619606,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Ss",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 12908.49548,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Ss",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        },
+        {
+          "pid": 86519,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:17 2026",
+          "stat": "R",
+          "command_sha256": "41dce2c97da805a89ec756e1a9a704ff2ebb63ab5f4bb985acdc695215eb43a2"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 13812.380612,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Ss",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        },
+        {
+          "pid": 86519,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:17 2026",
+          "stat": "R",
+          "command_sha256": "41dce2c97da805a89ec756e1a9a704ff2ebb63ab5f4bb985acdc695215eb43a2"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 15051.730511,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Ss",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 16634.389607,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Rs",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        },
+        {
+          "pid": 86537,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:19 2026",
+          "stat": "R",
+          "command_sha256": "d78cd799527dfc9346dcbdc894cb2e34572dea067bf33131955ec859988aaed2"
+        },
+        {
+          "pid": 86538,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:19 2026",
+          "stat": "R",
+          "command_sha256": "faf532fc5669f1ec4915272bcd990ec60f3040b6caf8b82923f2443651a0a1e0"
+        },
+        {
+          "pid": 86539,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:20 2026",
+          "stat": "R",
+          "command_sha256": "58a47123d74f07c7eb2ddd24cff8cfdaa1807f80abe6bc085b305ebca25b3850"
+        },
+        {
+          "pid": 86540,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:20 2026",
+          "stat": "R",
+          "command_sha256": "cebdedaaae320cca119a78bc3460ef202c01a9eecbfe3adfcc903080524f7166"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 17936.675889,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Rs",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        },
+        {
+          "pid": 86537,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:19 2026",
+          "stat": "Z",
+          "command_sha256": "2cb5df3e483665ed13c3cc80b0123d0cac6d93548e8a334e7782fd2c63ab975e"
+        },
+        {
+          "pid": 86538,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:19 2026",
+          "stat": "R",
+          "command_sha256": "faf532fc5669f1ec4915272bcd990ec60f3040b6caf8b82923f2443651a0a1e0"
+        },
+        {
+          "pid": 86539,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:20 2026",
+          "stat": "R",
+          "command_sha256": "58a47123d74f07c7eb2ddd24cff8cfdaa1807f80abe6bc085b305ebca25b3850"
+        },
+        {
+          "pid": 86540,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:20 2026",
+          "stat": "R",
+          "command_sha256": "cebdedaaae320cca119a78bc3460ef202c01a9eecbfe3adfcc903080524f7166"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 18901.168084,
+      "owned_processes": [
+        {
+          "pid": 86496,
+          "ppid": 86437,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:14 2026",
+          "stat": "Rs",
+          "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+        },
+        {
+          "pid": 86537,
+          "ppid": 86496,
+          "pgid": 86496,
+          "start": "Thu Oct 29 03:57:19 2026",
+          "stat": "Z",
+          "command_sha256": "2cb5df3e483665ed13c3cc80b0123d0cac6d93548e8a334e7782fd2c63ab975e"
+        }
+      ],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 20269.830981,
+      "owned_processes": [],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 21377.628242,
+      "owned_processes": [],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 22470.607767,
+      "owned_processes": [],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 23414.791772,
+      "owned_processes": [],
+      "identity_validated": true
+    },
+    {
+      "at_ms": 24290.789857,
+      "owned_processes": [],
+      "identity_validated": true
+    }
+  ],
+  "tracked_processes": [
+    {
+      "pid": 86496,
+      "ppid": 86437,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:14 2026",
+      "stat": "Rs",
+      "command_sha256": "471fa94956411cc8910e6e06ec431c62f6a4a64d359a7d2e00a15773d60609e4"
+    },
+    {
+      "pid": 86519,
+      "ppid": 86496,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:17 2026",
+      "stat": "R",
+      "command_sha256": "41dce2c97da805a89ec756e1a9a704ff2ebb63ab5f4bb985acdc695215eb43a2"
+    },
+    {
+      "pid": 86537,
+      "ppid": 86496,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:19 2026",
+      "stat": "R",
+      "command_sha256": "d78cd799527dfc9346dcbdc894cb2e34572dea067bf33131955ec859988aaed2"
+    },
+    {
+      "pid": 86538,
+      "ppid": 86496,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:19 2026",
+      "stat": "R",
+      "command_sha256": "faf532fc5669f1ec4915272bcd990ec60f3040b6caf8b82923f2443651a0a1e0"
+    },
+    {
+      "pid": 86539,
+      "ppid": 86496,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:20 2026",
+      "stat": "R",
+      "command_sha256": "58a47123d74f07c7eb2ddd24cff8cfdaa1807f80abe6bc085b305ebca25b3850"
+    },
+    {
+      "pid": 86540,
+      "ppid": 86496,
+      "pgid": 86496,
+      "start": "Thu Oct 29 03:57:20 2026",
+      "stat": "R",
+      "command_sha256": "cebdedaaae320cca119a78bc3460ef202c01a9eecbfe3adfcc903080524f7166"
+    }
+  ],
+  "raw_log_sha256": {
+    "stdout.log": "5d50ec86e32a053349930a9e343d0d239b2d13d4ad929c7457653eb0256859e9",
+    "stderr.log": "bdc6d9adad8fed25fce9dd55dd3a5e2e46f290eb5d8e4abd1d16110374ecbc88"
+  },
+  "result_observation": "API timestamps are child monotonic; debug phases and process samples are parent receipt/observation times, not exact cross-stream causality",
+  "oracle": {
+    "case_id": "no-context",
+    "timely_close": "PASS",
+    "release": "UNKNOWN",
+    "operation_status": "fulfilled",
+    "counts": {
+      "child_events": 6,
+      "api_invocations": 1,
+      "api_settlements": 1,
+      "deadline_events": 0,
+      "ceiling_events": 0
+    }
+  },
+  "overall": "UNKNOWN"
+}

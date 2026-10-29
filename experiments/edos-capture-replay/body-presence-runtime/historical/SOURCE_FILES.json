@@ -1,0 +1,29 @@
+{
+  "base_sha": "566e463de75a4cea041cb00317a559a7a31b066f",
+  "files": {
+    "experiments/edos-capture-replay/body-presence-runtime/README.md": "4762a860d6b82e82708a1f4f1426fc0ccd221adf61c9a1f64b3fa6499e2485bc",
+    "scripts/lib/browser-presence-e2e.mjs": "eadd0fb81a33bd4b19a07c941cc05772cc165608df8b0d39c661fe23e53abb5c",
+    "src/browser/PlaywrightRequestBodyPresence.test.ts": "c5d47c214928891077f1e2ef64203a7fa09f682b7bdcd4092f98d57f1e8f693f",
+    "src/browser/PlaywrightRequestBodyPresence.ts": "4f7c91df8ad9b084ef5e108504c8e6c61fb78b0c9a19eebcfe2e17284e39b139",
+    "src/browser/PlaywrightScenarioRequestPresence.test.ts": "45ccb2bd7194be0f6e2532490811a4c10bfc18f605116bdc7f19cfca12f16897",
+    "src/domain/analysisView/browserScenarioNetworkView.test.ts": "a83f9472925dd415cf8b64384158bf4955d5f5bfb72ce13e17bd1f72449a5d18",
+    "src/domain/browserRequestBodyPresence.test.ts": "c5c327d1e1ffa915164352c992e00a00fe0729b48912d3d013084c2e6eb8da5b",
+    "src/domain/browserRequestBodyPresence.ts": "9045d295e370969b6866bdda652d00c4bfcf27b3d145197b2183337b9da3b1ed",
+    "src/application/environment/environmentBuildReport.test.ts": "ad17a6157effad79740d6c5782a141cb71fca3eb8b552dcd5e6161792843ac13",
+    "src/application/environment/environmentBuildReport.ts": "a18cc06e63c8c4040246527e1c54ecbfe757dfa74852af11c2afd333c600150c",
+    "src/browser/BrowserScenarioPartialObservation.ts": "9936584aa4fa08684a20d46c516d77c71fecfea12798e65b1b277bcd02149837",
+    "src/browser/PlaywrightScenarioActions.ts": "787af447a5bac0becc7d7a120f24cd382dfff3f75f22d7ed7ca75212992b128c",
+    "src/browser/PlaywrightScenarioEvents.test.ts": "01eca5840ad94b21d5da4d6cfa6ecbb7392468a2ee9486afa8dfd7b24b413827",
+    "src/browser/PlaywrightScenarioEvents.ts": "515e4cdba5132c5fca222e84f6532d33e2611bdc17f36673f1cbba67ec08c63e",
+    "src/browser/PlaywrightScenarioRequest.ts": "74eb84bc6cc0c171ed7b14792f31110755f9a3bcd253f524467c1c6335144d2a",
+    "src/browser/PlaywrightScenarioSession.ts": "5c8c90a705f8d8acc3d4e45a01fcd596e8efccd4f938d676f06e063fa16a6d81",
+    "src/browser/network/PlaywrightScenarioNetwork.test.ts": "41645461a59182937a880be391dee125fb9b5f0f93710c15e5d7b6a4aeea48dd",
+    "src/browser/network/PlaywrightScenarioNetwork.ts": "69a186e8d2f133a5cd13e5e3023adba447b560276ec082a7c9e51ed9fbf376c9",
+    "src/domain/analysisView/browserScenarioNetworkView.ts": "2b443754b822df605a5b8a29dfbf5f1075f88a43689a2e97cfdc7d9cb19a2b56",
+    "src/domain/browserScenario.ts": "e0a1fdc55f92510d32fac753e25c39c63152f0f4d7c52b27370efc3ced94958a",
+    "src/domain/browserScenarioCapture.ts": "bc519c38d4a69e6eab43dd6f79834ce7d692977371deb8e453c7f32cc3b5d84d",
+    "src/domain/browserScenarioCaptureValues.ts": "e34de968c8e04edc77999bab5eef76331e734ef4322ba35c589f2391a5937726",
+    "src/domain/browserScenarioNetworkComparison.ts": "6f323f3a8f1a16acbe72622a2ba6e4613646364bf30547369b4c72dfe1eb668a",
+    "src/domain/browserScenarioValues.ts": "6e502f428d1bfcf46ce5091f56e0ae25bddd3673fc254ee1fd804f7c4fe13531"
+  }
+}

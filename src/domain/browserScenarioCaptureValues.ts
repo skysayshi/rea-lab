@@ -11,6 +11,7 @@ import {
 import { sanitizedBrowserUrlSchema } from "./browserObservation.js";
 import { webScreenshotArtifactSchema } from "./webScreenshot.js";
 import { digestSchema } from "./../domain/digests.js";
+import { browserRequestBodyPresenceSchema } from "./browserRequestBodyPresence.js";
 
 const textArtifactSchema = z
   .strictObject({
@@ -247,6 +248,15 @@ export const browserScenarioEventSchema = z
     }),
     z.strictObject({
       ...eventBase,
+      kind: z.literal("request-body-presence"),
+      transaction_id: z.string().min(1),
+      source_event_sequence: z.int().min(1),
+      phase: z.literal("request"),
+      redirect_hop: z.literal(0),
+      presence: browserRequestBodyPresenceSchema,
+    }),
+    z.strictObject({
+      ...eventBase,
       kind: z.enum(["websocket-opened", "websocket-closed"]),
       url: sanitizedBrowserUrlSchema,
     }),
@@ -320,6 +330,7 @@ export const browserScenarioEventKindSchema = z.enum([
   "request-finished",
   "request-unfinished",
   "network-content",
+  "request-body-presence",
   "websocket-opened",
   "websocket-closed",
   "websocket-frame-sent",

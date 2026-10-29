@@ -5,6 +5,90 @@ import { browserScenarioSchema } from "../domain/browserScenario.js";
 import { resolveScenarioSecrets } from "../../tests/fixtures/browserScenarioSecrets.js";
 import { PlaywrightScenarioEvents } from "./PlaywrightScenarioEvents.js";
 
+it("keeps presence event budgets, network selection, and finalization ownership", async () => {
+  const listeners = new Map<string, (value: unknown) => void>();
+  const context = {
+    on: (name: string, listener: (value: unknown) => void) =>
+      listeners.set(name, listener),
+    off: vi.fn(),
+  } as unknown as BrowserContext;
+  const page = {
+    on: vi.fn(),
+    off: vi.fn(),
+    context: () => context,
+  } as unknown as Page;
+  const scenario = browserScenarioSchema.parse({
+    browser: { mode: "launch", executable_path: "/fixture/chrome" },
+    start_url: { url: "https://example.test" },
+    actions: [{ step_id: "wait", action: "wait_for_timeout", duration_ms: 1 }],
+    capture: { limits: { max_events: 1 } },
+  });
+  const options = {
+    page,
+    context,
+    ownsContext: true,
+    secrets: resolveScenarioSecrets(scenario, {}),
+    limits: scenario.capture.limits,
+  };
+  const request = {
+    method: () => "GET",
+    url: () => "https://example.test/presence",
+    resourceType: () => "fetch",
+    headers: () => ({}),
+    headersArray: async () => [],
+    postDataBuffer: () => null,
+    redirectedFrom: () => null,
+    failure: () => null,
+  } as unknown as Request;
+  const observation = {
+    status: "observed",
+    body_is_null: true,
+    measurement: { status: "not-applicable" },
+  } as const;
+  const producer = {
+    source: "runtime-owned-fetch-request",
+    run_id: "fixture",
+    request_id: "request-1",
+    dispatch_sequence: 1,
+    same_request_verified: true,
+  } as const;
+  const disabled = new PlaywrightScenarioEvents({
+    ...options,
+    enabled: new Set(),
+  });
+  expect(
+    disabled.observeRequestBodyPresence(request, observation, producer),
+  ).toMatchObject({ ok: false, error: { reason: "network-not-enabled" } });
+  await disabled.finish();
+  const events = new PlaywrightScenarioEvents({
+    ...options,
+    enabled: new Set(["network"]),
+  });
+  listeners.get("request")?.(request);
+  expect(
+    events.observeRequestBodyPresence(request, observation, producer),
+  ).toMatchObject({
+    ok: true,
+    value: { status: "omitted", reason: "max-events" },
+  });
+  expect(events.result().omissions.by_kind).toContainEqual({
+    kind: "request-body-presence",
+    count: 1,
+    reasons: ["max-events"],
+  });
+  expect(events.result().omissions.network_transactions).toContainEqual({
+    transaction_id: "request-1",
+    omitted_kinds: ["request-body-presence"],
+    reasons: ["max-events"],
+  });
+  await events.finish();
+  const frozen = events.result();
+  expect(
+    events.observeRequestBodyPresence(request, observation, producer),
+  ).toMatchObject({ ok: false, error: { reason: "sealed" } });
+  expect(events.result()).toEqual(frozen);
+});
+
 describe("declared secrets in scenario events", () => {
   it("redacts encoded declared secrets from text evidence and fingerprints", () => {
     const listeners = new Map<string, (value: unknown) => void>();

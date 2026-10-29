@@ -1,0 +1,11 @@
+# Complete diagnostics without a third capture
+
+Recorded before the continuation. Attempt 02 produced actual browser Evidence `ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce`, CLI exit 0 and five completed steps (navigation plus four actions). Global completeness was `incomplete`, equality eligible false: the GET candidates response content was unavailable (`request-failed`, `net::ERR_ABORTED`). POST and reference-read bodies were captured. The strict original harness stopped before downstream checks; its failure remains unchanged. REA reported owned browser termination, with a native exit 0 in the debug log.
+
+No third browser/product capture. Continue read-only Evidence projection and offline replay from these exact original bytes, preserving the missing-response limitation and overall failed complete-capture gate. Inspect actual candidate files with the predeclared independent oracle. Calibrate it against the intentionally false empty-history expectation.
+
+For the unexecuted live negative controls only, reopen the same isolated synthetic config/data through the unchanged EdOS module in a fresh owned loopback server. This creates a NEW ephemeral session/token; it is not the original capture session. Use the real GET bootstrap. Wrong token with otherwise current sequence must return 403; correct new token with stale sequence must return 409; unknown source query must return 404. Require no change to the committed revision. Stop that server before any replay.
+
+Import the original Evidence using the externally pinned ID; derive a manifest; reject a semantically tampered copy. Replay the retained POST and source bodies against independent disk/fixture expectations. Query mismatch must be classified inexact, altered POST body must demonstrate recorded-response-only semantics. The missing GET candidates body is an explicit unavailable check, not a positive equivalence test. No byte rewriting or clearing the capture's incomplete flag is allowed.
+
+The continuation's success can establish these selected controls on partial Evidence; it cannot turn attempt 02 or the original full acceptance contract green. No product/provider fix is justified without a confirmed cause of the missing body.

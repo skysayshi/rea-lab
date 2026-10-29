@@ -1,0 +1,42 @@
+{
+  "runtime": {
+    "node": "v24.22.1",
+    "chrome": "Google Chrome 156.0.8078.73",
+    "file_sha256": {
+      "node": "cc6f41f72e3eb4460154952e56a35afdd96b6995cea51cd25e637355a2955a51",
+      "chrome_launcher": "0d8e033c06b6dfecb6595e41ff98db9555fb48de6abda0052aac9b48bf688d9c",
+      "chrome_engine": "3a20217354a3374fd8d39608db4ccc67f6a3ab6d199e9646ad49a96c658e418f",
+      "rea_lock": "22e0c3c6367814f81111b7b9a17bce5e37e190b6c4e2b1e81a648c6a1bcd7767",
+      "product_lock": "bf8f79f2ce06483701f538e4405f9c2150a4b8ff09182509130dab0684521d76",
+      "product_package": "8205e2462e8296ea12a8085cc3480cfd09f53b137ecaa51112335add530a1558",
+      "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+      "handler": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+      "harness/pilot.mjs": "4e9ff77825884b11a20b68dd935b0f26f5eeb9784970430f169e164779213190",
+      "harness/build.mjs": "3d72e79e56c49f98b7b4f04be3af5017f44ce83b597f1d9df21e064e67e80fa2",
+      "harness/oracle.mjs": "a73dc7f97e619410f801250e495722da84187d7c5184af474e8b9bded4952b0e",
+      "harness/server.mjs": "70356a22738055fe9e0971292f277c2095096c608aa48b1190576578b27eed04",
+      "harness/fixture.json": "fb0a97b7b349a59b59608edb0aae1453c366228c39a15d356f2fcdc1222280de",
+      "harness/CONTRACT.md": "0b751b89d4ba92afe7b6bbb24b5348089a301c61580a905583c2c1afe4af9a49"
+    },
+    "playwright_files_rechecked": 363,
+    "available_EdOS_inputs_rechecked_read_only": 1802,
+    "removed_prior_snapshot_files_not_rechecked": 13,
+    "old_raw_RESULT_sha256": {
+      "run01": "6d44da36914ec064d51f956084a946eb4177fc764454e272d8fc8fc5dd045d72",
+      "run02": "9d86346e17a3455d8281f3d46260b0bd3fcb868f9b5b1b39d3efbcaa38905b44"
+    }
+  },
+  "executed_attempt02_authored_file_sha256": {
+    "experiments/edos-capture-replay/browser-close/CONTRACT.md": "7bdb4ffd2fbabfb897e0205e906c2f1bc59b234b987e95931c28a4b8b03f6cdc",
+    "experiments/edos-capture-replay/browser-close/CORRECTION.md": "7df12a54b03fd30fe70c3f5b25b634b6d7e9301ed4595ab87e89303e03adc6f6",
+    "experiments/edos-capture-replay/browser-close/calibrate.mjs": "6448b0c4557cba07625a47aaa12a1e2cf75d8a2fbc3ef9043bf92c16adaa1a94",
+    "experiments/edos-capture-replay/browser-close/cell.mjs": "9ca7455335052dcd9a64d2d0df88886e51f48c7f379d864c9887c7833f0322e0",
+    "experiments/edos-capture-replay/browser-close/diagnose.mjs": "f09d03ae4e41f6b0eb72405540782a91adb495fbec4dbe4f35c166ff6d0de76e",
+    "experiments/edos-capture-replay/browser-close/observe-close.mjs": "6cdfae82f9b66d226a3cc8c1ae221971646ded3d55980ce12ac3745ea0f6bd9c",
+    "experiments/edos-capture-replay/browser-close/observe-close.test.mjs": "4b1c8c7f33085476e5c1f78389f94b0391f424827647a3b81ac8dbdd3a0ae129",
+    "experiments/edos-capture-replay/browser-close/oracle.mjs": "d56e6ce4f35da82f7851f377daccb31d6a153be5acc17df92bc49fd00ae5f674",
+    "experiments/edos-capture-replay/browser-close/process-observer.mjs": "41e99736bae4c924999a969f1c3b77553d266cfe18b96404e91f4a238c84d719",
+    "experiments/edos-capture-replay/browser-close/process-observer.test.mjs": "2fdc17b4b9fd8ceea1ecad20843f7b455603551ef80e116d4256fc7cb424a514"
+  },
+  "note": "Private absolute paths remain local; EdOS manifests are read-only source bindings, not product execution. Removed snapshot copies are unavailable, not revalidated."
+}

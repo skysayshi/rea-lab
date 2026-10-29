@@ -49,8 +49,29 @@ export const retainedBrowserScenarioCaptureSchema = z
         path: ["events", "items"],
         message: "Event sequence numbers must be unique",
       });
+    const requestCounts = new Map<string, number>();
+    const presenceCounts = new Map<string, number>();
+    const producerRequests = new Set<string>();
+    const producerDispatches = new Set<string>();
+    for (const event of capture.events.items) {
+      const counts =
+        event.kind === "request"
+          ? requestCounts
+          : event.kind === "request-body-presence"
+            ? presenceCounts
+            : undefined;
+      if (counts !== undefined && "transaction_id" in event)
+        counts.set(
+          event.transaction_id,
+          (counts.get(event.transaction_id) ?? 0) + 1,
+        );
+    }
     for (const [index, event] of capture.events.items.entries()) {
-      if (event.kind !== "network-content") continue;
+      if (
+        event.kind !== "network-content" &&
+        event.kind !== "request-body-presence"
+      )
+        continue;
       const source = bySequence.get(event.source_event_sequence);
       if (
         source?.kind !== event.phase ||
@@ -63,6 +84,42 @@ export const retainedBrowserScenarioCaptureSchema = z
           message:
             "Network content must reference an earlier matching transaction phase",
         });
+      if (event.kind === "request-body-presence") {
+        const producer = event.presence.producer;
+        const producerRequest = JSON.stringify([
+          producer.run_id,
+          producer.request_id,
+        ]);
+        const producerDispatch = JSON.stringify([
+          producer.run_id,
+          producer.dispatch_sequence,
+        ]);
+        if (
+          producerRequests.has(producerRequest) ||
+          producerDispatches.has(producerDispatch)
+        )
+          context.addIssue({
+            code: "custom",
+            path: ["events", "items", index, "presence", "producer"],
+            message:
+              "A presence producer Request and dispatch can bind only once",
+          });
+        producerRequests.add(producerRequest);
+        producerDispatches.add(producerDispatch);
+        if (
+          requestCounts.get(event.transaction_id) !== 1 ||
+          presenceCounts.get(event.transaction_id) !== 1 ||
+          source?.kind !== "request" ||
+          source.redirected_from_transaction_id !== null ||
+          source.redirected_from_transaction_state !== "root"
+        )
+          context.addIssue({
+            code: "custom",
+            path: ["events", "items", index, "source_event_sequence"],
+            message:
+              "Body presence requires one retained root request and one observation for the same transaction",
+          });
+      }
     }
     if (capture.events.retained !== capture.events.items.length)
       context.addIssue({

@@ -38,6 +38,10 @@ export const scenarioNetworkTransactions = (
   >();
   for (const { sequence: _sequence, step_index: step, ...event } of capture
     .events.items) {
+    // This opt-in producer facet describes a Fetch boundary. Its selection and
+    // run-local witnesses are advisory and cannot change target-network equality.
+    // Retained native body bytes and their existing coverage gates remain owners.
+    if (event.kind === "request-body-presence") continue;
     if (!("transaction_id" in event)) continue;
     const id = event.transaction_id;
     const request = requests.get(id);

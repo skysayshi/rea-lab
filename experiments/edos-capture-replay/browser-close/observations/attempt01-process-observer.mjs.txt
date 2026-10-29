@@ -1,0 +1,250 @@
+import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { existsSync, realpathSync } from "node:fs";
+import { isAbsolute, relative, sep } from "node:path";
+
+const hash = (text) => createHash("sha256").update(text).digest("hex");
+const same = (left, right) =>
+  left.pid === right.pid &&
+  left.start === right.start &&
+  left.command_sha256 === right.command_sha256;
+const publicIdentity = (row) => ({
+  pid: row.pid,
+  ppid: row.ppid,
+  pgid: row.pgid,
+  start: row.start,
+  command_sha256: row.command_sha256,
+});
+
+function initialLeaderProfile({ leader, profile, ownedRoot, childPid }) {
+  if (!leader || !profile) return null;
+  const location = existsSync(profile) ? realpathSync(profile) : profile;
+  const inside = location.startsWith(ownedRoot + sep);
+  const profileArgument = leader.command.includes("--user-data-dir=" + profile);
+  return inside && profileArgument && leader.ppid === childPid
+    ? location
+    : null;
+}
+
+function hasKnownParent(row, byPid, known) {
+  const parent = byPid.get(row.ppid),
+    priorParent = known.get(row.ppid);
+  return parent && priorParent && same(parent, priorParent);
+}
+
+function discoverOwned({
+  rows,
+  byPid,
+  known,
+  browserPid,
+  ownedRoot,
+  childPid,
+}) {
+  const leader = byPid.get(browserPid),
+    priorLeader = known.get(browserPid);
+  const leaderKnown = leader && priorLeader && same(priorLeader, leader);
+  let changed;
+  do {
+    changed = false;
+    for (const row of rows) {
+      if (row.pid === childPid || row.pid === process.pid || known.has(row.pid))
+        continue;
+      const discovered =
+        hasKnownParent(row, byPid, known) ||
+        (leaderKnown &&
+          (row.pgid === browserPid || row.command.includes(ownedRoot + sep)));
+      if (!discovered) continue;
+      known.set(row.pid, row);
+      changed = true;
+    }
+  } while (changed);
+}
+
+function collectAlive(known, byPid, errors) {
+  const alive = [];
+  for (const [pid, prior] of known) {
+    const current = byPid.get(pid);
+    if (current && !same(prior, current))
+      errors.push("Owned PID identity changed: " + pid);
+    else if (current) alive.push(publicIdentity(current));
+  }
+  return alive;
+}
+
+function signalKnownProcesses(known, errors, signal) {
+  const rows = new Map(processes().map((row) => [row.pid, row]));
+  collectAlive(known, rows, errors);
+  assert.equal(
+    errors.length,
+    0,
+    "Sampler uncertainty cannot authorize a signal",
+  );
+  for (const [pid, prior] of known) {
+    const current = rows.get(pid);
+    if (current && same(current, prior)) process.kill(pid, signal);
+  }
+}
+
+function report({
+  runId,
+  childIdentity,
+  browserPid,
+  launched,
+  validated,
+  profile,
+  canonicalProfile,
+  ownedRoot,
+  samples,
+  errors,
+  known,
+}) {
+  const profileRelative = profile
+    ? relative(ownedRoot, canonicalProfile ?? profile)
+    : null;
+  return {
+    childIdentity,
+    browserIdentity: {
+      run_id: runId,
+      pid: browserPid ?? null,
+      launch_log_observed: launched,
+      identity_validated: validated,
+      profile_relative:
+        profileRelative &&
+        !profileRelative.startsWith("..") &&
+        !isAbsolute(profileRelative)
+          ? profileRelative
+          : null,
+    },
+    samples,
+    errors,
+    tracked_processes: [...known.values()].map(publicIdentity),
+  };
+}
+
+export function processes() {
+  return execFileSync(
+    "ps",
+    ["-ww", "-axo", "pid=,ppid=,pgid=,lstart=,command="],
+    { encoding: "utf8" },
+  )
+    .split("\n")
+    .flatMap((line) => {
+      const match = line.match(
+        /^\s*(\d+)\s+(\d+)\s+(\d+)\s+(\w+\s+\w+\s+\d+\s+\d\d:\d\d:\d\d\s+\d{4})\s+(.+)$/u,
+      );
+      return match
+        ? [
+            {
+              pid: Number(match[1]),
+              ppid: Number(match[2]),
+              pgid: Number(match[3]),
+              start: match[4].replace(/\s+/gu, " "),
+              command: match[5],
+              command_sha256: hash(match[5]),
+            },
+          ]
+        : [];
+    });
+}
+export function createProcessObserver({ runId, root, child }) {
+  const known = new Map(),
+    samples = [],
+    errors = [];
+  let browserPid,
+    profile,
+    canonicalProfile,
+    validated = false,
+    launched = false;
+  const ownedRoot = realpathSync(root);
+  const childIdentity = {
+    run_id: runId,
+    pid: child.pid,
+    identity_validated: Number.isSafeInteger(child.pid),
+    proof: "Owned ChildProcess reference and exact spawned run-id argument",
+  };
+  assert.ok(child.spawnargs.includes(runId));
+  function observeLaunch(line) {
+    if (line.includes("<launching>")) {
+      const match = line.match(/--user-data-dir=([^\s]+)/u);
+      if (match) {
+        if (profile && profile !== match[1])
+          errors.push("Unexpected replacement browser profile");
+        else profile = match[1];
+      }
+    }
+    const pid = line.match(/<launched> pid=(\d+)/u);
+    if (pid) {
+      if (browserPid && browserPid !== Number(pid[1])) {
+        errors.push("Unexpected replacement browser PID");
+        return;
+      }
+      browserPid = Number(pid[1]);
+      launched = true;
+    }
+  }
+  function sample() {
+    try {
+      const rows = processes(),
+        byPid = new Map(rows.map((row) => [row.pid, row]));
+      const leader = byPid.get(browserPid);
+      if (!validated) {
+        const location = initialLeaderProfile({
+          leader,
+          profile,
+          ownedRoot,
+          childPid: child.pid,
+        });
+        if (location) {
+          validated = true;
+          canonicalProfile = location;
+          known.set(leader.pid, leader);
+        }
+      }
+      if (validated) {
+        discoverOwned({
+          rows,
+          byPid,
+          known,
+          browserPid,
+          ownedRoot,
+          childPid: child.pid,
+        });
+      }
+      const value = {
+        at_ms: performance.now(),
+        owned_processes: collectAlive(known, byPid, errors),
+        identity_validated: validated,
+      };
+      samples.push(value);
+      return value;
+    } catch (error) {
+      errors.push(error.message);
+      return {
+        at_ms: performance.now(),
+        owned_processes: null,
+        identity_validated: validated,
+      };
+    }
+  }
+  return {
+    observeLaunch,
+    sample,
+    verifiedSignal: (signal) => signalKnownProcesses(known, errors, signal),
+    result() {
+      return report({
+        runId,
+        childIdentity,
+        browserPid,
+        launched,
+        validated,
+        profile,
+        canonicalProfile,
+        ownedRoot,
+        samples,
+        errors,
+        known,
+      });
+    },
+  };
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "rea-body-presence-oracle-calibration-v1",
+  "status": "PASS",
+  "positive_recorded_cases": 4,
+  "live_control": "disabled observer remains unknown despite delivered nonempty payload",
+  "controls": [
+    {
+      "name": "disabled observer falsely promoted",
+      "status": "EXPECTED_ORACLE_REJECTION",
+      "actual": "present",
+      "expected": "unknown",
+      "error_code": "ERR_ASSERTION"
+    },
+    {
+      "name": "receiver payload corrupted",
+      "status": "EXPECTED_ORACLE_REJECTION",
+      "actual": "WA==",
+      "expected": "0KHQuNC90YLQtdGC0LjRh9C10YHQutC+0LUg0YLQtdC70L4g0ZEg8J+agA==",
+      "error_code": "ERR_ASSERTION"
+    }
+  ],
+  "new_browser_runs": 0,
+  "raw_sha256": {
+    "CAPTURE.json": "227f61d048f9a7b073764d63e745492f1f9da0ce8518a0fc31a47f09409d083f",
+    "SERVER.json": "5da4fa13d114dd69571df8e6b6f58c0dd4384dfe817eb946d74aaf53ddc6adb6",
+    "SCENARIO.json": "3e901dd9178dd38367e72bb57252582623c850e2e984526f8217ec7b2f6eb936"
+  },
+  "originals_unchanged": true,
+  "historical_full_capture_acceptance": "FAIL"
+}

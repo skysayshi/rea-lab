@@ -1,0 +1,362 @@
+{
+  "schema": "rea-recorded-normal-editor-reuse-v1",
+  "date": "2026-10-28",
+  "timezone": "Europe/Berlin",
+  "status": "PASS_RECORDED_CALLBACK_RECHECK_PORTABLE_REUSE",
+  "fork_input": {
+    "commit": "d148c9e1fdc23fda38b761338eea75786b5ff421",
+    "tree": "a60b749ae6bdae883deae8eddf2b197a2b157476"
+  },
+  "research_input": "6451704a6651dfea52fa69bee0a16e43823592bf",
+  "contract": "CONTRACT.md",
+  "historical": {
+    "origin": "Separate local EdOS 2026-10-27 normal-editor-flow audit; known-case retrospective import",
+    "captured_at": "2026-10-27T21:07:04.679Z",
+    "result_recorded_at": "2026-10-27T21:08:44.693Z",
+    "transport": "in-memory-node-handler",
+    "storage": "temporary-synthetic-files",
+    "handler_capture_executions": 1,
+    "original_offline_runs": 2,
+    "only_final_original_run_counted": true,
+    "repeat_reason": "Added four capture-versus-replay state digest assertions",
+    "producer_pins": {
+      "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+      "server": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+      "fingerprint": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+      "compiler": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+      "compilerPackage": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    "callback_sha256": {
+      "candidatePlaceAfterSave": "74199dea076498c4a5a794c4727d3e9096cb7e522ae40d92c1670ccf9cac8727",
+      "api": "f9bae5ddb9f35191d1f75bcf7dda927b253e7337f1259805db79ad1e0e365e63",
+      "edit": "f2c486d537e8ec6637fb9cea57e3c8f40c26d17b1eddb584245e3c18dffdab64",
+      "save": "76d22e9a1598f13f2ce5000700beb4d11ef270f50ca138248b96d54073f2c3b8",
+      "openVariant": "155fe29ebb64bf0d94e65778a779ef5d51e1083eeab67461602d6ea6f1bc5134",
+      "titleOnChange": "f0ebd1fa5213b77f9b6993a3d214721ac8ecf6c7f089f8c0a40745309c8f3e50",
+      "textOnChange": "ba6357d10bf4ae13ac8ee2bff08680aeffa2e48fbe4f4b6822637dbf0012ed2f",
+      "manuscriptFingerprint": "4f34ce1a4d469393960366f50939dcb1f66ed7e1f310779fadf6a8d903fcb591"
+    },
+    "tool_sha256": {
+      "capture-flow.mjs": "4316fd2be9c7a301da29c21e16947c74aa3a61bca71d9b3bd554052d5c6a00a7",
+      "producer.mjs": "fb618eaa26bc123cb455011fa3b99693441246ea1bb651689127e95763fbfa34",
+      "oracle.mjs": "940ceb9725f5e3987ab168b301e9408b2fd203f4938cad720f408914229f1940",
+      "flow.mjs": "c6bf6e219b4622998a7a0bd25305ca54087507379c9e3c2afd70edaa55001e72"
+    },
+    "original_artifact_sha256": {
+      "CAPTURE.json": "76e09cdf1c4e3ba3f69e12c077550bf0079669630be213d18ef582ef601e7cc4",
+      "CONTRACT.md": "44ff6b2bb6c379a1bcfde3023096c745782ea05d34861b9cf3c287e96958314c",
+      "FIXTURE.sha256": "d39f9350444d9212b8e6c2496adbe0b9336db8d32cc849e149926eb098de67bf",
+      "REA_STATUS.json": "45c94036e4e7f43c1db23a53f76f6f4c7f210f7aaa17ee9761c930cc4490dfed",
+      "REPORT.ru.md": "d02bbdf0aa2d2ffd4905c2ae7ea3fd8a7ec9573817efd4df2426dfc62cf92f9c",
+      "RESULTS.json": "a382027a2a406180a63d12bf4e91ba8ec68657567857f65a2c4dc6d3d06a1442",
+      "capture-flow.mjs": "4316fd2be9c7a301da29c21e16947c74aa3a61bca71d9b3bd554052d5c6a00a7",
+      "flow.mjs": "c6bf6e219b4622998a7a0bd25305ca54087507379c9e3c2afd70edaa55001e72",
+      "normal-editor-flow.fixture.json": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+      "oracle.mjs": "940ceb9725f5e3987ab168b301e9408b2fd203f4938cad720f408914229f1940",
+      "producer.mjs": "fb618eaa26bc123cb455011fa3b99693441246ea1bb651689127e95763fbfa34",
+      "replay.mjs": "b1a67df686da8f47c3f47ec866d2b94a50040f66c2f7797dd1c45a75dfdc790a",
+      "run-checks.mjs": "218bed87dbe5ca9105c5c8d234750104938d6786b21cbe7bd6d53b4763a70b48"
+    },
+    "validation_raw_sha256": "7ae4cad29f15229f8fdc589d9f172624af874a2138c32725d5644f8997399ba7",
+    "result_raw_sha256": "a382027a2a406180a63d12bf4e91ba8ec68657567857f65a2c4dc6d3d06a1442",
+    "published_files": {
+      "fixture.json": {
+        "sha256": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+        "bytes": 11906
+      },
+      "HISTORICAL_CAPTURE.json": {
+        "sha256": "76e09cdf1c4e3ba3f69e12c077550bf0079669630be213d18ef582ef601e7cc4",
+        "bytes": 7026
+      }
+    },
+    "original_files_unchanged": true,
+    "private_source_exported": false
+  },
+  "current_callback_recheck": {
+    "kind": "unchanged historical offline runner against historical fixture",
+    "runs": 1,
+    "execution": {
+      "exit_code": 0,
+      "signal": null,
+      "error": null,
+      "elapsed_ms": 1923,
+      "node": "v24.22.1",
+      "original_paths_verified": 52,
+      "inputs_unchanged": true
+    },
+    "result": {
+      "schema": "edos-normal-editor-flow-results-v1",
+      "recorded_at": "2026-10-28T22:22:02.128Z",
+      "node": "v24.22.1",
+      "status": "PASS_BOUNDED_NORMAL_EDITOR_FLOW",
+      "cases": [
+        {
+          "name": "source-created seven-field editor saves and migrates controlled reading place",
+          "status": "PASS"
+        },
+        {
+          "name": "actual JSX edits resave ten-field candidate with same identity at sequence two",
+          "status": "PASS"
+        },
+        {
+          "name": "separately opened stale editor retains full dirty state after actual API409",
+          "status": "PASS"
+        },
+        {
+          "name": "strict ordered replay rejects altered/missing/extra fields and wrong operations",
+          "status": "PASS",
+          "rejected_intents": 73,
+          "mismatch_does_not_consume": true
+        },
+        {
+          "name": "five-field historical and six-field minimal fixtures still refuse normal create request",
+          "status": "PASS"
+        },
+        {
+          "name": "external byte pin and cloned observations protect frozen replay",
+          "status": "PASS"
+        }
+      ],
+      "passed": 6,
+      "total": 6,
+      "producer_pins": {
+        "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+        "server": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+        "fingerprint": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+        "compiler": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+        "compilerPackage": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+      },
+      "callback_sha256": {
+        "candidatePlaceAfterSave": "74199dea076498c4a5a794c4727d3e9096cb7e522ae40d92c1670ccf9cac8727",
+        "api": "f9bae5ddb9f35191d1f75bcf7dda927b253e7337f1259805db79ad1e0e365e63",
+        "edit": "f2c486d537e8ec6637fb9cea57e3c8f40c26d17b1eddb584245e3c18dffdab64",
+        "save": "76d22e9a1598f13f2ce5000700beb4d11ef270f50ca138248b96d54073f2c3b8",
+        "openVariant": "155fe29ebb64bf0d94e65778a779ef5d51e1083eeab67461602d6ea6f1bc5134",
+        "titleOnChange": "f0ebd1fa5213b77f9b6993a3d214721ac8ecf6c7f089f8c0a40745309c8f3e50",
+        "textOnChange": "ba6357d10bf4ae13ac8ee2bff08680aeffa2e48fbe4f4b6822637dbf0012ed2f",
+        "manuscriptFingerprint": "4f34ce1a4d469393960366f50939dcb1f66ed7e1f310779fadf6a8d903fcb591"
+      },
+      "fixture_sha256": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+      "request_body_sha256": [
+        "4c6d229325f163154df1c3c7fa4dc0c7477fa5b7920709e1bdea6b1d5a9663b2",
+        "3f0c98e7354459ee1c13f2b74a20df5f1ea5e9d9b5468c66dbfb110808d45b12",
+        "4fff551ffdf9c38be2689d880b8344b57ae61d3d7a98496c2cb76f25456e8c95"
+      ],
+      "source_callback_count": 8,
+      "input_files_verified": 25,
+      "previous_experiment_files_verified": 12,
+      "originals_unchanged": true,
+      "full_capture_acceptance": "FAIL",
+      "live_product_save": "NOT_TESTED",
+      "mounted_react_dom_browser": "NOT_TESTED",
+      "replay_disk_writes": 0,
+      "limitations": [
+        "Extracted source callbacks with explicit refs/setters and re-bound render closures; React is not mounted.",
+        "Capture/remember/write-tracking are declared test doubles. Reading-place migration is checked only in state.",
+        "Server produced these responses on isolated synthetic temporary files; offline replay executes no server writes.",
+        "Only this create/update/stale sequence and exact bodies are supported, not arbitrary editors or repeatable saves.",
+        "No REA browser capture or request-body observability gap was resolved."
+      ]
+    },
+    "script_sha256": "218bed87dbe5ca9105c5c8d234750104938d6786b21cbe7bd6d53b4763a70b48",
+    "stdout_sha256": "da6530507627ec9982955e6c3e701107cd4ef0836b0aac3d513a733b0a38ada7",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source_and_compiler_pins_matched": true,
+    "serialized_post_bodies_matched": true,
+    "historical_snapshot_digests_matched": 4,
+    "snapshot_role": "Historical isolated-handler/replay consistency; not independent correctness oracle",
+    "oracle_role": "Separate module independently declares text, fields, sequence and dirty-state expectations. UUID/time validated and cross-linked.",
+    "new_handler_captures": 0,
+    "new_browser_runs": 0,
+    "network_requests": 0,
+    "storage_writes": 0
+  },
+  "portable": {
+    "result_projection": {
+      "schema": "edos-normal-editor-portable-check-v1",
+      "status": "PASS_KNOWN_FIXTURE_PORTABLE_REPLAY",
+      "node": "v24.22.1",
+      "fixture_sha256": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+      "checks": [
+        {
+          "name": "declared 7/10/10 body fields and recorded create/update/stale boundaries",
+          "status": "PASS"
+        },
+        {
+          "name": "73 known mismatched intents rejected without consuming the next record",
+          "status": "PASS"
+        },
+        {
+          "name": "JSON object key order does not weaken exact structural matching",
+          "status": "PASS"
+        },
+        {
+          "name": "external raw pin rejects wrong pin and byte tamper before loading",
+          "status": "PASS"
+        },
+        {
+          "name": "repinned internally inconsistent fixture cannot forge a response body",
+          "status": "PASS"
+        },
+        {
+          "name": "returned responses and exported fixture metadata do not mutate frozen sessions",
+          "status": "PASS"
+        }
+      ],
+      "rejected_mutated_intents": 73,
+      "recorded_statuses": [200, 200, 409],
+      "derived_recorded_sequence": [0, 1, 2, 2],
+      "verification_scope": "known-fixture-regression",
+      "independent_product_oracle": false,
+      "actual_product_execution": "NOT_RUN",
+      "new_handler_capture": "NOT_RUN",
+      "browser_runs": 0,
+      "network_calls": 0,
+      "disk_writes": 0,
+      "full_capture_acceptance": "FAIL",
+      "limitations": [
+        "Checks the known recorded fixture and replay implementation; no actual product callbacks or handler execute here.",
+        "The 409 sequence remains two only in the derived recorded-state interpretation, not a new persistence observation.",
+        "The historical independent product oracle and actual-callback recheck are separate evidence."
+      ]
+    },
+    "projection_sha256": "216d5db7e5ae394ce71f10de1f9bf3d78703df27c2344790f2f0c93591061eef",
+    "projection_is_original_raw_stdout": false,
+    "projection_encoding": "JSON.stringify(parsed retained output, null, 2) plus reconstructed LF",
+    "agent_original_exit_code": 0,
+    "invocations": 1,
+    "executed_checks": [
+      {
+        "name": "portable",
+        "command": [
+          "node (24.22.1)",
+          "experiments/edos-capture-replay/normal-editor-fixtures/check-portable.mjs"
+        ],
+        "exit_code": 0,
+        "result_status": "PASS_KNOWN_FIXTURE_PORTABLE_REPLAY",
+        "invocations": 1
+      },
+      {
+        "name": "syntax",
+        "command": [
+          "node (24.22.1)",
+          "--check",
+          "experiments/edos-capture-replay/normal-editor-fixtures/replay.mjs"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "syntax",
+        "command": [
+          "node (24.22.1)",
+          "--check",
+          "experiments/edos-capture-replay/normal-editor-fixtures/check-portable.mjs"
+        ],
+        "exit_code": 0
+      },
+      {
+        "name": "format",
+        "command": [
+          "node (24.22.1)",
+          "node_modules/oxfmt/bin/oxfmt",
+          "--check",
+          "experiments/edos-capture-replay/normal-editor-fixtures/replay.mjs",
+          "experiments/edos-capture-replay/normal-editor-fixtures/check-portable.mjs"
+        ],
+        "exit_code": 0,
+        "files": 2
+      },
+      {
+        "name": "lint",
+        "command": [
+          "node (24.22.1)",
+          "node_modules/oxlint/bin/oxlint",
+          "experiments/edos-capture-replay/normal-editor-fixtures/replay.mjs",
+          "experiments/edos-capture-replay/normal-editor-fixtures/check-portable.mjs"
+        ],
+        "exit_code": 0,
+        "warnings": 0,
+        "errors": 0
+      }
+    ],
+    "commands_are_sanitized_projections": true,
+    "artifact_sha256": {
+      "fixture.json": "120b70977be11e62cff41b0282dbb6786cb008f342a210092c8364792b6aad13",
+      "replay.mjs": "e31a239f59d3526ac5559aa34e669339d5dc4534b64fa4378cbe5adbe6ad93ab",
+      "check-portable.mjs": "a2d39070051106e78d6a13f5fe5033120611a88b91234582690863c9d2148668"
+    },
+    "fixture_review": {
+      "bytes": 11906,
+      "raw_copy_identical": true,
+      "credential_private_path_scan": "PASS",
+      "content_review": "Declared synthetic scene/editor data, no author corpus; seed scene token absent"
+    },
+    "adaptation": {
+      "historical_replay_sha256": "b1a67df686da8f47c3f47ec866d2b94a50040f66c2f7797dd1c45a75dfdc790a",
+      "changes": [
+        "Replaced private producer hash import with local node:crypto SHA-256 helper",
+        "Repository formatting; matching, validation, step consumption, cloning and exhaustion preserved"
+      ]
+    },
+    "independent_product_oracle": false,
+    "product_source_executed": false
+  },
+  "coverage_attribution": {
+    "capture_sha256": "227f61d048f9a7b073764d63e745492f1f9da0ce8518a0fc31a47f09409d083f",
+    "completeness": {
+      "status": "incomplete",
+      "equality_eligible": false,
+      "missing_sections": ["events"],
+      "truncated_sections": []
+    },
+    "native_not_exposed": [
+      {
+        "event_sequence": 2,
+        "transaction_id": "request-1",
+        "role": "initial navigation GET"
+      },
+      {
+        "event_sequence": 6,
+        "transaction_id": "request-2",
+        "role": "explicit GET /presence"
+      },
+      {
+        "event_sequence": 11,
+        "transaction_id": "request-3",
+        "role": "empty POST /presence"
+      }
+    ],
+    "unknown_presence": [
+      {
+        "event_sequence": 24,
+        "transaction_id": "request-5",
+        "reason": "observer-disabled"
+      }
+    ],
+    "dropped": 0,
+    "omissions": {
+      "by_kind": [],
+      "network_transactions": [],
+      "network_transaction_range": null
+    },
+    "response_body_selected": false,
+    "response_body_unselected_is_incomplete_cause": false,
+    "recorded_response_export_from_this_capture": "REFUSED_NO_SELECTED_RESPONSE_BODIES",
+    "source_file_sha256": {
+      "src/browser/network/PlaywrightNetworkContent.ts": "c48da2a0bbfa1597de6c073d2cc1de840ec204e22cf9955145a13a28747f3eff",
+      "src/browser/network/PlaywrightScenarioNetwork.ts": "d572b71a260a1485c12f0cbace5c1b02dcd72fe1bc1e50d1996057a7f34f5374",
+      "src/browser/PlaywrightBrowserScenarioProvider.ts": "407f94bea104164039956989336c2ad29cfdfe3a5b2ba283d8e5e48a4be26ea5"
+    },
+    "core_correction": "not warranted; native gaps and deliberate unknown correctly retain incomplete"
+  },
+  "counts_are_not_independent_samples": true,
+  "historical_full_capture_acceptance": "FAIL",
+  "limits": [
+    "Only this recorded create/update/stale-save sequence with exact7/10/10-field bodies and status200/200/409.",
+    "Callback recheck uses extracted source callbacks and explicit doubles; portable check uses known fixture cases.",
+    "Original handler wrote isolated synthetic revisions in the historical capture only; current replay executes no handler, disk save or auth renewal.",
+    "Five-/six-field historical consumers retain their strict refusal of normal requests.",
+    "No bytes/responses are synthesized into the incomplete browser capture.",
+    "No mounted React/DOM, current bundle, official capability, release, adoption or product effect is qualified."
+  ]
+}

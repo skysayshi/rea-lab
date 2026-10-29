@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-29T03:01:33.183Z",
+  "checks": [
+    {
+      "attempt": "matrix",
+      "run_id": "5b25149a-69de-4695-9fdf-e7be11683128",
+      "marker_verified": true,
+      "matching_processes": [],
+      "temporary_directory_contents": [],
+      "remaining_cell_files": [
+        "child-result.json",
+        "owner.json",
+        "tmp"
+      ],
+      "retained_for_evidence": true,
+      "claim": "later scoped absence only; original UNKNOWN unchanged"
+    },
+    {
+      "attempt": "matrix-corrected",
+      "run_id": "cb6f758c-263b-43f8-9a3a-fa2cc1ab1100",
+      "marker_verified": true,
+      "matching_processes": [],
+      "temporary_directory_contents": [],
+      "remaining_cell_files": [
+        "child-result.json",
+        "owner.json",
+        "tmp"
+      ],
+      "retained_for_evidence": true,
+      "claim": "later scoped absence only; original UNKNOWN unchanged"
+    }
+  ],
+  "signals": 0,
+  "new_browser_launches": 0,
+  "new_EdOS_writes": 0
+}

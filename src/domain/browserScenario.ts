@@ -105,17 +105,63 @@ const validateRequestSteps = (
         `Request steps must stay on the start URL's origin ${origin}`,
       );
     if (
-      action.json !== undefined &&
+      (action.json !== undefined || action.text !== undefined) &&
       (action.method === "GET" || action.method === "HEAD")
     )
       addIssue(
         context,
-        ["actions", index, "json"],
+        ["actions", index, action.text === undefined ? "json" : "text"],
         `A ${action.method} request step cannot send a body`,
       );
+    if (action.json !== undefined && action.text !== undefined)
+      addIssue(
+        context,
+        ["actions", index, "text"],
+        "A request step cannot send both json and text",
+      );
+    if (action.text !== undefined && action.body_presence === undefined)
+      addIssue(
+        context,
+        ["actions", index, "text"],
+        "Text bodies require the synthetic-loopback body presence probe",
+      );
+    if (action.body_presence !== undefined) {
+      const start = new URL(origin);
+      if (
+        scenario.browser.mode !== "launch" ||
+        start.protocol !== "http:" ||
+        !["127.0.0.1", "[::1]"].includes(start.hostname) ||
+        resolved?.pathname !== "/presence" ||
+        resolved.search !== "" ||
+        resolved.hash !== "" ||
+        action.query.length !== 0 ||
+        action.timeout_ms === undefined ||
+        !scenario.capture.events.includes("network")
+      )
+        addIssue(
+          context,
+          ["actions", index, "body_presence"],
+          "Body presence requires a launched HTTP literal-loopback /presence fixture, no query or fragment, an explicit timeout and selected network events",
+        );
+      if (!action.body_presence.observe && action.body_presence.measure)
+        addIssue(
+          context,
+          ["actions", index, "body_presence"],
+          "A disabled observer cannot measure a body",
+        );
+    }
     const names = new Set<string>();
     action.headers.forEach((header, position) => {
       const name = header.name.toLowerCase();
+      if (
+        action.body_presence !== undefined &&
+        name.startsWith("x-rea-presence-")
+      )
+        addIssue(
+          context,
+          ["actions", index, "headers", position, "name"],
+          "Body presence correlation headers are owned by the runtime",
+        );
       if (names.has(name))
         addIssue(
           context,

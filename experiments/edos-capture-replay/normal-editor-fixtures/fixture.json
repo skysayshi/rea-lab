@@ -1,0 +1,208 @@
+{
+  "schema": "edos-normal-editor-flow-v1",
+  "provenance": {
+    "kind": "synthetic-isolated-handler",
+    "captured_at": "2026-10-27T21:07:04.679Z",
+    "transport": "in-memory-node-handler",
+    "storage": "temporary-synthetic-files",
+    "original_fixture_sha256": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236",
+    "generator_sha256": "4316fd2be9c7a301da29c21e16947c74aa3a61bca71d9b3bd554052d5c6a00a7",
+    "scope": "Source-generated normal create, update and stale-save refusal; explicit callback dependencies, no mounted React.",
+    "authentication": "Ephemeral synthetic handler token and origin validated during capture; token omitted from saved fixture.",
+    "random_fields": "Server candidate id and timestamps are actual isolated outputs. Draft UUIDs are fixed declared test inputs."
+  },
+  "producer_pins": {
+    "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+    "server": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+    "fingerprint": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+    "compiler": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675",
+    "compilerPackage": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+  },
+  "callback_sha256": {
+    "candidatePlaceAfterSave": "74199dea076498c4a5a794c4727d3e9096cb7e522ae40d92c1670ccf9cac8727",
+    "api": "f9bae5ddb9f35191d1f75bcf7dda927b253e7337f1259805db79ad1e0e365e63",
+    "edit": "f2c486d537e8ec6637fb9cea57e3c8f40c26d17b1eddb584245e3c18dffdab64",
+    "save": "76d22e9a1598f13f2ce5000700beb4d11ef270f50ca138248b96d54073f2c3b8",
+    "openVariant": "155fe29ebb64bf0d94e65778a779ef5d51e1083eeab67461602d6ea6f1bc5134",
+    "titleOnChange": "f0ebd1fa5213b77f9b6993a3d214721ac8ecf6c7f089f8c0a40745309c8f3e50",
+    "textOnChange": "ba6357d10bf4ae13ac8ee2bff08680aeffa2e48fbe4f4b6822637dbf0012ed2f",
+    "manuscriptFingerprint": "4f34ce1a4d469393960366f50939dcb1f66ed7e1f310779fadf6a8d903fcb591"
+  },
+  "seed": {
+    "scene": {
+      "id": "synthetic-scene",
+      "title": "Synthetic normal-editor lifecycle capture",
+      "status": "synthetic-test-only",
+      "file": "scene.txt",
+      "revision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+      "introduction": "Только синтетический источник.",
+      "sections": [
+        {
+          "id": "section-one",
+          "title": "Синтетическая сцена",
+          "heading": "ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ",
+          "note": "Synthetic fixture only",
+          "sources": [
+            "reference"
+          ],
+          "text": "ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\n\nИсходная тестовая реплика."
+        }
+      ],
+      "documents": [
+        {
+          "id": "reference",
+          "title": "Синтетический источник",
+          "description": "Synthetic reference"
+        }
+      ],
+      "nextStep": "Synthetic editor contract validation only"
+    },
+    "candidates": {
+      "sequence": 0,
+      "items": []
+    },
+    "draftUUID": "11111111-1111-4111-8111-111111111111",
+    "staleUUID": "22222222-2222-4222-8222-222222222222"
+  },
+  "records": [
+    {
+      "ordinal": 0,
+      "request": {
+        "method": "POST",
+        "path": "/api/scene-workspace/candidates",
+        "query": null,
+        "body": {
+          "sectionId": "section-one",
+          "title": "Синтетическая сцена — вариант 1",
+          "text": "ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\n\nИсходная тестовая реплика.",
+          "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+          "dirty": true,
+          "expectedSequence": 0,
+          "readingKey": "draft:11111111-1111-4111-8111-111111111111"
+        },
+        "body_text": "{\"sectionId\":\"section-one\",\"title\":\"Синтетическая сцена — вариант 1\",\"text\":\"ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\\n\\nИсходная тестовая реплика.\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"dirty\":true,\"expectedSequence\":0,\"readingKey\":\"draft:11111111-1111-4111-8111-111111111111\"}",
+        "body_sha256": "4c6d229325f163154df1c3c7fa4dc0c7477fa5b7920709e1bdea6b1d5a9663b2"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "Cross-Origin-Resource-Policy": "same-origin",
+          "Referrer-Policy": "no-referrer"
+        },
+        "body": {
+          "sequence": 1,
+          "items": [
+            {
+              "id": "c8d7be88-a992-4d44-9f64-7fff2eff5b42",
+              "sectionId": "section-one",
+              "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+              "title": "Синтетическая сцена — вариант 1",
+              "text": "ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\n\nИсходная тестовая реплика.",
+              "updatedAt": "2026-10-27T21:07:04.386Z",
+              "status": "candidate"
+            }
+          ],
+          "savedId": "c8d7be88-a992-4d44-9f64-7fff2eff5b42"
+        },
+        "body_text": "{\"sequence\":1,\"items\":[{\"id\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Синтетическая сцена — вариант 1\",\"text\":\"ИНТ. СИНТЕТИЧЕСКАЯ КОМНАТА — ДЕНЬ\\n\\nИсходная тестовая реплика.\",\"updatedAt\":\"2026-10-27T21:07:04.386Z\",\"status\":\"candidate\"}],\"savedId\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\"}",
+        "body_sha256": "f64d3c997760c3825e5a44cf4df42e6a7f9d0e093b5e3940a4ab0873949c20d9"
+      }
+    },
+    {
+      "ordinal": 1,
+      "request": {
+        "method": "POST",
+        "path": "/api/scene-workspace/candidates",
+        "query": null,
+        "body": {
+          "id": "c8d7be88-a992-4d44-9f64-7fff2eff5b42",
+          "sectionId": "section-one",
+          "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+          "title": "Синтетический вариант — правка",
+          "text": "Синтетический кандидат: ё, й и 🚀.\nВторая строка сохранена точно.\n",
+          "updatedAt": "2026-10-27T21:07:04.386Z",
+          "status": "candidate",
+          "dirty": true,
+          "expectedSequence": 1,
+          "readingKey": "candidate:c8d7be88-a992-4d44-9f64-7fff2eff5b42"
+        },
+        "body_text": "{\"id\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Синтетический вариант — правка\",\"text\":\"Синтетический кандидат: ё, й и 🚀.\\nВторая строка сохранена точно.\\n\",\"updatedAt\":\"2026-10-27T21:07:04.386Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:c8d7be88-a992-4d44-9f64-7fff2eff5b42\"}",
+        "body_sha256": "3f0c98e7354459ee1c13f2b74a20df5f1ea5e9d9b5468c66dbfb110808d45b12"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "Cross-Origin-Resource-Policy": "same-origin",
+          "Referrer-Policy": "no-referrer"
+        },
+        "body": {
+          "sequence": 2,
+          "items": [
+            {
+              "id": "c8d7be88-a992-4d44-9f64-7fff2eff5b42",
+              "sectionId": "section-one",
+              "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+              "title": "Синтетический вариант — правка",
+              "text": "Синтетический кандидат: ё, й и 🚀.\nВторая строка сохранена точно.\n",
+              "updatedAt": "2026-10-27T21:07:04.578Z",
+              "status": "candidate"
+            }
+          ],
+          "savedId": "c8d7be88-a992-4d44-9f64-7fff2eff5b42"
+        },
+        "body_text": "{\"sequence\":2,\"items\":[{\"id\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Синтетический вариант — правка\",\"text\":\"Синтетический кандидат: ё, й и 🚀.\\nВторая строка сохранена точно.\\n\",\"updatedAt\":\"2026-10-27T21:07:04.578Z\",\"status\":\"candidate\"}],\"savedId\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\"}",
+        "body_sha256": "3ffa99075dbe9fbfa6e4960cdf71c2def491915f4a90ef07486ac82de4561108"
+      }
+    },
+    {
+      "ordinal": 2,
+      "request": {
+        "method": "POST",
+        "path": "/api/scene-workspace/candidates",
+        "query": null,
+        "body": {
+          "id": "c8d7be88-a992-4d44-9f64-7fff2eff5b42",
+          "sectionId": "section-one",
+          "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+          "title": "Синтетическая сцена — вариант 1",
+          "text": "Синтетическая устаревшая правка.\n",
+          "updatedAt": "2026-10-27T21:07:04.386Z",
+          "status": "candidate",
+          "dirty": true,
+          "expectedSequence": 1,
+          "readingKey": "candidate:c8d7be88-a992-4d44-9f64-7fff2eff5b42"
+        },
+        "body_text": "{\"id\":\"c8d7be88-a992-4d44-9f64-7fff2eff5b42\",\"sectionId\":\"section-one\",\"baseRevision\":\"eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22\",\"title\":\"Синтетическая сцена — вариант 1\",\"text\":\"Синтетическая устаревшая правка.\\n\",\"updatedAt\":\"2026-10-27T21:07:04.386Z\",\"status\":\"candidate\",\"dirty\":true,\"expectedSequence\":1,\"readingKey\":\"candidate:c8d7be88-a992-4d44-9f64-7fff2eff5b42\"}",
+        "body_sha256": "4fff551ffdf9c38be2689d880b8344b57ae61d3d7a98496c2cb76f25456e8c95"
+      },
+      "response": {
+        "status": 409,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store",
+          "X-Content-Type-Options": "nosniff",
+          "Cross-Origin-Resource-Policy": "same-origin",
+          "Referrer-Policy": "no-referrer"
+        },
+        "body": {
+          "error": "Варианты изменились в другом окне. Сохраните свой текст в файл и перечитайте список."
+        },
+        "body_text": "{\"error\":\"Варианты изменились в другом окне. Сохраните свой текст в файл и перечитайте список.\"}",
+        "body_sha256": "e8035bdf7c5fe77adc54faf2695d3a851cb87b90645ae3e2e67bd5321d3948dc"
+      }
+    }
+  ],
+  "full_capture_acceptance": "FAIL",
+  "limitations": [
+    "Synthetic isolated server writes were observed; live author storage was not accessed.",
+    "Replay serves captured bytes and performs no persistent product writes.",
+    "Callback execution approximates render closures; React, DOM, browser, navigation and browser storage are untested.",
+    "No REA protocol capture or full-browser qualification is established."
+  ]
+}

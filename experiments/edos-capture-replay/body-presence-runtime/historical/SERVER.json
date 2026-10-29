@@ -1,0 +1,46 @@
+[
+  {
+    "case_id": "absent",
+    "run_id": "6e483167-2d5e-4cd5-81f3-0a76ffb0bc19",
+    "request_id": "fa36e9e1-1bd7-4be1-aedd-34371c6e1cf2",
+    "method": "GET",
+    "url": "http://127.0.0.1:58988/presence",
+    "complete": true,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "body_base64": ""
+  },
+  {
+    "case_id": "present-empty",
+    "run_id": "d6908f23-f067-4986-9b5a-82ab3cf1e452",
+    "request_id": "ede4ac05-7f37-47ac-89b8-2a3370781b53",
+    "method": "POST",
+    "url": "http://127.0.0.1:58988/presence",
+    "complete": true,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "body_base64": ""
+  },
+  {
+    "case_id": "present",
+    "run_id": "9ab0812b-a3ba-469c-a813-3d45617c22ca",
+    "request_id": "73aecaaa-18ff-4b28-9f8f-4ad15aaa9f75",
+    "method": "POST",
+    "url": "http://127.0.0.1:58988/presence",
+    "complete": true,
+    "bytes": 43,
+    "sha256": "3d2d430fcc24cbfde389041d99325a6a30b9ba4b66da4af003611ec9e01554f4",
+    "body_base64": "0KHQuNC90YLQtdGC0LjRh9C10YHQutC+0LUg0YLQtdC70L4g0ZEg8J+agA=="
+  },
+  {
+    "case_id": "unknown",
+    "run_id": "9a2fab4f-4461-468e-a717-9de08eac83a8",
+    "request_id": "1befe062-a353-417e-99ec-4c68d757e9ca",
+    "method": "POST",
+    "url": "http://127.0.0.1:58988/presence",
+    "complete": true,
+    "bytes": 50,
+    "sha256": "d2f53971435b9cfc8c6e5383b0dd14c4a448f53a815bcd80f9eb8906ae9d9855",
+    "body_base64": "0J3QsNCx0LvRjtC00LXQvdC40LUgcHJlc2VuY2Ug0L7RgtC60LvRjtGH0LXQvdC+Lgo="
+  }
+]

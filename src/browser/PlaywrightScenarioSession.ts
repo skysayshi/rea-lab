@@ -445,6 +445,15 @@ export class PlaywrightScenarioSession implements BrowserScenarioSessionPort {
           secrets: this.secrets,
           startOrigin: this.startOrigin,
           signal,
+          allowSyntheticPresence: this.mode === "launch",
+          onBodyPresence: ({ request, observation, producer }) => {
+            const result = this.eventCapture.observeRequestBodyPresence(
+              request,
+              observation,
+              producer,
+            );
+            if (!result.ok) throw new Error(result.error.message);
+          },
         }),
       "timeout_ms" in action ? action.timeout_ms : undefined,
       signal,

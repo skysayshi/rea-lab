@@ -1,0 +1,46 @@
+{
+  "schema": "owned-delayed-reap-probe-v1",
+  "scope": "own os.fork child only; no browser or product",
+  "public_redaction": "Private runtime path replaced with python3; raw_sha256 fields refer to the prior tool-output projection, not these redacted stdout strings",
+  "python": "3.13.17",
+  "parent_pid": 86022,
+  "fork_child_pid": 86028,
+  "ownership": "exact os.fork return and pipe handshake; waitpid only this child",
+  "samples": [
+    {
+      "label": "owned_child_waiting_before_exit",
+      "elapsed_ms": 371.886752,
+      "ps_exit": 0,
+      "stdout": "86028 86022 86022 Thu Oct 29 03:52:43 2026     S    python3 -\n",
+      "stderr": "",
+      "raw_sha256": "49762f80168c792fdf905ca4dce1812c8e0c5a38dcd343ad1495a2e5134bc246"
+    },
+    {
+      "label": "exit_released_unreaped_150ms",
+      "elapsed_ms": 958.889679,
+      "ps_exit": 0,
+      "stdout": "86028 86022 86022 Thu Oct 29 03:52:43 2026     Z    <defunct>\n",
+      "stderr": "",
+      "raw_sha256": "230f326d3768c90e23cdb18584581e10b87b91f6284e8ea5780db2479aab791b"
+    },
+    {
+      "label": "exit_released_unreaped_300ms",
+      "elapsed_ms": 1418.047667,
+      "ps_exit": 0,
+      "stdout": "86028 86022 86022 Thu Oct 29 03:52:43 2026     Z    <defunct>\n",
+      "stderr": "",
+      "raw_sha256": "230f326d3768c90e23cdb18584581e10b87b91f6284e8ea5780db2479aab791b"
+    },
+    {
+      "label": "after_exact_waitpid_reap",
+      "elapsed_ms": 1708.710283,
+      "ps_exit": 1,
+      "stdout": "",
+      "stderr": "",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "reaped_pid": 86028,
+  "exit_status": 0,
+  "signals_sent": 0
+}

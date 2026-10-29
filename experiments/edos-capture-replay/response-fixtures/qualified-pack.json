@@ -1,0 +1,82 @@
+{
+  "schema": "edos-recorded-responses-v1",
+  "scope": "offline-regression-fixtures",
+  "source_evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+  "full_capture_acceptance": "FAIL",
+  "records": [
+    {
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "query": null,
+      "request_body": {
+        "expectedSequence": 0,
+        "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "sectionId": "section-one",
+        "title": "Синтетический вариант",
+        "text": "Синтетический кандидат: ё, й и 🚀.\nВторая строка сохранена точно.\n"
+      },
+      "response_body": {
+        "sequence": 1,
+        "items": [
+          {
+            "id": "9e5f50c2-1fa9-4db9-bfeb-dfa9086819a9",
+            "sectionId": "section-one",
+            "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+            "title": "Синтетический вариант",
+            "text": "Синтетический кандидат: ё, й и 🚀.\nВторая строка сохранена точно.\n",
+            "updatedAt": "2026-10-27T00:46:56.994Z",
+            "status": "candidate"
+          }
+        ],
+        "savedId": "9e5f50c2-1fa9-4db9-bfeb-dfa9086819a9"
+      },
+      "record_ordinal": 2,
+      "response_sha256": "723e874c14fd58db64f122aa4948b72e6ab1d3a2a7a12dac12c3c4e4aa0e9282"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scene-workspace/candidates",
+      "query": null,
+      "request_body": null,
+      "response_body": {
+        "sequence": 1,
+        "items": [
+          {
+            "id": "9e5f50c2-1fa9-4db9-bfeb-dfa9086819a9",
+            "sectionId": "section-one",
+            "baseRevision": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+            "title": "Синтетический вариант",
+            "text": "Синтетический кандидат: ё, й и 🚀.\nВторая строка сохранена точно.\n",
+            "updatedAt": "2026-10-27T00:46:56.994Z",
+            "status": "candidate"
+          }
+        ]
+      },
+      "record_ordinal": 3,
+      "response_sha256": "7e15079f998fd381be9e9f2baea8ff7f367eb2d08475c85c888ce1a205217734"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scene-workspace/source",
+      "query": "?id=reference",
+      "request_body": null,
+      "response_body": {
+        "id": "reference",
+        "title": "Синтетический источник",
+        "file": "reference.txt",
+        "revision": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "text": "Только синтетический разрешённый справочный текст.\n"
+      },
+      "record_ordinal": 4,
+      "response_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89"
+    }
+  ],
+  "limitations": [
+    "Historical synthetic observations; no live authentication, save execution or state transition is emulated.",
+    "Full capture acceptance remains FAIL; GET request bodies were not_exposed, not proven absent.",
+    "GET null request_body is this consumer's no-body intent, not a claim about captured request bytes.",
+    "Response bytes came from Playwright Response.body(); original wire-transaction identity is not guaranteed.",
+    "Known-case retrospective calibration is not a hidden holdout, new capture or product-readiness result.",
+    "An external pack SHA-256 binds reviewed bytes; it is not an authorization token or signature."
+  ]
+}

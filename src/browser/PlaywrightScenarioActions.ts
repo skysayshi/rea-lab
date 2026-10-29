@@ -5,7 +5,10 @@ import type {
   BrowserScenarioValue,
 } from "../domain/browserScenarioValues.js";
 import type { BrowserScenarioSecrets } from "./BrowserScenarioSecrets.js";
-import { performScenarioRequest } from "./PlaywrightScenarioRequest.js";
+import {
+  performScenarioRequest,
+  type ScenarioRequestBodyPresence,
+} from "./PlaywrightScenarioRequest.js";
 
 type ScenarioLocator = Extract<
   BrowserScenarioAction,
@@ -39,6 +42,8 @@ interface PerformActionInput {
   readonly startOrigin: string;
   /** Cancellation of the step; a request step that sees it before sending sends nothing. */
   readonly signal?: AbortSignal | undefined;
+  readonly allowSyntheticPresence?: boolean;
+  readonly onBodyPresence?: (value: ScenarioRequestBodyPresence) => void;
 }
 
 /** Execute one admitted declarative action; a request step sends one declared request through the page's own fetch, and no action runs caller-supplied code. */
@@ -99,6 +104,12 @@ export const performPlaywrightScenarioAction = async (
         secrets,
         startOrigin,
         signal,
+        ...(input.allowSyntheticPresence === undefined
+          ? {}
+          : { allowSyntheticPresence: input.allowSyntheticPresence }),
+        ...(input.onBodyPresence === undefined
+          ? {}
+          : { onBodyPresence: input.onBodyPresence }),
       });
       return;
     default: {

@@ -1,0 +1,14 @@
+✔ timely fulfilled and disconnected close records evidence and permits success (7.215437ms)
+✔ late fulfilment remains a failure with its actual settlement retained (3.519717ms)
+✔ pending at ceiling retains its snapshot and observes the same later settlement (1.176712ms)
+✔ early rejection retains details before the adapter rejects (2.211187ms)
+✔ timely fulfilment alone cannot pass while the browser is connected (2.820951ms)
+✔ a synchronous close throw still leaves the result and events available (3.096396ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 700.411105

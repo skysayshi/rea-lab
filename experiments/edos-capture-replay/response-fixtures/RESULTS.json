@@ -1,0 +1,352 @@
+{
+  "schema": "edos-response-fixture-calibration-v1",
+  "scope": "offline-regression-fixtures",
+  "calibration": "retrospective-known-cases",
+  "status": "QUALIFIED_RESPONSE_SUBSET",
+  "full_capture_acceptance": "FAIL",
+  "node": "v24.22.1",
+  "new_browser_or_server_runs": 0,
+  "producer_source_binding": {
+    "head": "669e617eec5422ebce1ab271af0fc7b51e90dc11",
+    "tracked_source_diff": "",
+    "files": 3671,
+    "sha256": "dbd73f4345d92c71b17ec6234f5ea83f7d82cbc8b14b88940789c0f8639a2ddd"
+  },
+  "input_pins_sha256": "3a9bd4d0254eb29daa0ff1f9fbbd93c2f0a4febc7bf6d81680f185da6e44a549",
+  "inputs": [
+    {
+      "id": "v010",
+      "capture_evidence_id": "ev_d7c1550179f17a206811a48ec63ed72cc8973ee7ec9208f03371ea655f57f3ce",
+      "manifest_evidence_id": "ev_21ec3abe7c6e1873ca383ad271ab798af097ea7cfd67fdbc124a27c816d65e94",
+      "sha256": {
+        "capture": "24d7c9e00ad1e0a292b81e54a34529c3b5fbbdb5dbffa5e1e8fa86572da607b1",
+        "manifest": "c1303a2afb20c6241f38d3eea47073a3e45404d9246deea3dfafc270966b4f65",
+        "post": "d817937720a5f4bbe361eb983d8b43cf3980a384547176c69288742a3187afed",
+        "candidates": "6328f4d278536ff34b38fd797f6c3c9d93fb45f1acb1b29b2928cfa254b37be0",
+        "reference": "d13f87ed985573102a44bb08376285da3e488d8030cee1e7f14b14b5736b8ed7",
+        "oracle": "3e6b07660c5f3a069846d62827ac9a84a4546468cf232e4edaf3f8d03e185a1f",
+        "receipt": "2773d8a24e476c2b88820de435d6263a4efb260aeff5ffe0db1c08aad8d8b69b",
+        "revision": "e61e012b4d27d73d579258e287217b82a9543ac978b87e417ccac132d0afe123",
+        "source": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "referenceSource": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "config": "795eb324f90bbe62b5ac38cc377509a118b3b56c28b25a4c9bcbae2cea9610e7",
+        "fixture": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236"
+      }
+    },
+    {
+      "id": "v011",
+      "capture_evidence_id": "ev_9ce5a7f7c1e875c4a8ccd1e0f49cb2ab0990c772bed2c746840f6dfb535c5e2d",
+      "manifest_evidence_id": "ev_21f26fe1771682f3c34e03715a9c69d00148819b40683aacf1e4a962fbe30293",
+      "sha256": {
+        "capture": "3e22c8bbb5b4cf2dbd10f87fc9a6e301d3b6c52aa36eb3b554b36e3e27dcfcf0",
+        "manifest": "fa315930afbcbba49963f03a53762e793ddf2063da43c5e6f6a08cf9bb6841b5",
+        "post": "9a190bbae3b942ff5b0958bcaa43ab1d3a303c9ee21062e7880f02fbed64393d",
+        "candidates": "4299e76c4b0bb597a4e4cd8fe2389f1a04d8136d3020d6f0228dd3992f511343",
+        "reference": "de53bdea55e1fa46b9dd181811a206970b85a74460edfe12fb11cc2ad5641c2c",
+        "oracle": "d4ec29dcc63d16770b72209cffd268439042a216ae3d129e48172d37ddf19451",
+        "receipt": "90f8a6e670f6c41a1df1468d193ff46c1baa38623adecb32259306e5abe8d7b1",
+        "revision": "53d80bfd3a7e15c72dca8c04214152a7e017d8de9825aa8ff4efcd415e992260",
+        "source": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "referenceSource": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "config": "e5468168b3cef9e757d94e580fb5ef3ad6dcdbef7ab7b1990caad171ca744731",
+        "fixture": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236"
+      }
+    },
+    {
+      "id": "v012",
+      "capture_evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829",
+      "manifest_evidence_id": "ev_0d0ae147f67180c9b7e7b52486dc0425e1c5128cb8072d91b2379ee4160abaef",
+      "sha256": {
+        "capture": "96b444e5eba3f6fcf926c182fa78c69a3c5545aa159c428a7a1f4a95561995d9",
+        "manifest": "87a66172b660bc9d5dd1f326ee64de373ae05c8f1f218a7b6ba226e5f2b40792",
+        "post": "178ae933a235b54fee5eeabdf8c8fe9828b5bcf870e35a6aabd5e12bd0febd87",
+        "candidates": "546d69143029ac382c60cd3af839ecc5f0a16c7a12e2fae2bb5db1cea4efa8c5",
+        "reference": "3b27d3a719f014e6fc593fd282a31ee3c5175f3eedbdf26e65d9f7f4da8da456",
+        "oracle": "ef54d7febb783c5d6fbd1d947606e1bf47700d07314b07ba0c92c003a66592e0",
+        "receipt": "259f12f9f00fb1bf3cc82316ff65744c2b971dee42375de81409258e0e518501",
+        "revision": "613cbaf9d56d3789c0c37019211863a4d5150359d44a0d4c0c945736c727ecbf",
+        "source": "eb8c32d0247773c44af40f07b0e1cfc78d6c03120a6ddb651be781b0c1b47c22",
+        "referenceSource": "13595679ac233f05a78e75fa330d362b7fe2326c5930e3da0b51597bd7787b97",
+        "config": "51356019192f9ea1fa366ce0f983b067e2f3ae1cf299d277188d366b45d86019",
+        "fixture": "eeeaad089f62f66b4b0964bd7e272d563e606921b07ef8cf8a46e85f94ad6236"
+      }
+    }
+  ],
+  "corpus": [
+    {
+      "id": "v010",
+      "status": "REJECTED",
+      "full_capture_acceptance": "FAIL",
+      "reason": "RESPONSE_WHOLE:candidates"
+    },
+    {
+      "id": "v011",
+      "status": "REJECTED",
+      "full_capture_acceptance": "FAIL",
+      "reason": "RESPONSE_WHOLE:reference"
+    },
+    {
+      "id": "v012",
+      "status": "QUALIFIED_RESPONSE_SUBSET",
+      "full_capture_acceptance": "FAIL",
+      "source_evidence_id": "ev_a1e684d81bd28c160fb8a60628d1f1f0e18c0a7f7b1e7e2d043c05d4e78fe829"
+    }
+  ],
+  "preflight_negative_controls": [
+    {
+      "name": "raw artifact mutation refused",
+      "decision": "REJECTED",
+      "reason": "RAW_PIN:reference",
+      "repinned_for_inner_guard_test": false
+    },
+    {
+      "name": "semantically unchanged reserialization still needs external raw pin",
+      "decision": "REJECTED",
+      "reason": "RAW_PIN:capture",
+      "repinned_for_inner_guard_test": false
+    },
+    {
+      "name": "wrong externally expected evidence ID refused",
+      "decision": "REJECTED",
+      "reason": "CAPTURE_ID",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "authentic manifest from another capture refused",
+      "decision": "REJECTED",
+      "reason": "SOURCE_PAIR",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "semantic evidence tamper refused even with calibrated raw repin",
+      "decision": "REJECTED",
+      "reason": "producer semantic validation refused altered evidence",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "truncated recorded MCP reply refused",
+      "decision": "REJECTED",
+      "reason": "REPLAY_BINDING:reference",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "MCP error envelope refused",
+      "decision": "REJECTED",
+      "reason": "REPLAY_BINDING:reference",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "missing recorded MCP body refused",
+      "decision": "REJECTED",
+      "reason": "RESPONSE_ORACLE:reference",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "wrong response oracle content refused",
+      "decision": "REJECTED",
+      "reason": "RESPONSE_ORACLE:reference",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "wrong filesystem revision refused",
+      "decision": "REJECTED",
+      "reason": "ORACLE_BINDING:revision",
+      "repinned_for_inner_guard_test": true
+    },
+    {
+      "name": "empty successful oracle cannot qualify",
+      "decision": "REJECTED",
+      "reason": "ORACLE_STATUS",
+      "repinned_for_inner_guard_test": true
+    }
+  ],
+  "consumer_negative_controls": [
+    {
+      "name": "unknown literal reference query refused",
+      "decision": "REJECTED",
+      "reason": "No unique response matches the exact recorded request"
+    },
+    {
+      "name": "changed POST text refused",
+      "decision": "REJECTED",
+      "reason": "No unique response matches the exact recorded request"
+    },
+    {
+      "name": "live auth purpose refused",
+      "decision": "REJECTED",
+      "reason": "Intent purpose must be offline-regression-fixtures"
+    },
+    {
+      "name": "authorization header intent refused",
+      "decision": "REJECTED",
+      "reason": "Intent: unexpected or missing fields"
+    },
+    {
+      "name": "tampered pack refused against external raw pin",
+      "decision": "REJECTED",
+      "reason": "Pack SHA-256 does not match external pin"
+    },
+    {
+      "name": "external pack pin required",
+      "decision": "REJECTED",
+      "reason": "An external expectedPackSha256 is required"
+    }
+  ],
+  "checks": [
+    {
+      "name": "pinned producer HEAD and tracked source unchanged",
+      "pass": true
+    },
+    {
+      "name": "external raw input-pins SHA matches",
+      "pass": true
+    },
+    {
+      "name": "exact known corpus is present",
+      "pass": true
+    },
+    {
+      "name": "v010 rejects missing candidates response",
+      "pass": true
+    },
+    {
+      "name": "v011 rejects missing reference response",
+      "pass": true
+    },
+    {
+      "name": "v012 qualifies exactly three historical responses",
+      "pass": true
+    },
+    {
+      "name": "raw artifact mutation refused",
+      "pass": true
+    },
+    {
+      "name": "semantically unchanged reserialization still needs external raw pin",
+      "pass": true
+    },
+    {
+      "name": "wrong externally expected evidence ID refused",
+      "pass": true
+    },
+    {
+      "name": "authentic manifest from another capture refused",
+      "pass": true
+    },
+    {
+      "name": "semantic evidence tamper refused even with calibrated raw repin",
+      "pass": true
+    },
+    {
+      "name": "truncated recorded MCP reply refused",
+      "pass": true
+    },
+    {
+      "name": "MCP error envelope refused",
+      "pass": true
+    },
+    {
+      "name": "missing recorded MCP body refused",
+      "pass": true
+    },
+    {
+      "name": "wrong response oracle content refused",
+      "pass": true
+    },
+    {
+      "name": "wrong filesystem revision refused",
+      "pass": true
+    },
+    {
+      "name": "empty successful oracle cannot qualify",
+      "pass": true
+    },
+    {
+      "name": "consumer exact POST /api/scene-workspace/candidates",
+      "pass": true
+    },
+    {
+      "name": "consumer exact GET /api/scene-workspace/candidates",
+      "pass": true
+    },
+    {
+      "name": "consumer exact GET /api/scene-workspace/source",
+      "pass": true
+    },
+    {
+      "name": "unknown literal reference query refused",
+      "pass": true
+    },
+    {
+      "name": "changed POST text refused",
+      "pass": true
+    },
+    {
+      "name": "live auth purpose refused",
+      "pass": true
+    },
+    {
+      "name": "authorization header intent refused",
+      "pass": true
+    },
+    {
+      "name": "tampered pack refused against external raw pin",
+      "pass": true
+    },
+    {
+      "name": "external pack pin required",
+      "pass": true
+    },
+    {
+      "name": "v010 original artifacts unchanged",
+      "pass": true
+    },
+    {
+      "name": "v011 original artifacts unchanged",
+      "pass": true
+    },
+    {
+      "name": "v012 original artifacts unchanged",
+      "pass": true
+    },
+    {
+      "name": "producer source binding unchanged",
+      "pass": true
+    }
+  ],
+  "pack_sha256": "c9cfc0f66b4c50b7dc6da21b20bf66a82928e12caa3573c869dd2a67849bac17",
+  "records": [
+    {
+      "method": "POST",
+      "path": "/api/scene-workspace/candidates",
+      "query": null,
+      "record_ordinal": 2,
+      "response_sha256": "723e874c14fd58db64f122aa4948b72e6ab1d3a2a7a12dac12c3c4e4aa0e9282",
+      "request_body_sha256": "22239e836b72eb1aa9b14e8554f04b59253213de90ef1b74ef4dd9c6720a6e34"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scene-workspace/candidates",
+      "query": null,
+      "record_ordinal": 3,
+      "response_sha256": "7e15079f998fd381be9e9f2baea8ff7f367eb2d08475c85c888ce1a205217734",
+      "request_body_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scene-workspace/source",
+      "query": "?id=reference",
+      "record_ordinal": 4,
+      "response_sha256": "3bdd93f0076cb5660086af947cb672b6e8edf4941e698752a93d834b0c1f3b89",
+      "request_body_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  ],
+  "limitations": [
+    "Historical synthetic observations; no live authentication, save execution or state transition is emulated.",
+    "Full capture acceptance remains FAIL; GET request bodies were not_exposed, not proven absent.",
+    "GET null request_body is this consumer's no-body intent, not a claim about captured request bytes.",
+    "Response bytes came from Playwright Response.body(); original wire-transaction identity is not guaranteed.",
+    "Known-case retrospective calibration is not a hidden holdout, new capture or product-readiness result.",
+    "An external pack SHA-256 binds reviewed bytes; it is not an authorization token or signature."
+  ]
+}

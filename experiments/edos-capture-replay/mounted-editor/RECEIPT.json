@@ -1,0 +1,297 @@
+{
+  "schema": "edos-mounted-editor-receipt-v1",
+  "date": "2026-10-29",
+  "timezone": "Europe/Berlin",
+  "overall_pilot_acceptance": "FAIL",
+  "functional_oracle": "PASS_MOUNTED_EDITOR_HTTP_OUTCOME",
+  "supported_decision": "Exact mounted create/update/stale-save functional path observed; whole pilot is not accepted because browser close exceeded the declared cleanup deadline",
+  "fork_input": {
+    "commit": "326617230eaa7d5914efac173368c3e721f6d7c7",
+    "tree": "693ab10da8c432334f16fc4801e95a62cac06fbd"
+  },
+  "research_input": "05c849f000471ee8cb9598cd1b5f9177821db225",
+  "contract_sha256": "0b751b89d4ba92afe7b6bbb24b5348089a301c61580a905583c2c1afe4af9a49",
+  "fixture_sha256": "fb0a97b7b349a59b59608edb0aae1453c366228c39a15d356f2fcdc1222280de",
+  "attempts": {
+    "build_attempts": 2,
+    "actual_browser_trials": 1,
+    "isolated_contexts": 2,
+    "HTTP_POST_operations": 3,
+    "live_stale_negative_controls": 1,
+    "behavioral_retries": 0,
+    "new_REA_capture_runs": 0,
+    "new_REA_replay_runs": 0,
+    "attempt01": {
+      "status": "SETUP_FAIL",
+      "raw_result_sha256": "6d44da36914ec064d51f956084a946eb4177fc764454e272d8fc8fc5dd045d72",
+      "elapsed_ms": 17486,
+      "failure_name": "SyntaxError",
+      "failure_message": "Unexpected token '\u001b', \"\u001b[2K\rtrans\"... is not valid JSON",
+      "build_reported_success": true,
+      "browser_started": false,
+      "handler_started": false,
+      "posts": 0,
+      "cleanup": {
+        "contexts_closed": true,
+        "browser_closed": true,
+        "server_closed": true,
+        "scratch_removed": true
+      },
+      "build_log_sha256": "412a1b56b639b4b095c980abc145813ee664c4cda518a473efe51e2f156aa939",
+      "build_stdout_sha256": "9467c2e59ec6ec10b51707b59d576ae285ad655e9ffb6ec270fdd631fcb93880"
+    },
+    "setup_correction": {
+      "contract_permitted": true,
+      "old_builder_sha256": "7a794f70687177ce8a42d5be275c3cfd0eba367de00bbb749c073e7ad412cefc",
+      "old_driver_sha256": "154e45455de491a2f88203f3eb7652e2a4b3ff81181e8561eea8e2b85e9427b4",
+      "executed_builder_sha256": "3d72e79e56c49f98b7b4f04be3af5017f44ce83b597f1d9df21e064e67e80fa2",
+      "executed_driver_sha256": "4e9ff77825884b11a20b68dd935b0f26f5eeb9784970430f169e164779213190",
+      "change": "Exclusive bindings.local.json becomes the structured build result channel; stdout remains a log. envDir:false replaces deprecated envFile:false.",
+      "oracle_and_product_and_behavioral_criteria_unchanged": true
+    },
+    "attempt02": {
+      "status": "FAIL",
+      "started_at": "2026-10-29T01:23:26.234Z",
+      "ended_at": "2026-10-29T01:24:08.917Z",
+      "elapsed_ms": 42693,
+      "raw_result_sha256": "9d86346e17a3455d8281f3d46260b0bd3fcb868f9b5b1b39d3efbcaa38905b44",
+      "oracle": {
+        "status": "PASS_MOUNTED_EDITOR_HTTP_OUTCOME",
+        "checks": [
+          "real HTTP/browser POST agreement and authenticated boundaries",
+          "independent persisted values, immutable history and no 409 write",
+          "exact independent 7/10/10-field requests and 200/200/409 replies",
+          "mounted saved/dirty DOM states and stale draft preservation",
+          "declared synthetic source bytes remain unchanged"
+        ],
+        "server_posts": 3,
+        "browser_posts": 3,
+        "request_body_field_counts": [7, 10, 10],
+        "response_statuses": [200, 200, 409],
+        "dom_snapshots": 4,
+        "immutable_revisions": 2,
+        "live_stale_negative_controls": 1
+      },
+      "cleanup": {
+        "contexts_closed": true,
+        "browser_closed": {
+          "error": "browser_closed cleanup deadline"
+        },
+        "server_closed": true,
+        "scratch_removed": false
+      },
+      "handler_original_unchanged": true,
+      "component_closure_originals_unchanged": true,
+      "build_log_sha256": "d2cc62e8c4c5954d66d0bfb6d0f84762cb85d53f70a4687bbf9a71b00d32c2ac",
+      "build_stdout_sha256": "7d7c06c5c2f90c487e0b091adae209acc798de4cdbb2dec76e4392442a5ef647"
+    }
+  },
+  "environment": {
+    "node": "v24.22.1",
+    "chrome_launcher": "Google Chrome 156.0.8078.73",
+    "browser_version": "156.0.8078.73",
+    "playwright": {
+      "version": "1.58.2",
+      "files": 363,
+      "manifest_sha256": "0d087dbfeb330c0b733f9f01b51248a2efd72469966111448d1c5ac6935795a7"
+    },
+    "packages": {
+      "vite": {
+        "version": "8.2.1",
+        "package_json_sha256": "3baf6fb19ca2a2da0b739d984620e2c9d4aeba83d5ac68da9bacfb37d43afd61",
+        "entry": "vite/dist/node/index.js",
+        "entry_sha256": "c7ea52906f843318d7971209ce62bd24bab60590275e8f415c5564fa35cb82dc"
+      },
+      "@vitejs/plugin-react": {
+        "version": "6.0.5",
+        "package_json_sha256": "69f28c5dc22d54ffce118582eb874f2ceab387e51cd5fc8355f0e84dfda4822f",
+        "entry": "@vitejs/plugin-react/dist/index.js",
+        "entry_sha256": "fa8730bf9d6d314b343e1197699b3ad13263ff4f577e89da7d22366f0439e2de"
+      },
+      "react": {
+        "version": "19.2.8",
+        "package_json_sha256": "e40c3ed9b633c9ecf188e09a4be309780a1ea0a9c068278a30ff6a27e7b2dbb6",
+        "entry": "react/index.js",
+        "entry_sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+      },
+      "react-dom": {
+        "version": "19.2.8",
+        "package_json_sha256": "7c82f0967114d4b5d38b1f07e543af87c9919e8d3243f9604004819319cb2200",
+        "entry": "react-dom/client.js",
+        "entry_sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+      },
+      "lucide-react": {
+        "version": "1.29.0",
+        "package_json_sha256": "00fbe244c94ce88a9171a92e8757b601d4f890b0cfd130fd21284bf03fbab916",
+        "entry": "lucide-react/dist/cjs/lucide-react.js",
+        "entry_sha256": "dc16a7307023cc718ea6cbce2190c57c9389f74deffd44678a76a0d9128b8bff"
+      },
+      "rolldown": {
+        "version": "1.2.3",
+        "package_json_sha256": "a0d64503f83746103600ea7bb6f37be2a5eb10d853e2c82fbbdb73e727c9293f",
+        "entry": "rolldown/dist/index.mjs",
+        "entry_sha256": "ff4bec0a6a53ca40dcf9c0df7bdd9a66da63275c22f04ac5dbaef6a15f2dc322"
+      }
+    },
+    "source_files": {
+      "local/scene-workspace.tsx": {
+        "before": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+        "snapshot": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+        "after": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17"
+      },
+      "local/scene-workspace.css": {
+        "before": "ee786ce5f3be58f37904a5d8b01b6abf0c76e678abb93e66f8f7df35a3c36c14",
+        "snapshot": "ee786ce5f3be58f37904a5d8b01b6abf0c76e678abb93e66f8f7df35a3c36c14",
+        "after": "ee786ce5f3be58f37904a5d8b01b6abf0c76e678abb93e66f8f7df35a3c36c14"
+      },
+      "local/scene-resume.ts": {
+        "before": "d41eec12df92b975ea57f2fe52e08ecddc63ecb9a6344e0adc13b08336fabd07",
+        "snapshot": "d41eec12df92b975ea57f2fe52e08ecddc63ecb9a6344e0adc13b08336fabd07",
+        "after": "d41eec12df92b975ea57f2fe52e08ecddc63ecb9a6344e0adc13b08336fabd07"
+      },
+      "local/scene-reading-place.ts": {
+        "before": "434cf2a95091c56efccc34de1b4e452132006b16150327efb53be501846d1ef2",
+        "snapshot": "434cf2a95091c56efccc34de1b4e452132006b16150327efb53be501846d1ef2",
+        "after": "434cf2a95091c56efccc34de1b4e452132006b16150327efb53be501846d1ef2"
+      },
+      "lib/text-reading-place.ts": {
+        "before": "32874ae07cf84f4f2393236b217d563c9b9bb8af1479dff339a29bcc581b6a07",
+        "snapshot": "32874ae07cf84f4f2393236b217d563c9b9bb8af1479dff339a29bcc581b6a07",
+        "after": "32874ae07cf84f4f2393236b217d563c9b9bb8af1479dff339a29bcc581b6a07"
+      },
+      "lib/manuscript-loop.ts": {
+        "before": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+        "snapshot": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6",
+        "after": "8587c0552b0383a2523bc011fe95dbe035fd57e89b2dd0853d733f08ab0f76d6"
+      },
+      "lib/workspace-persistence.ts": {
+        "before": "de80f82f8837350f93b611a332e67e7c6ef67d9b8d2870cf1a13f0740dfa136b",
+        "snapshot": "de80f82f8837350f93b611a332e67e7c6ef67d9b8d2870cf1a13f0740dfa136b",
+        "after": "de80f82f8837350f93b611a332e67e7c6ef67d9b8d2870cf1a13f0740dfa136b"
+      },
+      "lib/access-gate.ts": {
+        "before": "e333598bcf2e44a7d649d455159f95f1f1e45e30153a2dca09128c6108b75c1d",
+        "snapshot": "e333598bcf2e44a7d649d455159f95f1f1e45e30153a2dca09128c6108b75c1d",
+        "after": "e333598bcf2e44a7d649d455159f95f1f1e45e30153a2dca09128c6108b75c1d"
+      },
+      "lib/workspace-navigation.ts": {
+        "before": "96e8153a38663811b14d57385bb80f11d1fa598de953def132a65418e3c0ba56",
+        "snapshot": "96e8153a38663811b14d57385bb80f11d1fa598de953def132a65418e3c0ba56",
+        "after": "96e8153a38663811b14d57385bb80f11d1fa598de953def132a65418e3c0ba56"
+      },
+      "package.json": {
+        "before": "8205e2462e8296ea12a8085cc3480cfd09f53b137ecaa51112335add530a1558",
+        "snapshot": "8205e2462e8296ea12a8085cc3480cfd09f53b137ecaa51112335add530a1558",
+        "after": "8205e2462e8296ea12a8085cc3480cfd09f53b137ecaa51112335add530a1558"
+      },
+      "package-lock.json": {
+        "before": "bf8f79f2ce06483701f538e4405f9c2150a4b8ff09182509130dab0684521d76",
+        "snapshot": "bf8f79f2ce06483701f538e4405f9c2150a4b8ff09182509130dab0684521d76",
+        "after": "bf8f79f2ce06483701f538e4405f9c2150a4b8ff09182509130dab0684521d76"
+      }
+    },
+    "component_sha256": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+    "mount": "Real ReactDOM.createRoot of unchanged SceneWorkspace; registration holder only; no StrictMode",
+    "entry_sha256": "3c4672eb4f9a3a9cb6eb3e50c62a4cd32bc79b6bf64d2e22d6c10a6356395c85",
+    "html_sha256": "d0b296c0623a18cef24a1011bbc20add47ab949b1ba945307fef0ed44269f8f2",
+    "loaded_module_manifest": {
+      "entries": 1792,
+      "by_kind": {
+        "dependency": 1781,
+        "snapshot": 10,
+        "virtual": 1
+      },
+      "sha256": "b5469d33f61b78cb96acae7174f55b5f3a153d127a2c7efe5105da552e09b444",
+      "digest_domain": "SHA256 of UTF8 JSON.stringify sorted module records; physical raw file SHA, virtual ID SHA",
+      "content_scope": "Physical bundled-module bytes at pre-load and after build; virtual IDs by SHA-256; not a hermetic host or tooling attestation"
+    },
+    "dist_manifest": [
+      {
+        "path": "assets/index-BDkTupGQ.js",
+        "sha256": "662d874cb64d1b764c8f11cc8df32e9de35d5e86111fdc2892e299b51148dc41",
+        "bytes": 217183
+      },
+      {
+        "path": "assets/index-D4kKm_C2.css",
+        "sha256": "4df9d90e7d8b033e144850c4293b5f08e8d100e6f0d55d74675c4327202fa7ae",
+        "bytes": 5278
+      },
+      {
+        "path": "index.html",
+        "sha256": "61f800b8c9d3ad3b1d77b67d974933d484fc742c96d27a0fc66e43791ec6e367",
+        "bytes": 369
+      }
+    ],
+    "external_file_sha256": {
+      "node": "cc6f41f72e3eb4460154952e56a35afdd96b6995cea51cd25e637355a2955a51",
+      "chrome_launcher": "0d8e033c06b6dfecb6595e41ff98db9555fb48de6abda0052aac9b48bf688d9c",
+      "chrome_engine": "3a20217354a3374fd8d39608db4ccc67f6a3ab6d199e9646ad49a96c658e418f",
+      "rea_lock": "22e0c3c6367814f81111b7b9a17bce5e37e190b6c4e2b1e81a648c6a1bcd7767",
+      "product_lock": "bf8f79f2ce06483701f538e4405f9c2150a4b8ff09182509130dab0684521d76",
+      "product_package": "8205e2462e8296ea12a8085cc3480cfd09f53b137ecaa51112335add530a1558",
+      "component": "3fb2400bc64d676516d08798a715cf3c5d76296d3c3431ed5ddb52d64db04c17",
+      "handler": "705e2b4873772e9649bc3b52b445658e10592c1f62b8f79a4f6e191cc841676c",
+      "harness/pilot.mjs": "4e9ff77825884b11a20b68dd935b0f26f5eeb9784970430f169e164779213190",
+      "harness/build.mjs": "3d72e79e56c49f98b7b4f04be3af5017f44ce83b597f1d9df21e064e67e80fa2",
+      "harness/oracle.mjs": "a73dc7f97e619410f801250e495722da84187d7c5184af474e8b9bded4952b0e",
+      "harness/server.mjs": "70356a22738055fe9e0971292f277c2095096c608aa48b1190576578b27eed04",
+      "harness/fixture.json": "fb0a97b7b349a59b59608edb0aae1453c366228c39a15d356f2fcdc1222280de",
+      "harness/CONTRACT.md": "0b751b89d4ba92afe7b6bbb24b5348089a301c61580a905583c2c1afe4af9a49"
+    },
+    "external_bound_files_unchanged": 14,
+    "playwright_files_rechecked": 363,
+    "source_package_module_bindings_rechecked": 1815,
+    "dirty_product_checkout_identified_by_selected_hashes": true,
+    "hermetic_host_attestation": false,
+    "software_installed_or_upgraded_by_pilot": false
+  },
+  "cleanup_followup": {
+    "schema": "edos-mounted-cleanup-followup-v1",
+    "checked_at": "2026-10-29T01:27:19.504Z",
+    "prior_result_sha256": "9d86346e17a3455d8281f3d46260b0bd3fcb868f9b5b1b39d3efbcaa38905b44",
+    "prior_overall_status": "FAIL",
+    "original_browser_close_deadline_ms": 10000,
+    "deadline_failure_preserved": true,
+    "expected_playwright_profiles": 0,
+    "expected_playwright_artifact_directories": 0,
+    "matching_browser_processes": 0,
+    "browser_close_API_completion_time": "UNOBSERVED",
+    "cause": "UNKNOWN",
+    "rechecked_build_inputs": 1815,
+    "all_rechecked_inputs_unchanged": true,
+    "owned_scratch_identity_validated": true,
+    "action": "Remove only the owned retained execution tree after no expected browser processes/profiles remain",
+    "scratch_removed": true,
+    "status": "NO_REMAINING_OWNED_RESOURCES_OBSERVED_AND_SCRATCH_REMOVED",
+    "projection": "Absolute local_scratch_path omitted; original run02 FAIL is unchanged",
+    "original_recovery_receipt_sha256": "0455c3726a72892380586ebb7d723502f28a8ccb3244817b7c1742f6c44ff710",
+    "absence_scope": "Expected Playwright Chromium profile command line and standard temporary profile/artifact directory prefixes; not a general OS forensic attestation"
+  },
+  "artifacts": {
+    "OBSERVATION.json": {
+      "sha256": "382c5a506315966b97a481f3b02c74b08a91f4fcdb327945541f35133ca071d7",
+      "bytes": 13574,
+      "raw_exact_copy": true
+    },
+    "RESULT.public.json": {
+      "sha256": "b389dfa94698222d45c4ab24c3b3906122ee290a1bf4fc8fdd8aaa37ae04a250",
+      "projection": true
+    }
+  },
+  "local_screenshot_sha256": {
+    "created.png": "4c62b9c502344c9bdcade120cc094a587e4af8b69ff13beaefc5e9534813eef8",
+    "updated.png": "e3c6bc62da4b927d8d79009050398cf2906ad2402169646a129c3532b7c8fbc2",
+    "stale-409.png": "e6c4afd07c7e609ff0f8e9b4a87f997fa36f1f7ce267c6d179e6ab8aec8f94ae"
+  },
+  "historical_full_capture_acceptance": "FAIL",
+  "previous_REA_incomplete_captures_reclassified": false,
+  "oracle_independence": "Separate module derives expected text/fields/state from predeclared fixture and direct file bytes, not product/driver/response-fixture imports. Dynamic UUID/time are validated and linked; no independent replication claimed.",
+  "limitations": [
+    "Overall pilot FAIL remains; later resource absence does not establish browser.close API completion time or explain its delay.",
+    "Only mounted SceneWorkspace with real local helpers, DOM/storage/fetch and synthetic HTTP handler/storage; StrictMode off; outer Flightdeck/AccessGate/navigation owner not mounted.",
+    "No reload recovery, selection/scroll, complete React internal state or arbitrary-editor coverage.",
+    "No Playwright native response-body reads, new REA capture/replay or native body-exposure repair.",
+    "Current browser patch differs from prior .48 observations; no comparative browser experiment or causal conclusion.",
+    "No production auth, current deployed bundle, official release, adoption or product effect qualification."
+  ]
+}

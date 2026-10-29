@@ -1,0 +1,75 @@
+{
+  "schema": "rea-lifetime-validation-v1",
+  "scope": "New bounded diagnostic driver and documentation; existing hardened runner executed unchanged in one actual fresh pilot. No core/dependency changes, build, or new full REA suite.",
+  "node": "v24.22.1",
+  "status": "PASS_WITH_STYLE_WARNINGS",
+  "driver": {
+    "executed_and_published_sha256": "5e8095e513ae0d2cdc7dfc285439b6fe7e45727fa7d497c3d8df725faffcc011",
+    "executed_once": true,
+    "source_unchanged": true
+  },
+  "native": {
+    "exit": 0,
+    "status": "OBSERVED",
+    "diagnostic_assertions": 255,
+    "passed": 255,
+    "ordinary_requests": 44,
+    "ordinary_native_failures": 3,
+    "negative_controls": 3,
+    "browser_closed": true,
+    "server_closed": true
+  },
+  "pilot": {
+    "exit": 1,
+    "status": "PARTIAL_CONTROLS_COMPLETE",
+    "full_acceptance": "FAIL",
+    "assertions": 62,
+    "passed": 61,
+    "failed_gates": 1,
+    "response_bodies_captured": 5,
+    "get_request_body_not_exposed": 4,
+    "core_fix_claimed": false
+  },
+  "static_checks": [
+    {
+      "label": "driver-syntax",
+      "command": "NODE24 --check experiments/edos-capture-replay/lifetime-diagnostic-20261027/diagnose-lifetime.mjs",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "label": "driver-lint",
+      "command": "NODE24 node_modules/oxlint/bin/oxlint experiments/edos-capture-replay/lifetime-diagnostic-20261027/diagnose-lifetime.mjs",
+      "exit_code": 0,
+      "output": "experiments/edos-capture-replay/lifetime-diagnostic-20261027/diagnose-lifetime.mjs:599:2: warning eslint(max-lines): File has too many lines (597). help: Maximum allowed is 500.\nexperiments/edos-capture-replay/lifetime-diagnostic-20261027/diagnose-lifetime.mjs:247:1: warning eslint(max-lines-per-function): The async function `run` has too many lines (125). Maximum allowed is 100. help: Consider splitting it into smaller functions.\n"
+    },
+    {
+      "label": "format",
+      "command": "NODE24 node_modules/oxfmt/bin/oxfmt --check experiments/edos-capture-replay/README.md experiments/edos-capture-replay/lifetime-diagnostic-20261027",
+      "exit_code": 0,
+      "output": "Checking formatting...\n\nAll matched files use the correct format.\nFinished in 97ms on 5 files using 8 threads.\n"
+    },
+    {
+      "label": "diff-whitespace",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "lint": {
+    "errors": 0,
+    "warnings": 2,
+    "rules": ["eslint(max-lines)", "eslint(max-lines-per-function)"]
+  },
+  "independent_review": {
+    "before_execution": "Retention/confound/source review; server-cleanup error retention and reader-rejection calibration corrected before running.",
+    "after_execution": "Read-only decisive-row native/protocol audit and independent raw/filesystem pilot review confirm reported observations. No separate native rerun."
+  },
+  "limitations": [
+    "Diagnostic assertion counts are not independent samples; OBSERVED is not all-body acceptance.",
+    "The published driver is byte-identical to the actual execution, unlike the earlier formatted probe derivatives.",
+    "Unit tests for existing runner hardening were run at prior checkpoint; this checkpoint executed that runner in the actual pilot.",
+    "No whole-host or complete-app-bundle attestation; compatibility, root cause and product readiness remain unknown.",
+    "NODE24 in commands is a normalization of the observed Node v24.22.1 executable path."
+  ]
+}
